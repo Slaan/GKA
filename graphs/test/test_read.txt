@@ -1,0 +1,3 @@
+test -- test;
+ex -- ex;
+te -> ex;
