@@ -13,8 +13,8 @@ import java.util.ArrayList;
 
 class FileHandlerImpl implements FileHandler {
 
-	private ArrayList<String>	_content;
-	private Charset				_encoding;
+	private 		ArrayList<String>	_content;
+	private final	Charset				_encoding;
 	
 	//Creation
 	public static FileHandler create() {
@@ -29,7 +29,7 @@ class FileHandlerImpl implements FileHandler {
 	@Override
 	public void save_file(ArrayList<String> content, String path) throws IOException {
 		if(content == null) throw new NullPointerException("Content is null!");
-		if(path  == null) throw new NullPointerException("Path is null!");
+		if(path  == null) 	throw new NullPointerException("Path is null!");
 		_content = content;
 		 Path java_path = Paths.get(path);
 		 Files.write(java_path, _content, _encoding);
@@ -49,7 +49,7 @@ class FileHandlerImpl implements FileHandler {
 
 	@Override
 	public ArrayList<String> get_content() {
-		if(_content == null) throw new NullPointerException("Content is null, read File first!");
+		if(_content == null) throw new NullPointerException("Content is null, read or save File first!");
 		return new ArrayList<String>(_content);
 	}
 

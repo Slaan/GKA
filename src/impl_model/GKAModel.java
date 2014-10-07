@@ -3,7 +3,7 @@ package impl_model;
 import interface_model.FileHandler;
 import interface_model.GraphHandler;
 
-public final class GKA {
+public final class GKAModel {
 
 	/*
 	 * @returns New FileHandler
