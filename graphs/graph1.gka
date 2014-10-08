@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 a -> b;
 a -> c;
 a -> h;
@@ -34,40 +33,3 @@ j -> b;
 k -> c;
 k -> g;
 k -> d;
-=======
-a -> b;
-a -> c;
-a -> h;
-a -> k;
-b -> b;
-b -> j;
-b -> k;
-b -> i;
-c -> a;
-c -> d;
-d -> a;
-d -> e;
-d -> k;
-e -> b;
-e -> c;
-e -> e;
-e -> f;
-f -> c;
-f -> g;
-g -> g;
-g -> e;
-g -> b;
-g -> d;
-h -> b;
-h -> c;
-i -> a;
-i -> c;
-i -> i;
-j -> k;
-j -> c;
-j -> a;
-j -> b;
-k -> c;
-k -> g;
-k -> d;
->>>>>>> 5799f0cd7e75f4f1075a993bdd97e5f3a35f4aae
