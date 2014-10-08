@@ -1,21 +1,21 @@
 package impl_model;
 
-import interface_model.FileHandler;
-import interface_model.GraphHandler;
+import interface_model.FileHandlerModel;
+import interface_model.GraphHandlerModel;
 
 public final class GKAModel {
 
 	/*
 	 * @returns New FileHandler
 	 */
-	public static FileHandler fileHandler() {
-		return FileHandlerImpl.create();
+	public static FileHandlerModel fileHandler() {
+		return FileHandlerModelImpl.create();
 	}
 
 	/*
 	 * @returns New GraphHandler
 	 */
-	public static GraphHandler graphHandler() {
-		return GraphHandlerImpl.create();
+	public static GraphHandlerModel graphHandler() {
+		return GraphHandlerModelImpl.create();
 	}
 }

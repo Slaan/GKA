@@ -3,7 +3,7 @@ package interface_model;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public interface FileHandler {
+public interface FileHandlerModel {
 
 	/*
 	 * @param graph string elements need to end with a semicolon

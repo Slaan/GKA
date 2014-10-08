@@ -1,6 +1,6 @@
 package impl_model;
 
-import interface_model.FileHandler;
+import interface_model.FileHandlerModel;
 
 import java.awt.List;
 import java.io.IOException;
@@ -11,18 +11,18 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
-class FileHandlerImpl implements FileHandler {
+class FileHandlerModelImpl implements FileHandlerModel {
 
 	private 		ArrayList<String>	_content;
 	private final	Charset				_encoding;
 	
 	//Creation
-	public static FileHandler create() {
+	public static FileHandlerModel create() {
 		
-		return new FileHandlerImpl();
+		return new FileHandlerModelImpl();
 	}
 	
-	private FileHandlerImpl() {
+	private FileHandlerModelImpl() {
 		_encoding = StandardCharsets.UTF_8;
 	}
 	

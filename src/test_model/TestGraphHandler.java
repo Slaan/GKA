@@ -2,7 +2,7 @@ package test_model;
 
 import static org.junit.Assert.*;
 import impl_model.GKAModel;
-import interface_model.GraphHandler;
+import interface_model.GraphHandlerModel;
 
 import org.jgraph.graph.DefaultEdge;
 import org.jgrapht.ListenableGraph;
@@ -14,7 +14,7 @@ import org.junit.Test;
 
 public class TestGraphHandler {
 
-	GraphHandler gh;
+	GraphHandlerModel gh;
 	ListenableGraph<String, DefaultEdge> dg;
 	ListenableGraph<String, DefaultEdge> ug;
 	
@@ -64,7 +64,7 @@ public class TestGraphHandler {
 		gh.set_graph(dg);
 		gh.save(path);
 		// new graphhandler for new graph
-		GraphHandler tmp_gh = GKAModel.graphHandler();
+		GraphHandlerModel tmp_gh = GKAModel.graphHandler();
 		tmp_gh.load(path);
 		ListenableGraph tmp = tmp_gh.get_graph();
 		assertTrue(dg.equals(tmp));
@@ -76,7 +76,7 @@ public class TestGraphHandler {
 		gh.set_graph(ug);
 		gh.save(path);
 		// new graphhandler for new graph
-		GraphHandler tmp_gh = GKAModel.graphHandler();
+		GraphHandlerModel tmp_gh = GKAModel.graphHandler();
 		tmp_gh.load(path);
 		tmp_gh.load(path);
 		ListenableGraph tmp = tmp_gh.get_graph();

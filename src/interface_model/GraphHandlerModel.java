@@ -1,11 +1,13 @@
 package interface_model;
 
+import java.io.IOException;
+
 import org.jgrapht.ListenableGraph;
 
-public interface GraphHandler {
+public interface GraphHandlerModel {
 	
-	public void 				save(String path);
-	public void 				load(String path);
+	public void 				save();
+	public void 				load() throws IOException;
 	public void					set_graph(ListenableGraph graph);
 	public ListenableGraph		get_graph();
 }

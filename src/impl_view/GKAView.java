@@ -1,6 +1,6 @@
 package impl_view;
 
-import interface_model.BreadthFirst;
+import interface_model.BreadthFirstModel;
 import interface_view.BreadthFirstWindow;
 import interface_view.MainWindow;
 
