@@ -1,7 +1,9 @@
 package impl_tests;
 
 import static org.junit.Assert.assertTrue;
+import impl_controller.GKA;
 import impl_model.FileHandlerImpl;
+import impl_model.GKAModel;
 
 import java.util.ArrayList;
 
@@ -13,7 +15,7 @@ public class FileHandlerImplTest {
 	private String _input_path;
 	private String _output_path;
 	private ArrayList<String> _example_graph;
-	private FileHandlerImpl _fl;
+	private FileHandler _fl;
 	//To test:
 	//public void 				save_file(ArrayList<String> graph, String path);
 	//public void 				load_file(String path);
@@ -21,7 +23,7 @@ public class FileHandlerImplTest {
 	
 	
 	public FileHandlerImplTest() {
-	     FileHandlerImpl _fl = new FileHandlerImpl();
+	     FileHandler _fl = GKAModel.fileHandler();
 	}
 	
 	@Test

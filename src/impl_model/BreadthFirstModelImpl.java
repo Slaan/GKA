@@ -69,7 +69,6 @@ class BreadthFirstModelImpl implements BreadthFirstModel {
 			visited.add(queue.peek());
 			Set<NamedWeightedEdge> neighbour = g.outgoingEdgesOf(queue.peek());
 			neighbour.removeAll(visited);
-			
 		}
 		return accu;
 	}

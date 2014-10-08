@@ -63,7 +63,7 @@ class GraphHandlerModelImpl implements GraphHandlerModel {
 		String sz = "[^\\-><:()]"; // Sonderzeichen
 		Pattern reg = Pattern.compile("(?<v1>"+sz+"*)((?<richtung>[<-][->])(?<v2>"+sz+"*)"
 				+ "(\\((?<edgename>"+sz+"*)\\))?(:(?<edgeweight>"+sz+"*))?)?;");
-		
+		System.out.println(formatted_edges);
 		//Directed Graph
 		if(contains_once(edges, "->")) {
 					
