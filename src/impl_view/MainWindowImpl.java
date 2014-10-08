@@ -1,5 +1,6 @@
 package impl_view;
 
+import impl_model.NamedWeightedEdge;
 import interface_view.MainWindow;
 
 import java.awt.Dimension;
@@ -12,7 +13,12 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+import org.jgraph.graph.DefaultEdge;
 import org.jgrapht.ListenableGraph;
+import org.jgrapht.ext.JGraphXAdapter;
+
+import com.mxgraph.layout.mxCircleLayout;
+import com.mxgraph.swing.mxGraphComponent;
 
 public class MainWindowImpl extends JFrame implements MainWindow {
 	
@@ -20,6 +26,8 @@ public class MainWindowImpl extends JFrame implements MainWindow {
 	private	final	Integer				_version;
 	private			Dimension			_size;
 	private 		ListenableGraph		_graph;
+	private			mxGraphComponent 	_adapter_compo; 
+	private         JGraphXAdapter<String, NamedWeightedEdge>   _adapter;
 	// Menu
 	private 		JMenuBar 			_menubar;
 	private			JMenu				_file_menu;
@@ -140,7 +148,16 @@ public class MainWindowImpl extends JFrame implements MainWindow {
 	public void setGraph(ListenableGraph graph) {
 		if(graph == null) throw new NullPointerException();
 		_graph = graph;
-		// TODO: update graph
+		System.out.println("Set graph");
+		_adapter = new JGraphXAdapter<String, NamedWeightedEdge>(_graph);
+		if(_adapter_compo != null) {
+			getContentPane().remove(_adapter_compo);			
+		}
+		_adapter_compo = new mxGraphComponent(_adapter);
+        getContentPane().add(_adapter_compo);
+        mxCircleLayout layout = new mxCircleLayout(_adapter);
+        layout.execute(_adapter.getDefaultParent());
+
 	}
 
 	@Override

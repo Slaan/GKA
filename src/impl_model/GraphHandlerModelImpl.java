@@ -81,7 +81,6 @@ class GraphHandlerModelImpl implements GraphHandlerModel {
 						if (m.group("edgeweight") != null) {
 							edgeweight = Integer.parseInt(m.group("edgeweight"));
 						}
-						System.out.println("Node1:"+node1+"Node2"+node2);
 						if (node1 != null) {
 							dir_weighted.addVertex(node1);
 						}
@@ -110,7 +109,6 @@ class GraphHandlerModelImpl implements GraphHandlerModel {
 						String node1 = m.group("v1");
 						String node2 = m.group("v2");
 						String direction = m.group("richtung");
-						System.out.println("Node1:"+node1+"Node2"+node2);
 						if (node1 != null) {
 							dir.addVertex(node1);
 						}
@@ -141,9 +139,7 @@ class GraphHandlerModelImpl implements GraphHandlerModel {
 						String node2 = m.group("v2");
 						String direction = m.group("richtung");
 						String edgename = m.group("edgename");
-						int edgeweight = DEFAULT_EDGE_WEIGHT;
-						System.out.println(m.group("edgeweight"));
-						
+						int edgeweight = DEFAULT_EDGE_WEIGHT;						
 						if (m.group("edgeweight") != null) {
 							//String t = m.group("edgeweight").replace(" ", "");
 							edgeweight = Integer.parseInt(m.group("edgeweight").replace(" ",""));
@@ -177,7 +173,6 @@ class GraphHandlerModelImpl implements GraphHandlerModel {
 						String node1 = m.group("v1");
 						String node2 = m.group("v2");
 						String direction = m.group("richtung");
-						System.out.println("Node1:"+node1+"Node2"+node2);
 						if (node1 != null) {
 							dir.addVertex(node1);
 						}
