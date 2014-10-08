@@ -1,7 +1,10 @@
 package impl_model;
 
+import interface_model.BreadthFirstModel;
 import interface_model.FileHandlerModel;
 import interface_model.GraphHandlerModel;
+
+import org.jgrapht.ListenableGraph;
 
 public final class GKAModel {
 
@@ -17,5 +20,13 @@ public final class GKAModel {
 	 */
 	public static GraphHandlerModel graphHandler() {
 		return GraphHandlerModelImpl.create();
+	}
+	
+	/*
+	 * @returns New BreadthFirst
+	 */
+	public static BreadthFirstModel breadthFirst(ListenableGraph lg) {
+		if(lg == null) throw new NullPointerException();
+		return BreadthFirstModelImpl.create(lg);
 	}
 }
