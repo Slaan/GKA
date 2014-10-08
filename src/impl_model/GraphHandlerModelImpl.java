@@ -3,7 +3,6 @@ package impl_model;
 import impl_controller.GKA;
 import interface_controller.FileHandler;
 import interface_model.GraphHandlerModel;
-import interface_model.NamedEdge;
 
 import java.io.IOException;
 import java.util.ArrayList;

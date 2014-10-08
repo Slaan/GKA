@@ -1,10 +1,8 @@
 package impl_model;
 
-import interface_model.NamedEdge;
-
 import org.jgrapht.graph.DefaultWeightedEdge;
 
-public class NamedWeightedEdge extends DefaultWeightedEdge implements NamedEdge {
+public class NamedWeightedEdge extends DefaultWeightedEdge {
 
 	@Override
 	public String toString() {
