@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JPanel;
 
 import org.jgraph.graph.DefaultEdge;
 import org.jgrapht.ListenableGraph;
@@ -28,6 +29,7 @@ public class MainWindowImpl extends JFrame implements MainWindow {
 	private 		ListenableGraph		_graph;
 	private			mxGraphComponent 	_adapter_compo; 
 	private         JGraphXAdapter<String, NamedWeightedEdge>   _adapter;
+	private			JPanel				_panel;
 	// Menu
 	private 		JMenuBar 			_menubar;
 	private			JMenu				_file_menu;
@@ -148,16 +150,16 @@ public class MainWindowImpl extends JFrame implements MainWindow {
 	public void setGraph(ListenableGraph graph) {
 		if(graph == null) throw new NullPointerException();
 		_graph = graph;
-		System.out.println("Set graph");
-		_adapter = new JGraphXAdapter<String, NamedWeightedEdge>(_graph);
-		if(_adapter_compo != null) {
-			getContentPane().remove(_adapter_compo);			
+		if(_panel != null) {
+			remove(_panel);
 		}
+		_panel = new JPanel();
+		_adapter = new JGraphXAdapter<String, NamedWeightedEdge>(_graph);
 		_adapter_compo = new mxGraphComponent(_adapter);
-        getContentPane().add(_adapter_compo);
+        _panel.add(_adapter_compo);
+        add(_panel);
         mxCircleLayout layout = new mxCircleLayout(_adapter);
         layout.execute(_adapter.getDefaultParent());
-
 	}
 
 	@Override
