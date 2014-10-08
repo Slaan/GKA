@@ -19,11 +19,16 @@ public class MainWindowImpl extends JFrame implements MainWindow {
 	private	final	String				_title;
 	private	final	Integer				_version;
 	private			Dimension			_size;
-	private 		JMenuBar 			_menubar;
-	private			ActionListener 		_load_listener;
-	private			ActionListener 		_save_listener;
-	private			ActionListener		_breadth_listener;
 	private 		ListenableGraph		_graph;
+	// Menu
+	private 		JMenuBar 			_menubar;
+	private			JMenu				_file_menu;
+	private			JMenuItem			_load_item;
+	private			JMenuItem			_save_item;
+	private			JMenu				_edit_menu;
+	private			JMenu				_algo_menu;
+	private			JMenuItem			_breadth_item;
+	private			JMenu				_version_menu;
 	
 	// Creation
 	public static MainWindow create() {
@@ -69,15 +74,13 @@ public class MainWindowImpl extends JFrame implements MainWindow {
 	      }
 	    });
 	    // Load graph
-	    JMenuItem   load = new JMenuItem("Load");
-	    load.setMnemonic(KeyEvent.VK_L);
-	    load.addActionListener(_load_listener);
+	    _load_item = new JMenuItem("Load");
+	    _load_item.setMnemonic(KeyEvent.VK_L);
 	    // Save graph
-	    JMenuItem   save = new JMenuItem("Save");
-	    save.setMnemonic(KeyEvent.VK_S);
-	    save.addActionListener(_save_listener);
-	    file.add(load);
-	    file.add(save);
+	    _save_item = new JMenuItem("Save");
+	    _save_item.setMnemonic(KeyEvent.VK_S);
+	    file.add(_load_item);
+	    file.add(_save_item);
 	    file.add(close);
 	    return file;
 	  }
@@ -94,10 +97,9 @@ public class MainWindowImpl extends JFrame implements MainWindow {
 	private JMenu algo_menu() {
 		JMenu algo = new JMenu("Algorithms");
 		// breadth first 
-		JMenuItem breadth = new JMenuItem("Breadth First");
-		breadth.setMnemonic(KeyEvent.VK_B);
-		breadth.addActionListener(_breadth_listener);
-		algo.add(breadth);
+		JMenuItem _breadth_item = new JMenuItem("Breadth First");
+		_breadth_item.setMnemonic(KeyEvent.VK_B);
+		algo.add(_breadth_item);
 		return algo;
 	}
 	
@@ -116,13 +118,13 @@ public class MainWindowImpl extends JFrame implements MainWindow {
 	@Override
 	public void addLoadListener(ActionListener al) {
 		if(al == null) throw new NullPointerException();
-		_load_listener = al;
+		_load_item.addActionListener(al);
 	}
 
 	@Override
 	public void addSaveListener(ActionListener al) {
 		if(al == null) throw new NullPointerException();
-		_save_listener = al;
+		_save_item.addActionListener(al);
 	}
 
 	// edit menu
@@ -130,7 +132,7 @@ public class MainWindowImpl extends JFrame implements MainWindow {
 	@Override
 	public void addBreadthFirstListener(ActionListener al) {
 		if(al == null) throw new NullPointerException();
-		_breadth_listener = al;
+		_breadth_item.addActionListener(al);
 	}
 
 	// non-menu
@@ -138,6 +140,7 @@ public class MainWindowImpl extends JFrame implements MainWindow {
 	public void setGraph(ListenableGraph graph) {
 		if(graph == null) throw new NullPointerException();
 		_graph = graph;
+		// TODO: update graph
 	}
 
 	@Override
