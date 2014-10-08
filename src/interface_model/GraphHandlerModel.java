@@ -10,4 +10,5 @@ public interface GraphHandlerModel {
 	public void 				load() throws IOException;
 	public void					set_graph(ListenableGraph graph);
 	public ListenableGraph		get_graph();
+	public String				get_path();
 }

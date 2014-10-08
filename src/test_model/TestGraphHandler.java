@@ -1,6 +1,9 @@
 package test_model;
 
 import static org.junit.Assert.*;
+
+import java.io.IOException;
+
 import impl_model.GKAModel;
 import interface_model.GraphHandlerModel;
 
@@ -62,10 +65,15 @@ public class TestGraphHandler {
 	public void testStoreAndLoadDirectedGraph() {
 		String path = "./graphs/test/directed_graph.gka";
 		gh.set_graph(dg);
-		gh.save(path);
+		gh.save();
 		// new graphhandler for new graph
 		GraphHandlerModel tmp_gh = GKAModel.graphHandler();
-		tmp_gh.load(path);
+		try {
+			tmp_gh.load();
+		} catch (IOException e) {
+			fail();
+			e.printStackTrace();
+		}
 		ListenableGraph tmp = tmp_gh.get_graph();
 		assertTrue(dg.equals(tmp));
 	}
@@ -74,11 +82,14 @@ public class TestGraphHandler {
 	public void testStoreAndLoadUndirectedGraph() {
 		String path = "./graphs/test/undirected_graph.gka";
 		gh.set_graph(ug);
-		gh.save(path);
+		gh.save();
 		// new graphhandler for new graph
 		GraphHandlerModel tmp_gh = GKAModel.graphHandler();
-		tmp_gh.load(path);
-		tmp_gh.load(path);
+		try {
+			tmp_gh.load();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		ListenableGraph tmp = tmp_gh.get_graph();
 		assertTrue(ug.equals(tmp));
 	}

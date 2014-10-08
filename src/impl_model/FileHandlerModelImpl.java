@@ -23,7 +23,7 @@ class FileHandlerModelImpl implements FileHandlerModel {
 	}
 	
 	private FileHandlerModelImpl() {
-		_encoding = StandardCharsets.UTF_8;
+		_encoding = StandardCharsets.ISO_8859_1;
 	}
 	
 	@Override

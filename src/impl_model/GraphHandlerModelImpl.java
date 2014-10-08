@@ -7,6 +7,7 @@ import interface_model.NamedEdge;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 import org.jgrapht.ListenableGraph;
 import org.jgrapht.graph.DirectedMultigraph;
@@ -38,15 +39,27 @@ class GraphHandlerModelImpl implements GraphHandlerModel {
 		
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * Gets a ArrayList<String> terminating with a semicolon
+	 * and converts it into a ListenableDirctedGraph or
+	 * ListenableUndirectedGraph
+	 */
+	
 	@Override
 	public void load() throws IOException {
 		_file_handler.load();
 		ArrayList<String> edges = _file_handler.get_content();
 		// Parse to ListenableGraph
+		
 		if(contains_once(edges, "->")) {
-			DirectedMultigraph<String, NamedEdge> accu;
+			DirectedMultigraph<String, NamedWeightedEdge> accu;
+			String regex = "(\\w)+[--(\\w)+][((\\w)+)][:(\\w+)]"; 
+			
 		} else if(contains_once(edges, "--")) {
-			Multigraph<String, NamedEdge> accu;
+			Multigraph<String, NamedWeightedEdge> accu;
+			String regex = "(\\w)+[->(\\w)+][((\\w)+)][:(\\w+)]";
+			
 		} else {
 			throw new IOException("Read unknown graph type.");
 		}		
@@ -72,6 +85,12 @@ class GraphHandlerModelImpl implements GraphHandlerModel {
 	public ListenableGraph get_graph() {
 		if(_graph == null) throw new NullPointerException("Intern graph is null, load or set a graph.");
 		return _graph;
+	}
+
+	@Override
+	public String get_path() {
+		if(_file_handler == null) throw new NullPointerException();
+		return _file_handler.get_path();
 	}
 
 }
