@@ -2,7 +2,7 @@ package interface_view;
 
 import java.awt.event.ActionListener;
 
-import org.jgrapht.ListenableGraph;
+import org.jgrapht.Graph;
 
 public interface MainWindow {
 
@@ -13,6 +13,6 @@ public interface MainWindow {
 	// algorithm menu
 	public void addBreadthFirstListener(ActionListener al);
 	// non-menu
-	public void setGraph(ListenableGraph graph);
+	public void setGraph(Graph graph);
 	public void setPath(String path);
 }

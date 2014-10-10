@@ -8,5 +8,12 @@ public class NamedWeightedEdge extends DefaultWeightedEdge {
 	public String toString() {
 		return Double.toString(this.getWeight());
 	}
+	
+	public String getSource() {
+		return (String) super.getSource();
+	}
 
+	public String getTarget() {
+		return (String) super.getTarget();
+	}
 }

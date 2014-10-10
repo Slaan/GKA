@@ -14,7 +14,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
-import org.jgraph.graph.DefaultEdge;
+import org.jgrapht.Graph;
 import org.jgrapht.ListenableGraph;
 import org.jgrapht.ext.JGraphXAdapter;
 
@@ -26,7 +26,7 @@ public class MainWindowImpl extends JFrame implements MainWindow {
 	private	final	String				_title;
 	private	final	Integer				_version;
 	private			Dimension			_size;
-	private 		ListenableGraph		_graph;
+	private 		Graph				_graph;
 	private			mxGraphComponent 	_adapter_compo; 
 	private         JGraphXAdapter<String, NamedWeightedEdge>   _adapter;
 	private			JPanel				_panel;
@@ -147,8 +147,9 @@ public class MainWindowImpl extends JFrame implements MainWindow {
 
 	// non-menu
 	@Override
-	public void setGraph(ListenableGraph graph) {
+	public void setGraph(Graph graph) {
 		if(graph == null) throw new NullPointerException();
+		// put graph in listenablegraph?
 		_graph = graph;
 		if(_panel != null) {
 			remove(_panel);

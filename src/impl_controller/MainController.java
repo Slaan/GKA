@@ -11,14 +11,16 @@ import org.jgrapht.ListenableGraph;
 import impl_model.GKAModel;
 import impl_model.NamedWeightedEdge;
 import impl_view.GKAView;
+import interface_controller.GraphHandler;
 import interface_model.GraphHandlerModel;
 import interface_view.MainWindow;
 
 public class MainController {
 	
-	private static 	MainController 								_instance;
-	private			MainWindow 									_window;
-	private			GraphHandlerModel							_graphhandler;
+	private static 	MainController 				_instance;
+	private			MainWindow 					_window;
+	private			GraphHandler				_graphhandler;
+	private			ListenableGraph				_graph;
 	
 	// Creation
 	public static MainController create() {
@@ -30,17 +32,12 @@ public class MainController {
 	
 	public MainController() {
 		_window = GKAView.mainWindow();
-		_graphhandler = GKAModel.graphHandler();
+		_graphhandler = GKA.graphHandler();
 		_window.addLoadListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				try {
-					_graphhandler.load();
-					_window.setGraph(_graphhandler.get_graph());
-				} catch (IOException e1) {
-					System.err.println("Failed to load Graph.");
-					e1.printStackTrace();
-				}
+				_graphhandler.load();
+				_window.setGraph(_graphhandler.getGraph());
 			}
 		});
 		_window.addSaveListener(new ActionListener() {
