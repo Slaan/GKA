@@ -33,13 +33,13 @@ public class GraphHandlerController implements GraphHandler {
 	}
 
 	@Override
-	public Graph load() {
+	public void load() {
 		// open load dialog
 		_fh.load();
 		ArrayList<String> graph_in_strings; 
 		graph_in_strings = _fh.get_content();
 		// convert to graph
-		return _ghm.to_graph(graph_in_strings);
+		_graph =  _ghm.to_graph(graph_in_strings);
 	}
 
 	@Override

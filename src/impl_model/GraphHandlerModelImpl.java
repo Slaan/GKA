@@ -3,6 +3,7 @@ package impl_model;
 import interface_model.GraphHandlerModel;
 
 import java.util.ArrayList;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -58,35 +59,35 @@ class GraphHandlerModelImpl implements GraphHandlerModel {
 		if(contains_once(edges, "->")) {
 			//Directed weighted graph
 			if (contains_once(formatted_edges, ":")) {
-				DirectedWeightedPseudograph<String,NamedWeightedEdge> dir_weighted = new DirectedWeightedPseudograph<>(NamedWeightedEdge.class);
+				DirectedWeightedPseudograph<String,DefaultWeightedEdge> dir_weighted = new DirectedWeightedPseudograph<>(DefaultWeightedEdge.class);
 				for (String s : edges) {
 					Matcher m = reg.matcher(s);
 					if (m.matches()) {
 						String node1 = m.group("v1");
 						String node2 = m.group("v2");
-						String direction = m.group("richtung");
 						String edgename = m.group("edgename");
 						int edgeweight = DEFAULT_EDGE_WEIGHT;
 						if (m.group("edgeweight") != null) {
 							edgeweight = Integer.parseInt(m.group("edgeweight"));
 						}
-						if (node1 != null) {
+						if (node1 != null && !dir_weighted.vertexSet().contains(node1)) {
 							dir_weighted.addVertex(node1);
 						}
-						if (node2 != null) {
+						if (node2 != null && !dir_weighted.vertexSet().contains(node2)) {
 							dir_weighted.addVertex(node2);
 						}
-						NamedWeightedEdge e = null;
-						e = dir_weighted.addEdge(node1, node2);
-						dir_weighted.addEdge(node1, node2);
-						if (e != null) {
-							dir_weighted.setEdgeWeight(e, edgeweight);
+						if (node1 != null && node2 != null) {
+							DefaultWeightedEdge e = null;
+							e = dir_weighted.addEdge(node1, node2);
+						    if (e != null) {
+						    	dir_weighted.setEdgeWeight(e, edgeweight);
+						    }
 						}
 					} else {
 						System.out.println("Nicht valide Zeile: " + s);
 					}
 				}
-				result = new ListenableDirectedWeightedGraph<String, NamedWeightedEdge>(dir_weighted);
+				result = new ListenableDirectedWeightedGraph<String, DefaultWeightedEdge>(dir_weighted);
 			} else if (!contains_once(formatted_edges, ":")) {
 				DirectedPseudograph<String,DefaultEdge> dir = new DirectedPseudograph<>(DefaultEdge.class);
 				for (String s : edges) {
@@ -94,46 +95,47 @@ class GraphHandlerModelImpl implements GraphHandlerModel {
 					if (m.matches()) {
 						String node1 = m.group("v1");
 						String node2 = m.group("v2");
-						String direction = m.group("richtung");
-						if (node1 != null) {
+						if (node1 != null && !dir.vertexSet().contains(node1)) {
 							dir.addVertex(node1);
 						}
-						if (node2 != null) {
-							dir.addVertex(node2);NamedWeightedEdge e = null;
-						}
+						if (node2 != null && !dir.vertexSet().contains(node2)) {
+							dir.addVertex(node2); 
+						}						
 						if (node1 != null && node2 != null) {
-							dir.addEdge(node1, node2);
+							dir.addEdge(node1, node2);							
 						}
+						Set<?> set = dir.edgeSet();
+						System.out.println(set);
+						
 					} else {
 						System.out.println("Nicht valide Zeile:" + s);
 					}
 				}
+				
 				result = new ListenableDirectedGraph<String, DefaultEdge>(dir);
 			} 
 		//Undirected Graph	
 		} else if(contains_once(edges, "--")) {
 			//Undirected weighted graph
 			if (contains_once(formatted_edges, ":")) {
-				WeightedPseudograph<String,NamedWeightedEdge> undir_weighted = new WeightedPseudograph<>(NamedWeightedEdge.class);
+				WeightedPseudograph<String,DefaultWeightedEdge> undir_weighted = new WeightedPseudograph<>(DefaultWeightedEdge.class);
 				for (String s : edges) {
 					Matcher m = reg.matcher(s);
 					if (m.matches()) {
 						String node1 = m.group("v1");
 						String node2 = m.group("v2");
-						String direction = m.group("richtung");
 						String edgename = m.group("edgename");
-						int edgeweight = DEFAULT_EDGE_WEIGHT;						
+						int edgeweight = DEFAULT_EDGE_WEIGHT;	
 						if (m.group("edgeweight") != null) {
 							edgeweight = Integer.parseInt(m.group("edgeweight").replace(" ",""));
 						}
-						System.out.println("Node1:"+node1+"Node2"+node2);
 						if (node1 != null) {
 							undir_weighted.addVertex(node1);
 						}
 						if (node2 != null) {
 							undir_weighted.addVertex(node2);
 						}
-						NamedWeightedEdge e = null;
+						DefaultWeightedEdge e = null;
 						e = undir_weighted.addEdge(node1, node2);
 						undir_weighted.addEdge(node1, node2);
 						if (e != null) {
@@ -143,7 +145,12 @@ class GraphHandlerModelImpl implements GraphHandlerModel {
 						System.out.println("Nicht valide Zeile:" + s);
 					}
 				}
-				result = new ListenableUndirectedWeightedGraph<String, NamedWeightedEdge>(undir_weighted);
+				Set<DefaultWeightedEdge> set = undir_weighted.edgeSet();
+				DefaultWeightedEdge one_edge = set.iterator().next();
+				double edge_weight = undir_weighted.getEdgeWeight(one_edge);
+				System.out.println(edge_weight);
+				System.out.println(set);
+				result = new ListenableUndirectedWeightedGraph<String, DefaultWeightedEdge>(undir_weighted);
 			} else if(!contains_once(formatted_edges, ":")) {
 				//Undirected Graph
 				Pseudograph<String,DefaultEdge> dir = new Pseudograph<>(DefaultEdge.class);
@@ -152,14 +159,13 @@ class GraphHandlerModelImpl implements GraphHandlerModel {
 					if (m.matches()) {
 						String node1 = m.group("v1");
 						String node2 = m.group("v2");
-						String direction = m.group("richtung");
 						if (node1 != null) {
 							dir.addVertex(node1);
 						}
 						if (node2 != null) {
 							dir.addVertex(node2);
 						}
-						NamedWeightedEdge e = null;
+						DefaultWeightedEdge e = null;
 						dir.addEdge(node1, node2);
 					} else {
 						System.out.println("Nicht valide Zeile:" + s);
