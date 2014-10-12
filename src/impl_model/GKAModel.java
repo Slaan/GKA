@@ -4,6 +4,8 @@ import interface_model.BreadthFirstModel;
 import interface_model.FileHandlerModel;
 import interface_model.GraphHandlerModel;
 
+import org.jgraph.graph.DefaultEdge;
+import org.jgrapht.Graph;
 import org.jgrapht.ListenableGraph;
 
 public final class GKAModel {
@@ -25,8 +27,8 @@ public final class GKAModel {
 	/*
 	 * @returns New BreadthFirst
 	 */
-	public static BreadthFirstModel breadthFirst(ListenableGraph lg) {
-		if(lg == null) throw new NullPointerException();
-		return BreadthFirstModelImpl.create(lg);
+	public static BreadthFirstModel breadthFirst(Graph<String, DefaultEdge> directed_graph) {
+		if(directed_graph == null) throw new NullPointerException();
+		return BreadthFirstModelImpl.create(directed_graph);
 	}
 }
