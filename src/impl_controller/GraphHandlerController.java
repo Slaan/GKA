@@ -8,12 +8,13 @@ import interface_model.GraphHandlerModel;
 import java.util.ArrayList;
 
 import org.jgrapht.Graph;
+import org.jgrapht.ListenableGraph;
 
 public class GraphHandlerController implements GraphHandler {
 
 	private	GraphHandlerModel	_ghm;
 	private	FileHandler			_fh;
-	private	Graph				_graph;
+	private	ListenableGraph		_graph;
 	
 	// Creation
 	public static GraphHandler create() {
@@ -43,7 +44,7 @@ public class GraphHandlerController implements GraphHandler {
 	}
 
 	@Override
-	public Graph getGraph() {
+	public ListenableGraph<?, ?> getGraph() {
 		if(_graph == null) throw new NullPointerException();
 		return _graph;
 	}

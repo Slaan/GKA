@@ -7,5 +7,5 @@ public interface GraphHandler {
 
 	public void 		save();
 	public void		 	load();
-	public Graph<?,?>	getGraph();
+	public ListenableGraph<?,?>	getGraph();
 }
