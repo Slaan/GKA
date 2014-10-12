@@ -8,12 +8,13 @@ import interface_model.GraphHandlerModel;
 import java.util.ArrayList;
 
 import org.jgrapht.Graph;
+import org.jgrapht.ListenableGraph;
 
 public class GraphHandlerController implements GraphHandler {
 
 	private	GraphHandlerModel	_ghm;
 	private	FileHandler			_fh;
-	private	Graph				_graph;
+	private	ListenableGraph		_graph;
 	
 	// Creation
 	public static GraphHandler create() {
@@ -33,17 +34,17 @@ public class GraphHandlerController implements GraphHandler {
 	}
 
 	@Override
-	public Graph load() {
+	public void load() {
 		// open load dialog
 		_fh.load();
 		ArrayList<String> graph_in_strings; 
 		graph_in_strings = _fh.get_content();
 		// convert to graph
-		return _ghm.to_graph(graph_in_strings);
+		_graph =  _ghm.to_graph(graph_in_strings);
 	}
 
 	@Override
-	public Graph getGraph() {
+	public ListenableGraph<?, ?> getGraph() {
 		if(_graph == null) throw new NullPointerException();
 		return _graph;
 	}

@@ -6,6 +6,6 @@ import org.jgrapht.ListenableGraph;
 public interface GraphHandler {
 
 	public void 		save();
-	public Graph<?,?> 	load();
-	public Graph<?,?>	getGraph();
+	public void		 	load();
+	public ListenableGraph<?,?>	getGraph();
 }
