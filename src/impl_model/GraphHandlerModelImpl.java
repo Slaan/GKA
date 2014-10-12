@@ -35,16 +35,68 @@ class GraphHandlerModelImpl implements GraphHandlerModel {
 	}
 	
 	@Override
-	public ArrayList<String> from_graph(Graph<?, ?> graph) {
+	public ArrayList<String> from_graph(Graph graph) {
 		if(graph == null) throw new NullPointerException();
 		// TODO Auto-generated method stub
-		// 1) get type (directed/undirected) and set symbol (<- / --)
-		// 2) is graph weighted? 
-		// 3) is the edgename empty? 
-		// 		yes -> skip brackets ; no -> add brackets and name
-		// 4) is the edge a loop? 
-		// 		print loops as "a -- a" or "a -> a"
-		return null;
+		ArrayList<String> result = new ArrayList<>();
+		
+		if (graph instanceof ListenableDirectedWeightedGraph)  {
+			Set<DefaultWeightedEdge> edge_set = graph.edgeSet();
+			Set<String> vertex_set = graph.vertexSet();
+			System.out.println("are we here? dir_weigh");
+			for (DefaultWeightedEdge edge : edge_set) {
+				double weight = graph.getEdgeWeight(edge);
+				String s = edge.toString();
+				s.replaceAll(" ", "");
+				String a = s.replace("(", "");
+				String b = a.replace(")", "");
+				String c = b.replace(":","->");
+				String d = c+"weight"+";";
+				result.add(d);
+			}
+		} else if (graph instanceof ListenableDirectedGraph) {
+			Set<DefaultEdge> edge_set = graph.edgeSet();
+			Set<String> vertex_set = graph.vertexSet();
+			System.out.println("are we here? dir");
+			for (DefaultEdge edge : edge_set) {
+				String s = edge.toString();
+				s.replaceAll(" ", "");
+				String a = s.replace("(", "");
+				String b = a.replace(")", "");
+				String c = b.replace(":","->");
+				String d = c+";";
+				result.add(d);
+			}
+		} else if (graph instanceof ListenableUndirectedWeightedGraph) {
+			Set<DefaultWeightedEdge> edge_set = graph.edgeSet();
+			Set<String> vertex_set = graph.vertexSet();
+			System.out.println("are we here? undir_weigh");	
+			for (DefaultWeightedEdge edge : edge_set) {
+				double weight = graph.getEdgeWeight(edge);
+				System.out.println(weight);
+				String s = edge.toString();
+				s.replaceAll(" ", "");
+				String a = s.replace("(", "");
+				String b = a.replace(")", "");
+				String c = b.replace(":","->");
+				String d = c+":"+weight+";";
+				result.add(d);
+			}
+		} else if (graph instanceof ListenableUndirectedGraph) {
+			Set<DefaultEdge> edge_set = graph.edgeSet();
+			Set<String> vertex_set = graph.vertexSet();
+			System.out.println("are we here? undir");
+			for (DefaultEdge edge : edge_set) {
+				String s = edge.toString();
+				s.replaceAll(" ", "");
+				String a = s.replace("(", "");
+				String b = a.replace(")", "");
+				String c = b.replace(":","--");
+				String d = c+";";
+				result.add(d);
+			}
+		} 
+		return result;
 	}
 	
 	@Override
