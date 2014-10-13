@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public interface BreadthFirstModel {
 	
 	/**
+	 * Breadth first search on graph you gave in constructor
 	 * @param	source is start node
 	 * @param	target is goal node
 	 * @return 	null when there is no result. An empty ArrayList means, that 
