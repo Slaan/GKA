@@ -19,7 +19,7 @@ public class TestBreadthFirst {
 	 * Test of directed graphs
 	 */
 	@Test
-	public void testSuccessfullDirectedGraphBFS() {
+	public void testSuccessfullDirectedGraph() {
 		Graph<String, DefaultEdge> directed_graph;
 		directed_graph = new DirectedPseudograph<String, DefaultEdge>(DefaultEdge.class);
 		directed_graph.addVertex("1");
@@ -42,7 +42,7 @@ public class TestBreadthFirst {
 		expected.add("7");
 		BreadthFirstModel bfs = GKAModel.breadthFirst(directed_graph);
 		ArrayList result = bfs.breadthFirst("1", "7");
-		assertEquals(result, expected);
+		assertEquals(expected, result);
 	}
 	
 	@Test
@@ -82,43 +82,41 @@ public class TestBreadthFirst {
 	 * Test of undirected graphs
 	 */
 	@Test
-	public void testSuccessfullUndirectedGraphBFS() {
-		Graph<String, DefaultEdge> directed_graph;
-		directed_graph = new Pseudograph<String, DefaultEdge>(DefaultEdge.class);
-		directed_graph.addVertex("1");
-		directed_graph.addVertex("2");
-		directed_graph.addVertex("3");
-		directed_graph.addVertex("5");
-		directed_graph.addVertex("6");
-		directed_graph.addVertex("7");
-		directed_graph.addEdge("1", "2");
-		directed_graph.addEdge("2", "3");
-		directed_graph.addEdge("2", "6");
-		directed_graph.addEdge("3", "5");
-		directed_graph.addEdge("5", "7");
-		directed_graph.addEdge("6", "7");
-		directed_graph.addEdge("7", "1");
+	public void testSuccessfullUndirectedGraph() {
+		Graph<String, DefaultEdge> undirected_graph;
+		undirected_graph = new Pseudograph<String, DefaultEdge>(DefaultEdge.class);
+		undirected_graph.addVertex("1");
+		undirected_graph.addVertex("2");
+		undirected_graph.addVertex("3");
+		undirected_graph.addVertex("5");
+		undirected_graph.addVertex("6");
+		undirected_graph.addVertex("7");
+		undirected_graph.addEdge("1", "2");
+		undirected_graph.addEdge("2", "3");
+		undirected_graph.addEdge("2", "6");
+		undirected_graph.addEdge("3", "5");
+		undirected_graph.addEdge("5", "7");
+		undirected_graph.addEdge("6", "7");
+		undirected_graph.addEdge("7", "1");
 		ArrayList<String> expected = new ArrayList<>();
 		expected.add("1");
-		expected.add("2");
-		expected.add("6");
 		expected.add("7");
-		BreadthFirstModel bfs = GKAModel.breadthFirst(directed_graph);
+		BreadthFirstModel bfs = GKAModel.breadthFirst(undirected_graph);
 		ArrayList result = bfs.breadthFirst("1", "7");
-		assertEquals(result, expected);
+		assertEquals(expected, result);
 	}
 	
 	@Test
 	public void testNotConnectedUndirectedGraph() {
-		Graph<String, DefaultEdge> directed_graph;
-		directed_graph = new Pseudograph<String, DefaultEdge>(DefaultEdge.class);
-		directed_graph.addVertex("1");
-		directed_graph.addVertex("2");
-		directed_graph.addVertex("3");
-		directed_graph.addVertex("4");
-		directed_graph.addEdge("1", "2");
-		directed_graph.addEdge("2", "3");
-		BreadthFirstModel bfs = GKAModel.breadthFirst(directed_graph);
+		Graph<String, DefaultEdge> undirected_graph;
+		undirected_graph = new Pseudograph<String, DefaultEdge>(DefaultEdge.class);
+		undirected_graph.addVertex("1");
+		undirected_graph.addVertex("2");
+		undirected_graph.addVertex("3");
+		undirected_graph.addVertex("4");
+		undirected_graph.addEdge("1", "2");
+		undirected_graph.addEdge("2", "3");
+		BreadthFirstModel bfs = GKAModel.breadthFirst(undirected_graph);
 		ArrayList result = bfs.breadthFirst("1", "4");
 		// null expected
 		assertNull(result);
