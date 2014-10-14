@@ -18,12 +18,11 @@ import org.jgrapht.graph.ListenableDirectedWeightedGraph;
 import org.jgrapht.graph.ListenableUndirectedGraph;
 import org.jgrapht.graph.ListenableUndirectedWeightedGraph;
 import org.jgrapht.graph.Pseudograph;
-import org.jgrapht.graph.SimpleGraph;
 import org.jgrapht.graph.WeightedPseudograph;
 
 class GraphHandlerModelImpl implements GraphHandlerModel {
 
-	private final int DEFAULT_EDGE_WEIGHT = 1; 
+	private final double DEFAULT_EDGE_WEIGHT = 1.0; 
 	
 	// Creation
 	public static GraphHandlerModel create() {
@@ -46,12 +45,13 @@ class GraphHandlerModelImpl implements GraphHandlerModel {
 			System.out.println("are we here? dir_weigh");
 			for (DefaultWeightedEdge edge : edge_set) {
 				double weight = graph.getEdgeWeight(edge);
+				System.out.println(weight);
 				String s = edge.toString();
 				s.replaceAll(" ", "");
 				String a = s.replace("(", "");
 				String b = a.replace(")", "");
 				String c = b.replace(":","->");
-				String d = c+"weight"+";";
+				String d = c+" : " +weight+";";
 				result.add(d);
 			}
 		} else if (graph instanceof ListenableDirectedGraph) {
@@ -100,14 +100,14 @@ class GraphHandlerModelImpl implements GraphHandlerModel {
 	}
 	
 	@Override
-	public ListenableGraph<?,?> to_graph(ArrayList<String> edges) {
+	public Graph<?,?> to_graph(ArrayList<String> edges) {
 		if(edges == null) throw new NullPointerException();
 		ArrayList<String> formatted_edges = format_edges(edges);
 		// Parse to ListenableGraph
 		String 	sz = "[^\\-><:()]"; // Sonderzeichen
 		Pattern reg = Pattern.compile("(?<v1>"+sz+"*)((?<richtung>[<-][->])(?<v2>"+sz+"*)"
 					  + "(\\((?<edgename>"+sz+"*)\\))?(:(?<edgeweight>"+sz+"*))?)?;");
-		ListenableGraph<?,?> result = null;
+		Graph<?,?> result = null;
 		if(contains_once(formatted_edges, "->")) {
 			//Directed weighted graph
 			if (contains_once(formatted_edges, ":")) {
@@ -118,9 +118,9 @@ class GraphHandlerModelImpl implements GraphHandlerModel {
 						String node1 = m.group("v1");
 						String node2 = m.group("v2");
 						String edgename = m.group("edgename");
-						int edgeweight = DEFAULT_EDGE_WEIGHT;
+						double edgeweight = DEFAULT_EDGE_WEIGHT;
 						if (m.group("edgeweight") != null) {
-							edgeweight = Integer.parseInt(m.group("edgeweight"));
+							edgeweight = Double.valueOf(m.group("edgeweight")); //Integer.parseInt(m.group("edgeweight"));
 						}
 						if (node1 != null && !dir_weighted.vertexSet().contains(node1)) {
 							dir_weighted.addVertex(node1);
@@ -182,9 +182,9 @@ class GraphHandlerModelImpl implements GraphHandlerModel {
 						String node1 = m.group("v1");
 						String node2 = m.group("v2");
 						String edgename = m.group("edgename");
-						int edgeweight = DEFAULT_EDGE_WEIGHT;	
+						double edgeweight = DEFAULT_EDGE_WEIGHT;	
 						if (m.group("edgeweight") != null) {
-							edgeweight = Integer.parseInt(m.group("edgeweight").replace(" ",""));
+							edgeweight = Double.valueOf(m.group("edgeweight")); //Integer.parseInt(m.group("edgeweight").replace(" ",""));
 						}
 						if (node1 != null) {
 							undir_weighted.addVertex(node1);
