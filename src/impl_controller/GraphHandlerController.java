@@ -14,7 +14,7 @@ public class GraphHandlerController implements GraphHandler {
 
 	private	GraphHandlerModel	_ghm;
 	private	FileHandler			_fh;
-	private	ListenableGraph		_graph;
+	private	Graph				_graph;
 	
 	// Creation
 	public static GraphHandler create() {
@@ -44,7 +44,7 @@ public class GraphHandlerController implements GraphHandler {
 	}
 
 	@Override
-	public ListenableGraph<?, ?> getGraph() {
+	public Graph<?, ?> getGraph() {
 		if(_graph == null) throw new NullPointerException();
 		return _graph;
 	}
