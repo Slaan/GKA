@@ -20,6 +20,7 @@ import org.jgrapht.UndirectedGraph;
 class BreadthFirstModelImpl implements BreadthFirstModel {
 
 	private		Graph<String, DefaultEdge> 	_graph;
+	private		Integer						_graph_accesses;
 	
 	// Creation
 	public static BreadthFirstModel create(Graph lg) {
@@ -41,6 +42,7 @@ class BreadthFirstModelImpl implements BreadthFirstModel {
 		Set<String> accu = new HashSet<>();
 		Set<DefaultEdge> edges = ((DirectedGraph) _graph).outgoingEdgesOf(node);
 		for(DefaultEdge e : edges) {
+			_graph_accesses++;
 			String neigbour = _graph.getEdgeTarget(e);
 			accu.add(neigbour);
 		}
@@ -58,6 +60,7 @@ class BreadthFirstModelImpl implements BreadthFirstModel {
 		for(DefaultEdge e : edges) {
 			String source = _graph.getEdgeSource(e);
 			String target = _graph.getEdgeTarget(e);
+			_graph_accesses++;
 			if(source == node) {
 				accu.add(target);
 			} else {
@@ -95,6 +98,7 @@ class BreadthFirstModelImpl implements BreadthFirstModel {
 			Set<DefaultEdge> edges = ((DirectedGraph) _graph).incomingEdgesOf(node);
 			for(DefaultEdge e : edges) {
 				String neigbour = _graph.getEdgeSource(e);
+				_graph_accesses++;
 				accu.add(neigbour);
 			}
 		} else if(isUndirected()) {
@@ -121,14 +125,17 @@ class BreadthFirstModelImpl implements BreadthFirstModel {
 	 * @see BreadthFirstModel
 	 */
 	@Override
-	public ArrayList<String> breadthFirst(String source, String target) {
+	public ArrayList<String> start(String source, String target) {
 		if(_graph == null) throw new NullPointerException("Graph is null.");
 		if(source == null) throw new NullPointerException("Source is null.");
 		if(target == null) throw new NullPointerException("Target is null.");
 		if(source == target) {
 			// empty list means source == target
-			return new ArrayList<>();
+			ArrayList<String> accu = new ArrayList<>();
+			accu.add(source);
+			return accu;
 		}
+		_graph_accesses = 0;
 		Map<String, Integer> 	labeling = new HashMap<>();
 		Queue<String> 			queue = new LinkedList<>();
 		Set<String>		visited_nodes = new HashSet<>();
@@ -139,9 +146,6 @@ class BreadthFirstModelImpl implements BreadthFirstModel {
 			String current_node = queue.poll();
 			int distance = labeling.get(current_node);
 			Set<String> neighbours = adjacentNodes(current_node);
-			if(neighbours.isEmpty()) {
-				return null;
-			}
 			neighbours.removeAll(visited_nodes);
 			queue.addAll(neighbours);
 			visited_nodes.addAll(neighbours);
@@ -150,6 +154,8 @@ class BreadthFirstModelImpl implements BreadthFirstModel {
 			}
 		}
 		if(!visited_nodes.contains(target)) {
+			// Since we didn't visited the target,
+			// we can't reach it. It's not accessible!
 			return null;
 		}
 		System.out.println(isDirected() + " " + labeling);
@@ -168,6 +174,13 @@ class BreadthFirstModelImpl implements BreadthFirstModel {
 			}
 		}
 		return reverse(shortest_way);
+	}
+	
+	/**
+	 * Get amount of nodes visited
+	 */
+	public int getGraphAccesses() {
+		return _graph_accesses;
 	}
 	
 	private <A> ArrayList<A> reverse(ArrayList<A> aList) {

@@ -19,12 +19,13 @@ import javax.swing.JTextField;
 class BreadthFirstWindowImpl extends JFrame implements BreadthFirstWindow {
 	
 	private			final	String			_title = "Breadth First";
-	private			final	Dimension		_size = new Dimension(400, 100);
+	private			final	Dimension		_size = new Dimension(400, 150);
 	private					JPanel			_panel;
 	private					JButton			_startbutton;
 	private					JTextField		_start_vertex_field;
 	private					JTextField		_target_vertex_field;
 	private					JTextArea		_result;
+	private					JTextArea		_accesses;
 	
 	// Creation
 	public static BreadthFirstWindow create() {
@@ -37,7 +38,10 @@ class BreadthFirstWindowImpl extends JFrame implements BreadthFirstWindow {
 		_startbutton 			= new JButton("Start");
 		_start_vertex_field 	= new JTextField(10);
 		_target_vertex_field 	= new JTextField(10);
-		_result					= new JTextArea(2, 20);
+		_result					= new JTextArea(1, 20);
+		_accesses				= new JTextArea(1, 20);
+		_result.enable(false);
+		_accesses.enable(false);		
 		FlowLayout layout = new FlowLayout();
 		_panel					= new JPanel(layout);
 		layout.setAlignment(FlowLayout.TRAILING);
@@ -46,6 +50,7 @@ class BreadthFirstWindowImpl extends JFrame implements BreadthFirstWindow {
 		_panel.add(_target_vertex_field);
 		_panel.add(_startbutton);
 		_panel.add(_result);
+		_panel.add(_accesses);
 		add(_panel);
 		setVisible(true);
 	}
@@ -72,6 +77,11 @@ class BreadthFirstWindowImpl extends JFrame implements BreadthFirstWindow {
 	public String getTargetVertex() {
 		if(_target_vertex_field == null) throw new NullPointerException("Target vertex not initilized!");
 		return _target_vertex_field.getText();
+	}
+
+	@Override
+	public void setGraphAccesses(int hops) {
+		_accesses.setText("" + hops);
 	}
 
 }

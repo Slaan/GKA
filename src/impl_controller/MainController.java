@@ -8,15 +8,14 @@ import interface_view.MainWindow;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import org.jgrapht.ListenableGraph;
+import org.jgrapht.Graph;
 
 public class MainController {
 	
 	private static 	MainController 				_instance;
 	private			MainWindow 					_window;
-	private			GraphHandler				_graphhandler;
-	private			BreadthFirst				_breadth;			
-	private			ListenableGraph				_graph;
+	private			GraphHandler				_graphhandler;		
+	private			Graph						_graph;
 	
 	// Creation
 	public static MainController create() {
@@ -33,7 +32,8 @@ public class MainController {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				_graphhandler.load();
-				_window.setGraph(_graphhandler.getGraph());
+				_graph = _graphhandler.getGraph();
+				_window.setGraph(_graph);
 			}
 		});
 		_window.addSaveListener(new ActionListener() {
@@ -46,6 +46,8 @@ public class MainController {
 				}
 			}
 		});
+		// Since breadthFirst doesn't change something in mainwindow, we don't
+		// need to store it as instance variable
 		_window.addBreadthFirstListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

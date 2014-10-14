@@ -8,8 +8,12 @@ public interface BreadthFirstModel {
 	 * Breadth first search on graph you gave in constructor
 	 * @param	source is start node
 	 * @param	target is goal node
-	 * @return 	null when there is no result. An empty ArrayList means, that 
-	 * 			the source is the target.
+	 * @return 	Null if the is no solution or an ArrayList<String>
 	 */
-	public ArrayList<String> breadthFirst(String source, String target);
+	public ArrayList<String> start(String source, String target);
+	
+	/**
+	 * @return Amount of nodes, visited
+	 */
+	public int getGraphAccesses();
 }

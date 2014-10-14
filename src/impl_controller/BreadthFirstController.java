@@ -16,7 +16,8 @@ class BreadthFirstController implements BreadthFirst {
 
 	private		BreadthFirstModel 	_bfsm;
 	private		BreadthFirstWindow	_bfsw;
-	private 	Graph	_graph;
+	// NOTE: may delete graph?
+	private 	Graph				_graph;
 	
 	// Creation
 	public static BreadthFirst create(Graph graph) {
@@ -34,8 +35,9 @@ class BreadthFirstController implements BreadthFirst {
 			public void actionPerformed(ActionEvent e) {
 				String source = _bfsw.getStartVertex();
 				String target = _bfsw.getTargetVertex();
-				ArrayList<String> result = _bfsm.breadthFirst(source, target);
+				ArrayList<String> result = _bfsm.start(source, target);
 				_bfsw.setResultText(result.toString());
+				_bfsw.setGraphAccesses(_bfsm.getGraphAccesses());
 			}
 		});
 	}
