@@ -1,19 +1,13 @@
 package impl_controller;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.util.HashSet;
-import java.util.Set;
-
-import org.jgrapht.ListenableGraph;
-
-import impl_model.GKAModel;
-import impl_model.NamedWeightedEdge;
 import impl_view.GKAView;
 import interface_controller.GraphHandler;
-import interface_model.GraphHandlerModel;
 import interface_view.MainWindow;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import org.jgrapht.ListenableGraph;
 
 public class MainController {
 	
