@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.ListIterator;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Queue;
@@ -138,11 +139,11 @@ class BreadthFirstModelImpl implements BreadthFirstModel {
 			String current_node = queue.poll();
 			int distance = labeling.get(current_node);
 			Set<String> neighbours = adjacentNodes(current_node);
-			queue.addAll(neighbours);
-			neighbours.removeAll(visited_nodes);
 			if(neighbours.isEmpty()) {
 				return null;
 			}
+			neighbours.removeAll(visited_nodes);
+			queue.addAll(neighbours);
 			visited_nodes.addAll(neighbours);
 			for(String neighbour : neighbours) {
 				labeling.put(neighbour, distance+1);
@@ -151,7 +152,7 @@ class BreadthFirstModelImpl implements BreadthFirstModel {
 		if(!visited_nodes.contains(target)) {
 			return null;
 		}
-		System.out.println(labeling);
+		System.out.println(isDirected() + " " + labeling);
 		// shortest way
 		ArrayList<String> shortest_way = new ArrayList<>();
 		String current_node = target;
@@ -166,7 +167,16 @@ class BreadthFirstModelImpl implements BreadthFirstModel {
 				}
 			}
 		}
-		return shortest_way;
+		return reverse(shortest_way);
+	}
+	
+	private <A> ArrayList<A> reverse(ArrayList<A> aList) {
+		if(aList == null) throw new NullPointerException();
+		ArrayList<A> accu = new ArrayList<>();
+		for(ListIterator<A> i = aList.listIterator(aList.size()) ; i.hasPrevious() ; ) {
+			accu.add(i.previous());
+		}
+		return accu;
 	}
 	
 	private	boolean isDirected() {
