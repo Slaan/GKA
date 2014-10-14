@@ -94,7 +94,7 @@ class BreadthFirstModelImpl implements BreadthFirstModel {
 		if(isDirected()) {
 			Set<DefaultEdge> edges = ((DirectedGraph) _graph).incomingEdgesOf(node);
 			for(DefaultEdge e : edges) {
-				String neigbour = _graph.getEdgeTarget(e);
+				String neigbour = _graph.getEdgeSource(e);
 				accu.add(neigbour);
 			}
 		} else if(isUndirected()) {

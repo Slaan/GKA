@@ -1,6 +1,7 @@
 package impl_controller;
 
 import impl_view.GKAView;
+import interface_controller.BreadthFirst;
 import interface_controller.GraphHandler;
 import interface_view.MainWindow;
 
@@ -14,6 +15,7 @@ public class MainController {
 	private static 	MainController 				_instance;
 	private			MainWindow 					_window;
 	private			GraphHandler				_graphhandler;
+	private			BreadthFirst				_breadth;			
 	private			ListenableGraph				_graph;
 	
 	// Creation
@@ -38,11 +40,16 @@ public class MainController {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					//_graphhandler.set_graph(_graph);
 					_graphhandler.save();
 				} catch(Exception exception) {
 					exception.printStackTrace();
 				}
+			}
+		});
+		_window.addBreadthFirstListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				GKA.breadthFirst(_graph);
 			}
 		});
 	}

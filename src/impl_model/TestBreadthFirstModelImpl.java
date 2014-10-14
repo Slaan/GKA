@@ -12,7 +12,7 @@ import org.jgrapht.graph.Pseudograph;
 import org.junit.Before;
 import org.junit.Test;
 
-public class TestGraphHandlerModelImpl {
+public class TestBreadthFirstModelImpl {
 
 	/**
 	 * This test is for the helpermethods 
@@ -42,7 +42,7 @@ public class TestGraphHandlerModelImpl {
 	}
 	
 	@Test
-	public void testAccessibleAdjacentNodesDirected() {
+	public void testAdjacentNodesDirected() {
 		BreadthFirstModelImpl bfs = (BreadthFirstModelImpl) BreadthFirstModelImpl.create(directed);
 		Set<String> expected = new HashSet<>();
 		expected.add("b");
@@ -51,7 +51,7 @@ public class TestGraphHandlerModelImpl {
 	}
 
 	@Test
-	public void testAccessibleAdjacentNodesUndirected() {
+	public void testAdjacentNodesUndirected() {
 		BreadthFirstModelImpl bfs = (BreadthFirstModelImpl) BreadthFirstModelImpl.create(undirected);
 		Set<String> expected = new HashSet<>();
 		expected.add("b");
@@ -59,4 +59,13 @@ public class TestGraphHandlerModelImpl {
 		expected.add("d");
 		assertEquals(expected, bfs.adjacentNodes("a"));
 	}
+	
+	@Test
+	public void testBackwardsAdjacentNodesDirected() {
+		BreadthFirstModelImpl bfs = (BreadthFirstModelImpl) BreadthFirstModelImpl.create(directed);
+		Set<String> expected = new HashSet<>();
+		expected.add("d");
+		assertEquals(expected, bfs.backwardsAdjacentNodes("a"));
+	}
+	
 }

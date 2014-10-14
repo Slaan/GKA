@@ -46,7 +46,6 @@ class BreadthFirstWindowImpl extends JFrame implements BreadthFirstWindow {
 		_panel.add(_target_vertex_field);
 		_panel.add(_startbutton);
 		_panel.add(_result);
-		
 		add(_panel);
 		setVisible(true);
 	}

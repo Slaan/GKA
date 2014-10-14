@@ -107,7 +107,7 @@ public class MainWindowImpl extends JFrame implements MainWindow {
 	private JMenu algo_menu() {
 		JMenu algo = new JMenu("Algorithms");
 		// breadth first 
-		JMenuItem _breadth_item = new JMenuItem("Breadth First");
+		_breadth_item = new JMenuItem("Breadth First");
 		_breadth_item.setMnemonic(KeyEvent.VK_B);
 		algo.add(_breadth_item);
 		return algo;
@@ -142,6 +142,7 @@ public class MainWindowImpl extends JFrame implements MainWindow {
 	@Override
 	public void addBreadthFirstListener(ActionListener al) {
 		if(al == null) throw new NullPointerException();
+		if(_breadth_item == null) throw new NullPointerException();
 		_breadth_item.addActionListener(al);
 	}
 
