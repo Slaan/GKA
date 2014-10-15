@@ -81,6 +81,7 @@ class BreadthFirstWindowImpl extends JFrame implements BreadthFirstWindow {
 
 	@Override
 	public void setGraphAccesses(int hops) {
+		// cast to string with ("" + hops)
 		_accesses.setText("" + hops);
 	}
 

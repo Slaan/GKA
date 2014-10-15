@@ -1,6 +1,7 @@
 package impl_controller;
 
 import impl_model.GKAModel;
+import impl_model.NamedWeightedEdge;
 import impl_view.GKAView;
 import interface_controller.BreadthFirst;
 import interface_model.BreadthFirstModel;
@@ -20,12 +21,12 @@ class BreadthFirstController implements BreadthFirst {
 	private 	Graph				_graph;
 	
 	// Creation
-	public static BreadthFirst create(Graph graph) {
+	public static BreadthFirst create(Graph<String, NamedWeightedEdge> graph) {
 		if(graph == null) throw new NullPointerException();
 		return new BreadthFirstController(graph);
 	}
 	
-	private BreadthFirstController(Graph graph) {
+	private BreadthFirstController(Graph<String, NamedWeightedEdge> graph) {
 		if(graph == null) throw new NullPointerException();
 		_graph = graph;
 		_bfsm = GKAModel.breadthFirst(_graph);

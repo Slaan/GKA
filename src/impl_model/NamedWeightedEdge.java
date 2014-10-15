@@ -1,17 +1,23 @@
 package impl_model;
 
-import org.jgraph.graph.DefaultEdge;
-import org.jgrapht.graph.DefaultWeightedEdge;
+import org.jgrapht.graph.DefaultEdge;
 
+/**
+ * This content has been copied from:
+ * @author Torben Haug, Jana Wengenroth
+ * and beed edited by
+ * @author Alex and Daniel
+ */
 public class NamedWeightedEdge extends DefaultEdge {
 
-	private String edgeName = null;
-	private Double weight = null;
+	/**
+	 * 
+	 */
+	private String _name = null;
+	private Double _weight = null;
 	
-	public NamedWeightedEdge(String name, Double weight){
+	public NamedWeightedEdge(){
 		super();
-		this.edgeName = name;
-		this.weight = weight;
 	}
 	public Object getSource(){
 		return super.getSource();
@@ -22,20 +28,30 @@ public class NamedWeightedEdge extends DefaultEdge {
 	}
 	
 	public Double getWeight() {
-		return weight;
+		return _weight;
+	}
+	
+	public void setName(String name) {
+		if(name == null) throw new NullPointerException();
+		_name = name;
+	}
+	
+	public void setWeight(Double weight) {
+		if(weight == null) throw new NullPointerException();
+		_weight = weight;
 	}
 	
 	public String getName(){
-		return this.edgeName;
+		return this._name;
 	}
 	
     public String toString() {
     	String retVal;
-    	if (edgeName == null){
+    	if (_name == null){
     		retVal = "(" + getSource() + " : " + getTarget() + ")";
     	}
     	else{
-    		retVal = "(" + edgeName + ")";
+    		retVal = "(" + _name + ")";
     	}
     	if (getWeight() != null){
     		retVal += " : " + getWeight();

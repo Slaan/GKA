@@ -1,6 +1,7 @@
 package impl_controller;
 
 import impl_model.GKAModel;
+import impl_model.NamedWeightedEdge;
 import interface_controller.FileHandler;
 import interface_controller.GraphHandler;
 import interface_model.GraphHandlerModel;
@@ -22,7 +23,8 @@ public class GraphHandlerController implements GraphHandler {
 	}
 	
 	private GraphHandlerController() {
-		_fh = GKA.fileHandler();
+		// initiate graphs
+		_fh  = GKA.fileHandler();
 		_ghm = GKAModel.graphHandler();
 	}
 
@@ -40,11 +42,11 @@ public class GraphHandlerController implements GraphHandler {
 		ArrayList<String> graph_in_strings; 
 		graph_in_strings = _fh.get_content();
 		// convert to graph
-		_graph =  _ghm.to_graph(graph_in_strings);
+		_graph = _ghm.to_graph(graph_in_strings);
 	}
 
 	@Override
-	public Graph<?, ?> getGraph() {
+	public Graph<String, NamedWeightedEdge> getGraph() {
 		if(_graph == null) throw new NullPointerException();
 		return _graph;
 	}

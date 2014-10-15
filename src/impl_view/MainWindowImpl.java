@@ -15,7 +15,6 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
 import org.jgrapht.Graph;
-import org.jgrapht.ListenableGraph;
 import org.jgrapht.ext.JGraphXAdapter;
 
 import com.mxgraph.layout.mxCircleLayout;
@@ -23,22 +22,22 @@ import com.mxgraph.swing.mxGraphComponent;
 
 public class MainWindowImpl extends JFrame implements MainWindow {
 	
-	private	final	String				_title;
-	private	final	Integer				_version;
-	private			Dimension			_size;
-	private 		Graph				_graph;
-	private			mxGraphComponent 	_adapter_compo; 
+	private	final	String										_title;
+	private	final	Integer										_version;
+	private			Dimension									_size;
+	private 		Graph<String, NamedWeightedEdge>			_graph;
+	private			mxGraphComponent 							_adapter_compo; 
 	private         JGraphXAdapter<String, NamedWeightedEdge>   _adapter;
-	private			JPanel				_panel;
+	private			JPanel										_panel;
 	// Menu
-	private 		JMenuBar 			_menubar;
-	private			JMenu				_file_menu;
-	private			JMenuItem			_load_item;
-	private			JMenuItem			_save_item;
-	private			JMenu				_edit_menu;
-	private			JMenu				_algo_menu;
-	private			JMenuItem			_breadth_item;
-	private			JMenu				_version_menu;
+	private 		JMenuBar 									_menubar;
+	private			JMenu										_file_menu;
+	private			JMenuItem									_load_item;
+	private			JMenuItem									_save_item;
+	private			JMenu										_edit_menu;
+	private			JMenu										_algo_menu;
+	private			JMenuItem									_breadth_item;
+	private			JMenu										_version_menu;
 	
 	// Creation
 	public static MainWindow create() {
@@ -58,16 +57,16 @@ public class MainWindowImpl extends JFrame implements MainWindow {
 	private void initMenuBar() {
 	    JMenuBar  menubar     = new JMenuBar();
 	    JMenu     file_menu     = file_menu();
-	    JMenu     edit_menu     = edit_menu();
-	    JMenu     algo_menu     = algo_menu();
-	    JMenu     version_menu  = version_menu();
-	    edit_menu.setMnemonic(KeyEvent.VK_E);
 	    file_menu.setMnemonic(KeyEvent.VK_F);
-	    algo_menu.setMnemonic(KeyEvent.VK_A);
-	    version_menu.setMnemonic(KeyEvent.VK_V);
 	    menubar.add(file_menu);
-	    menubar.add(edit_menu);
+//	    JMenu     edit_menu     = edit_menu();
+//	    edit_menu.setMnemonic(KeyEvent.VK_E);
+//	    menubar.add(edit_menu);
+	    JMenu     algo_menu     = algo_menu();
+	    algo_menu.setMnemonic(KeyEvent.VK_A);
 	    menubar.add(algo_menu);
+	    JMenu     version_menu  = version_menu();
+	    version_menu.setMnemonic(KeyEvent.VK_V);
 	    menubar.add(version_menu);
 	    setJMenuBar(menubar);
 	}
@@ -137,7 +136,6 @@ public class MainWindowImpl extends JFrame implements MainWindow {
 		_save_item.addActionListener(al);
 	}
 
-	// edit menu
 	// algorithm menu
 	@Override
 	public void addBreadthFirstListener(ActionListener al) {
@@ -148,7 +146,7 @@ public class MainWindowImpl extends JFrame implements MainWindow {
 
 	// non-menu
 	@Override
-	public void setGraph(Graph graph) {
+	public void setGraph(Graph<String, NamedWeightedEdge> graph) {
 		if(graph == null) throw new NullPointerException();
 		// put graph in listenablegraph?
 		_graph = graph;

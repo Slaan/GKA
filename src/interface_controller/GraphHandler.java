@@ -1,7 +1,8 @@
 package interface_controller;
 
+import impl_model.NamedWeightedEdge;
+
 import org.jgrapht.Graph;
-import org.jgrapht.ListenableGraph;
 
 public interface GraphHandler {
 
@@ -18,5 +19,5 @@ public interface GraphHandler {
 	/**
 	 * Get loaded or stored graph
 	 */
-	public Graph<?, ?>	getGraph();
+	public Graph<String, NamedWeightedEdge>	getGraph();
 }

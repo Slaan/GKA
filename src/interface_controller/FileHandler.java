@@ -1,7 +1,5 @@
 package interface_controller;
 
-import interface_model.FileHandlerModel;
-
 import java.util.ArrayList;
 
 public interface FileHandler {

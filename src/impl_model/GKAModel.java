@@ -27,7 +27,7 @@ public final class GKAModel {
 	/*
 	 * @returns New BreadthFirst
 	 */
-	public static BreadthFirstModel breadthFirst(Graph<String, DefaultEdge> directed_graph) {
+	public static BreadthFirstModel breadthFirst(Graph<String, NamedWeightedEdge> directed_graph) {
 		if(directed_graph == null) throw new NullPointerException();
 		return BreadthFirstModelImpl.create(directed_graph);
 	}

@@ -18,12 +18,12 @@ public class TestBreadthFirstModelImpl {
 	 * This test is for the helpermethods 
 	 */
 	
-	Graph<String, DefaultEdge> directed;
-	Graph<String, DefaultEdge> undirected;
+	Graph<String, NamedWeightedEdge> directed;
+	Graph<String, NamedWeightedEdge> undirected;
 	
 	@Before
 	public void setUp() {
-		directed = new DirectedPseudograph<String, DefaultEdge>(DefaultEdge.class);
+		directed = new DirectedPseudograph<String, NamedWeightedEdge>(NamedWeightedEdge.class);
 		directed.addVertex("a");
 		directed.addVertex("b");
 		directed.addVertex("c");
@@ -31,7 +31,7 @@ public class TestBreadthFirstModelImpl {
 		directed.addEdge("a", "b");
 		directed.addEdge("a", "c");
 		directed.addEdge("d", "a");
-		undirected = new Pseudograph<>(DefaultEdge.class);
+		undirected = new Pseudograph<>(NamedWeightedEdge.class);
 		undirected.addVertex("a");
 		undirected.addVertex("b");
 		undirected.addVertex("c");

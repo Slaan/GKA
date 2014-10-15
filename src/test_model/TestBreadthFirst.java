@@ -4,10 +4,12 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import impl_controller.GKA;
 import impl_model.GKAModel;
+import impl_model.NamedWeightedEdge;
 import interface_controller.GraphHandler;
 import interface_model.BreadthFirstModel;
 
 import java.util.ArrayList;
+import java.util.jar.Attributes.Name;
 
 import org.jgraph.graph.DefaultEdge;
 import org.jgrapht.Graph;
@@ -22,8 +24,8 @@ public class TestBreadthFirst {
 	 */
 	@Test
 	public void testSuccessfullDirectedGraph() {
-		Graph<String, DefaultEdge> directed_graph;
-		directed_graph = new DirectedPseudograph<String, DefaultEdge>(DefaultEdge.class);
+		Graph<String, NamedWeightedEdge> directed_graph;
+		directed_graph = new DirectedPseudograph<>(NamedWeightedEdge.class);
 		directed_graph.addVertex("1");
 		directed_graph.addVertex("2");
 		directed_graph.addVertex("3");
@@ -49,8 +51,8 @@ public class TestBreadthFirst {
 	
 	@Test
 	public void testSourceEqualsTargetDirected() {
-		Graph<String, DefaultEdge> directed_graph;
-		directed_graph = new DirectedPseudograph<>(DefaultEdge.class);
+		Graph<String, NamedWeightedEdge> directed_graph;
+		directed_graph = new DirectedPseudograph<>(NamedWeightedEdge.class);
 		directed_graph.addVertex("a");
 		ArrayList<String> expected = new ArrayList<>();
 		expected.add("a");
@@ -61,8 +63,8 @@ public class TestBreadthFirst {
 	
 	@Test
 	public void testDirectedGraphBFS() {
-		Graph<String,DefaultEdge> dir_graph;
-		dir_graph = new DirectedPseudograph<>(DefaultEdge.class);
+		Graph<String, NamedWeightedEdge> dir_graph;
+		dir_graph = new DirectedPseudograph<>(NamedWeightedEdge.class);
 		dir_graph.addVertex("a");
 		dir_graph.addVertex("b");
 		dir_graph.addVertex("c");
@@ -87,8 +89,8 @@ public class TestBreadthFirst {
 	
 	@Test
 	public void testNotConnectedDirectedGraph() {
-		Graph<String, DefaultEdge> directed_graph;
-		directed_graph = new DirectedPseudograph<String, DefaultEdge>(DefaultEdge.class);
+		Graph<String, NamedWeightedEdge> directed_graph;
+		directed_graph = new DirectedPseudograph<>(NamedWeightedEdge.class);
 		directed_graph.addVertex("1");
 		directed_graph.addVertex("2");
 		directed_graph.addVertex("3");
@@ -103,8 +105,8 @@ public class TestBreadthFirst {
 	
 	@Test
 	public void testUnreachableConnectedDirectedGraph() {
-		Graph<String, DefaultEdge> directed_graph;
-		directed_graph = new DirectedPseudograph<String, DefaultEdge>(DefaultEdge.class);
+		Graph<String, NamedWeightedEdge> directed_graph;
+		directed_graph = new DirectedPseudograph<>(NamedWeightedEdge.class);
 		directed_graph.addVertex("1");
 		directed_graph.addVertex("2");
 		directed_graph.addVertex("3");
@@ -123,8 +125,8 @@ public class TestBreadthFirst {
 	 */
 	@Test
 	public void testSuccessfullUndirectedGraph() {
-		Graph<String, DefaultEdge> undirected_graph;
-		undirected_graph = new Pseudograph<String, DefaultEdge>(DefaultEdge.class);
+		Graph<String, NamedWeightedEdge> undirected_graph;
+		undirected_graph = new Pseudograph<>(NamedWeightedEdge.class);
 		undirected_graph.addVertex("1");
 		undirected_graph.addVertex("2");
 		undirected_graph.addVertex("3");
@@ -148,8 +150,8 @@ public class TestBreadthFirst {
 	
 	@Test
 	public void testSourceEqualsTargetUndirected() {
-		Graph<String, DefaultEdge> undirected_graph;
-		undirected_graph = new Pseudograph<>(DefaultEdge.class);
+		Graph<String, NamedWeightedEdge> undirected_graph;
+		undirected_graph = new Pseudograph<>(NamedWeightedEdge.class);
 		undirected_graph.addVertex("a");
 		ArrayList<String> expected = new ArrayList<>();
 		expected.add("a");
@@ -160,8 +162,8 @@ public class TestBreadthFirst {
 	
 	@Test
 	public void testNotConnectedUndirectedGraph() {
-		Graph<String, DefaultEdge> undirected_graph;
-		undirected_graph = new Pseudograph<String, DefaultEdge>(DefaultEdge.class);
+		Graph<String, NamedWeightedEdge> undirected_graph;
+		undirected_graph = new Pseudograph<>(NamedWeightedEdge.class);
 		undirected_graph.addVertex("1");
 		undirected_graph.addVertex("2");
 		undirected_graph.addVertex("3");

@@ -12,25 +12,24 @@ import java.util.Map.Entry;
 import java.util.Queue;
 import java.util.Set;
 
-import org.jgraph.graph.DefaultEdge;
 import org.jgrapht.DirectedGraph;
 import org.jgrapht.Graph;
 import org.jgrapht.UndirectedGraph;
 
 class BreadthFirstModelImpl implements BreadthFirstModel {
 
-	private		Graph<String, DefaultEdge> 	_graph;
-	private		Integer						_graph_accesses;
+	private		Graph<String, NamedWeightedEdge> _graph;
+	private		Integer							 _graph_accesses;
 	
 	// Creation
-	public static BreadthFirstModel create(Graph lg) {
-		if(lg == null) throw new NullPointerException();
-		return new BreadthFirstModelImpl(lg);
+	public static BreadthFirstModel create(Graph<String, NamedWeightedEdge> g) {
+		if(g == null) throw new NullPointerException();
+		return new BreadthFirstModelImpl(g);
 	}
 	
-	private BreadthFirstModelImpl(Graph lg) {
-		if(lg == null) throw new NullPointerException();
-		_graph = lg;
+	private BreadthFirstModelImpl(Graph<String, NamedWeightedEdge> g) {
+		if(g == null) throw new NullPointerException();
+		_graph = g;
 	}
 	
 	/**
@@ -40,8 +39,8 @@ class BreadthFirstModelImpl implements BreadthFirstModel {
 	private Set<String> directedAdjacentNodes(String node) {
 		if(node == null) throw new NullPointerException();
 		Set<String> accu = new HashSet<>();
-		Set<DefaultEdge> edges = ((DirectedGraph) _graph).outgoingEdgesOf(node);
-		for(DefaultEdge e : edges) {
+		Set<NamedWeightedEdge> edges = ((DirectedGraph) _graph).outgoingEdgesOf(node);
+		for(NamedWeightedEdge e : edges) {
 			_graph_accesses++;
 			String neigbour = _graph.getEdgeTarget(e);
 			accu.add(neigbour);
@@ -56,8 +55,8 @@ class BreadthFirstModelImpl implements BreadthFirstModel {
 	private Set<String> undirectedAdjacentNodes(String node) {
 		if(node == null) throw new NullPointerException();
 		Set<String> accu = new HashSet<>();
-		Set<DefaultEdge> edges = _graph.edgesOf(node);
-		for(DefaultEdge e : edges) {
+		Set<NamedWeightedEdge> edges = _graph.edgesOf(node);
+		for(NamedWeightedEdge e : edges) {
 			String source = _graph.getEdgeSource(e);
 			String target = _graph.getEdgeTarget(e);
 			_graph_accesses++;
@@ -95,8 +94,8 @@ class BreadthFirstModelImpl implements BreadthFirstModel {
 		if(_graph == null)	throw new NullPointerException();
 		Set<String> accu = new HashSet();
 		if(isDirected()) {
-			Set<DefaultEdge> edges = ((DirectedGraph) _graph).incomingEdgesOf(node);
-			for(DefaultEdge e : edges) {
+			Set<NamedWeightedEdge> edges = ((DirectedGraph) _graph).incomingEdgesOf(node);
+			for(NamedWeightedEdge e : edges) {
 				String neigbour = _graph.getEdgeSource(e);
 				_graph_accesses++;
 				accu.add(neigbour);
@@ -183,6 +182,10 @@ class BreadthFirstModelImpl implements BreadthFirstModel {
 		return _graph_accesses;
 	}
 	
+	/**
+	 * @param aList to reverse
+	 * @return a reversed duplicate of aList 
+	 */
 	private <A> ArrayList<A> reverse(ArrayList<A> aList) {
 		if(aList == null) throw new NullPointerException();
 		ArrayList<A> accu = new ArrayList<>();
