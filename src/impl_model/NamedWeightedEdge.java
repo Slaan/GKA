@@ -1,6 +1,7 @@
 package impl_model;
 
 import org.jgrapht.graph.DefaultEdge;
+import org.jgrapht.graph.DefaultWeightedEdge;
 
 /**
  * This content has been copied from:
@@ -8,7 +9,7 @@ import org.jgrapht.graph.DefaultEdge;
  * and beed edited by
  * @author Alex and Daniel
  */
-public class NamedWeightedEdge extends DefaultEdge {
+public class NamedWeightedEdge extends DefaultWeightedEdge {
 
 	/**
 	 * 
@@ -27,7 +28,7 @@ public class NamedWeightedEdge extends DefaultEdge {
 		return super.getTarget();
 	}
 	
-	public Double getWeight() {
+	public Double getthisWeight() {
 		return _weight;
 	}
 	
@@ -53,8 +54,8 @@ public class NamedWeightedEdge extends DefaultEdge {
     	else{
     		retVal = "(" + _name + ")";
     	}
-    	if (getWeight() != null){
-    		retVal += " : " + getWeight();
+    	if (this._weight != null){
+    		retVal += " : " + getthisWeight();
     	}
     	return retVal;
     }
@@ -94,11 +95,11 @@ public class NamedWeightedEdge extends DefaultEdge {
             	retval = retval && getName().equals(edge.getName());
             }
             
-            if(getWeight() == null){
-            	retval = retval && edge.getWeight() == null;
+            if(getthisWeight() == null){
+            	retval = retval && edge.getthisWeight() == null;
             }
             else{
-            	retval = retval && getWeight().equals(edge.getWeight());
+            	retval = retval && getthisWeight().equals(edge.getthisWeight());
             }
             return retval;
         }
@@ -116,8 +117,8 @@ public class NamedWeightedEdge extends DefaultEdge {
     	if(getName() != null){
     		retVal += getName().hashCode();
         }
-    	if(getWeight() != null){
-    		retVal += getWeight().hashCode();
+    	if(getthisWeight() != null){
+    		retVal += getthisWeight().hashCode();
         }
         return retVal;
     }
