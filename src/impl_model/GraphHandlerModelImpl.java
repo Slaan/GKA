@@ -134,6 +134,9 @@ class GraphHandlerModelImpl implements GraphHandlerModel {
 						    if (e != null) {
 						    dir_weighted.setEdgeWeight(e, edgeweight);
 						    }
+						    if (edgename != null) {
+								e.setName(edgename);
+							}
 						}
 					} else {
 						System.out.println("Nicht valide Zeile: " + s);
@@ -159,7 +162,7 @@ class GraphHandlerModelImpl implements GraphHandlerModel {
 							dir.addEdge(node1, node2);							
 						}
 						System.out.println(s);
-						
+						NamedWeightedEdge e = new NamedWeightedEdge();
 						
 					} else {
 						System.out.println("Nicht valide Zeile:" + s);
@@ -198,6 +201,9 @@ class GraphHandlerModelImpl implements GraphHandlerModel {
 						if (e != null) {
 							undir_weighted.setEdgeWeight(e, edgeweight);
 						}
+						if (edgename != null) {
+							e.setName(edgename);
+						}
 					} else {
 						System.out.println("Nicht valide Zeile:" + s);
 					}
@@ -230,6 +236,7 @@ class GraphHandlerModelImpl implements GraphHandlerModel {
 					}
 				}
 				result = new ListenableUndirectedGraph<String, NamedWeightedEdge>(dir);
+				System.out.println("undir not weighted");
 				Set<?> set = result.edgeSet();
 				System.out.println(set);
 			}	
