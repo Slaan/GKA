@@ -19,10 +19,10 @@ public class TestFileHandler {
 	@Test
 	public void saveAndLoad() throws IOException {
 		ArrayList<String> 	graph 	= new ArrayList();
-		graph.add("test of filehandler");
-		graph.add("jojo");
-		graph.add("test123");
-		graph.add("321test");
+		graph.add("a--b");
+		graph.add("b--a");
+		graph.add("c--a");
+		graph.add("d--b");
 		FileHandlerModel fh1 = GKAModel.fileHandler();
 		String				path	= "./graphs/test/test_fh";
 		fh1.save_file(graph, path);

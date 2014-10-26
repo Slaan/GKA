@@ -119,7 +119,7 @@ class GraphHandlerModelImpl implements GraphHandlerModel {
 						String edgename = m.group("edgename");
 						double edgeweight = DEFAULT_EDGE_WEIGHT;
 						if (m.group("edgeweight") != null) {
-							edgeweight = Double.valueOf(m.group("edgeweight")); //Integer.parseInt(m.group("edgeweight"));
+							edgeweight = Double.valueOf(m.group("edgeweight"));
 						}
 						if (node1 != null && !dir_weighted.vertexSet().contains(node1)) {
 							dir_weighted.addVertex(node1);
