@@ -161,17 +161,12 @@ class GraphHandlerModelImpl implements GraphHandlerModel {
 						if ((node1 != null) && (node2 != null)) {
 							dir.addEdge(node1, node2);							
 						}
-						System.out.println(s);
 						NamedWeightedEdge e = new NamedWeightedEdge();
 						
 					} else {
 						System.out.println("Nicht valide Zeile:" + s);
 					}
 				}
-				Set<?> set = dir.edgeSet();
-				System.out.println(set);
-				Set<?> set2 = dir.vertexSet();
-				System.out.println(set2);
 				result = new ListenableDirectedGraph<String, NamedWeightedEdge>(dir);
 			} 
 		//Undirected Graph	
@@ -211,8 +206,6 @@ class GraphHandlerModelImpl implements GraphHandlerModel {
 				Set<NamedWeightedEdge> set = undir_weighted.edgeSet();
 				NamedWeightedEdge one_edge = set.iterator().next();
 				double edge_weight = undir_weighted.getEdgeWeight(one_edge);
-				System.out.println(edge_weight);
-				System.out.println(set);
 				result = new ListenableUndirectedWeightedGraph<String, NamedWeightedEdge>(undir_weighted);
 			} else if(!contains_once(formatted_edges, ":")) {
 				//Undirected Graph
@@ -237,8 +230,6 @@ class GraphHandlerModelImpl implements GraphHandlerModel {
 				}
 				result = new ListenableUndirectedGraph<String, NamedWeightedEdge>(dir);
 				System.out.println("undir not weighted");
-				Set<?> set = result.edgeSet();
-				System.out.println(set);
 			}	
 		}
 		if(result == null) throw new NullPointerException();

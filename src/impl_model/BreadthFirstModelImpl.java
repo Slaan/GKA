@@ -155,7 +155,7 @@ class BreadthFirstModelImpl implements BreadthFirstModel {
 		if(!visited_nodes.contains(target)) {
 			// Since we didn't visited the target,
 			// we can't reach it. It's not accessible!
-			return null;
+			return new ArrayList<>();
 		}
 		System.out.println(isDirected() + " " + labeling);
 		// shortest way
