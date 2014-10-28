@@ -190,4 +190,20 @@ public class TestBreadthFirst {
 		assertEquals(new ArrayList<>(), result);
 	}
 	
+	@Test
+	public void testSimpleDirectedGraph() {
+		Graph<String, NamedWeightedEdge> undirected_graph;
+		undirected_graph = new Pseudograph<>(NamedWeightedEdge.class);
+		undirected_graph.addVertex("a");
+		undirected_graph.addVertex("b");
+		undirected_graph.addVertex("c");
+		undirected_graph.addEdge("a", "b");
+		undirected_graph.addEdge("b", "c");
+		ArrayList<String> expected = new ArrayList<>();
+		expected.add("c");
+		expected.add("b");
+		expected.add("a");
+		BreadthFirstModel bfs = GKAModel.breadthFirst(undirected_graph);
+		assertEquals(expected, bfs.start("c", "a"));
+	}
 }

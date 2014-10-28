@@ -3,10 +3,12 @@ package impl_view;
 import impl_model.NamedWeightedEdge;
 import interface_view.MainWindow;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.util.Collection;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -15,10 +17,14 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
 import org.jgrapht.Graph;
+import org.jgrapht.UndirectedGraph;
 import org.jgrapht.ext.JGraphXAdapter;
 
 import com.mxgraph.layout.mxCircleLayout;
+import com.mxgraph.model.mxGraphModel;
 import com.mxgraph.swing.mxGraphComponent;
+import com.mxgraph.util.mxConstants;
+import com.mxgraph.util.mxUtils;
 
 public class MainWindowImpl extends JFrame implements MainWindow {
 	
@@ -156,10 +162,20 @@ public class MainWindowImpl extends JFrame implements MainWindow {
 		_panel = new JPanel();
 		_adapter = new JGraphXAdapter<String, NamedWeightedEdge>(_graph);
 		_adapter_compo = new mxGraphComponent(_adapter);
+		// since jgrapht prints directed graph by default we need
+		// to change the printstyle
+		if(graph instanceof UndirectedGraph<?, ?>) {
+			mxGraphModel graphModel  = (mxGraphModel)_adapter_compo.getGraph().getModel(); 
+			Collection<Object> cells =  graphModel.getCells().values(); 
+			mxUtils.setCellStyles(_adapter_compo.getGraph().getModel(), 
+			    cells.toArray(), mxConstants.STYLE_ENDARROW, mxConstants.NONE);
+		}
         _panel.add(_adapter_compo);
-        add(_panel);
+        _panel.setMaximumSize(_panel.getPreferredSize());
+        add(_panel,BorderLayout.CENTER);
         mxCircleLayout layout = new mxCircleLayout(_adapter);
         layout.execute(_adapter.getDefaultParent());
+        pack();
 	}
 
 	@Override
