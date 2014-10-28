@@ -99,8 +99,8 @@ public class TestBreadthFirst {
 		directed_graph.addEdge("2", "3");
 		BreadthFirstModel bfs = GKAModel.breadthFirst(directed_graph);
 		ArrayList result = bfs.start("1", "4");
-		// null expected
-		assertNull(result);
+		// expect empty arraylist
+		assertEquals(new ArrayList<>(), result);
 	}
 	
 	@Test
@@ -116,8 +116,8 @@ public class TestBreadthFirst {
 		directed_graph.addEdge("4", "3");
 		BreadthFirstModel bfs = GKAModel.breadthFirst(directed_graph);
 		ArrayList result = bfs.start("1", "4");
-		// null expected
-		assertNull(result);
+		// expect empty arraylist
+		assertEquals(new ArrayList<>(), result);
 	}
 	
 	/*
@@ -149,6 +149,20 @@ public class TestBreadthFirst {
 	}
 	
 	@Test
+	public void testSimpleUndirectedGraphUnaccessable() {
+		Graph<String, NamedWeightedEdge> undirected_graph;
+		undirected_graph = new DirectedPseudograph<>(NamedWeightedEdge.class);
+		undirected_graph.addVertex("a");
+		undirected_graph.addVertex("b");
+		undirected_graph.addVertex("c");
+		undirected_graph.addEdge("a", "b");
+		undirected_graph.addEdge("b", "c");
+		ArrayList<String> expected = new ArrayList<>();
+		BreadthFirstModel bfs = GKAModel.breadthFirst(undirected_graph);
+		assertEquals(expected, bfs.start("c", "a"));
+	}
+	
+	@Test
 	public void testSourceEqualsTargetUndirected() {
 		Graph<String, NamedWeightedEdge> undirected_graph;
 		undirected_graph = new Pseudograph<>(NamedWeightedEdge.class);
@@ -172,8 +186,8 @@ public class TestBreadthFirst {
 		undirected_graph.addEdge("2", "3");
 		BreadthFirstModel bfs = GKAModel.breadthFirst(undirected_graph);
 		ArrayList result = bfs.start("1", "4");
-		// null expected
-		assertNull(result);
+		// expect empty arraylist
+		assertEquals(new ArrayList<>(), result);
 	}
 	
 }
