@@ -3,7 +3,6 @@ package impl_view;
 import impl_model.NamedWeightedEdge;
 import interface_view.MainWindow;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,6 +14,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import org.jgrapht.Graph;
 import org.jgrapht.UndirectedGraph;
@@ -34,7 +34,7 @@ public class MainWindowImpl extends JFrame implements MainWindow {
 	private 		Graph<String, NamedWeightedEdge>			_graph;
 	private			mxGraphComponent 							_adapter_compo; 
 	private         JGraphXAdapter<String, NamedWeightedEdge>   _adapter;
-	private			JPanel										_panel;
+	private			JScrollPane									_pane;
 	// Menu
 	private 		JMenuBar 									_menubar;
 	private			JMenu										_file_menu;
@@ -156,10 +156,10 @@ public class MainWindowImpl extends JFrame implements MainWindow {
 		if(graph == null) throw new NullPointerException();
 		// put graph in listenablegraph?
 		_graph = graph;
-		if(_panel != null) {
-			remove(_panel);
+		JPanel panel = new JPanel();
+		if(_pane != null) {
+			remove(_pane);
 		}
-		_panel = new JPanel();
 		_adapter = new JGraphXAdapter<String, NamedWeightedEdge>(_graph);
 		_adapter_compo = new mxGraphComponent(_adapter);
 		// since jgrapht prints directed graph by default we need
@@ -170,9 +170,13 @@ public class MainWindowImpl extends JFrame implements MainWindow {
 			mxUtils.setCellStyles(_adapter_compo.getGraph().getModel(), 
 			    cells.toArray(), mxConstants.STYLE_ENDARROW, mxConstants.NONE);
 		}
-        _panel.add(_adapter_compo);
-        _panel.setMaximumSize(_panel.getPreferredSize());
-        add(_panel,BorderLayout.CENTER);
+        panel.add(_adapter_compo);
+        panel.setMaximumSize(panel.getPreferredSize());
+        //add(_panel,BorderLayout.CENTER);
+        _pane = new JScrollPane(panel);
+        _pane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        _pane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        add(_pane);
         mxCircleLayout layout = new mxCircleLayout(_adapter);
         layout.execute(_adapter.getDefaultParent());
         pack();
