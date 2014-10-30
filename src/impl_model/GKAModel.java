@@ -21,7 +21,8 @@ public final class GKAModel {
 	 * @returns New GraphHandler
 	 */
 	public static GraphHandlerModel graphHandler() {
-		return GraphHandlerModelImpl.create();
+//		return GraphHandlerModelImpl.create();
+		return OtherGraphHandlerModelImpl.create();
 	}
 	
 	/*
