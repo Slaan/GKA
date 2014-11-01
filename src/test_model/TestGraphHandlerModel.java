@@ -73,7 +73,7 @@ public class TestGraphHandlerModel {
 		dg.addEdge("c", "d");
 		
 		dg_created = _gh.to_graph(array_dg);
-		assertTrue(dg_created.edgeSet().equals(dg.edgeSet()));
+		assertTrue(dg_created.equals(dg));
 	}
 	
 	@Test
@@ -97,86 +97,8 @@ public class TestGraphHandlerModel {
 		dg.addEdge("c", "d");
 		
 		dg_created = _gh.to_graph(array_dg);
-		assertTrue(dg_created.edgeSet().equals(dg.edgeSet()));
+		assertTrue(dg_created.equals(dg));
 	}
-	
-	@Test
-	public void DirectedWeightedGraphTest() {
-		DirectedWeightedPseudograph<String, NamedWeightedEdge> dg = new DirectedWeightedPseudograph<>(NamedWeightedEdge.class);
-		DirectedWeightedPseudograph<String, NamedWeightedEdge> dg_created = new DirectedWeightedPseudograph<>(NamedWeightedEdge.class);
-		ArrayList<String> array_dg = new ArrayList<>();
-		
-		array_dg.add("a->b:5;");
-		array_dg.add("a->a:1;"); //test loops
-		array_dg.add("b->c:3;");
-		array_dg.add("c->d:2;");
-		
-		dg.addVertex("a");
-		dg.addVertex("b");
-		dg.addVertex("c");
-		dg.addVertex("d");
-		dg.addEdge("a", "b");
-		dg.addEdge("a", "a");
-		dg.addEdge("b", "c");
-		dg.addEdge("c", "d");
-		
-		NamedWeightedEdge e = null;
-		e = dg.addEdge("a", "b");
-		e.setWeight(5.0);
-	    ((DirectedWeightedPseudograph) dg).setEdgeWeight(e, 5.0);
-		
-	    NamedWeightedEdge e1 = null;
-		e = dg.addEdge("a", "a");
-		e.setWeight(1.0);
-	    ((DirectedWeightedPseudograph) dg).setEdgeWeight(e, 1.0);
-	    
-	    NamedWeightedEdge e2 = null;
-		e = dg.addEdge("b", "c");
-		e.setWeight(3.0);
-	    ((DirectedWeightedPseudograph) dg).setEdgeWeight(e, 3.0);
-	    
-	    NamedWeightedEdge e3 = null;
-		e = dg.addEdge("c", "d");
-		e.setWeight(2.0);
-	    ((DirectedWeightedPseudograph) dg).setEdgeWeight(e, 2.0);
-	    
-		dg_created = _gh.to_graph(array_dg);
-		System.out.println("test1: created "+dg_created.edgeSet());
-		System.out.println("test2: dg"+dg.edgeSet());
-		assertTrue(dg_created.edgeSet().equals(dg.edgeSet()));
-//		Set<NamedWeightedEdge> edges = new HashSet<>();
-//		edges = dg_created.edgeSet();
-//		for (NamedWeightedEdge edge : edges) {
-//			double weight1, weight2;
-//			weight1 = dg.getEdgeWeight(edge);
-//			weight2 = dg_created.getEdgeWeight(edge);
-//			assertTrue(weight1==weight2);
-//		}
-	}
-	
-//	@Test
-//	public void UndirectedWeightedGraphTest() {
-//		Graph<String, NamedWeightedEdge> dg = new Pseudograph<>(NamedWeightedEdge.class);
-//		Graph<String, NamedWeightedEdge> dg_created = new Pseudograph<>(NamedWeightedEdge.class);
-//		ArrayList<String> array_dg = new ArrayList<>();
-//		
-//		array_dg.add("a--b;");
-//		array_dg.add("a--a;"); //test loops
-//		array_dg.add("b--c;");
-//		array_dg.add("c--d;");
-//		
-//		dg.addVertex("a");
-//		dg.addVertex("b");
-//		dg.addVertex("c");
-//		dg.addVertex("d");
-//		dg.addEdge("a", "b");
-//		dg.addEdge("a", "a");
-//		dg.addEdge("b", "c");
-//		dg.addEdge("c", "d");
-//		
-//		dg_created = _gh.to_graph(array_dg);
-//		assertTrue(dg_created.edgeSet().equals(dg.edgeSet()));
-//	}
-//	
+
 }
 

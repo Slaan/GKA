@@ -19,7 +19,7 @@ import org.jgrapht.UndirectedGraph;
 class BreadthFirstModelImpl implements BreadthFirstModel {
 
 	private		Graph<String, NamedWeightedEdge> _graph;
-	private		Integer							 _graph_accesses;
+	private		Integer							 _graph_accesses = 0; 
 	
 	// Creation
 	public static BreadthFirstModel create(Graph<String, NamedWeightedEdge> g) {
@@ -60,10 +60,13 @@ class BreadthFirstModelImpl implements BreadthFirstModel {
 			String source = _graph.getEdgeSource(e);
 			String target = _graph.getEdgeTarget(e);
 			_graph_accesses++;
-			if(source == node) {
+			System.out.println(source + " " + target);
+			if(source.equals(node)) {
 				accu.add(target);
-			} else {
+			} else if(target.equals(node)){
 				accu.add(source);
+			} else {
+				throw new Error("DUDE!");
 			}
 		}
 		return accu;
@@ -141,7 +144,7 @@ class BreadthFirstModelImpl implements BreadthFirstModel {
 		labeling.put(source, 0);
 		queue.add(source);
 		visited_nodes.add(source);
-		while(!queue.isEmpty()) {
+		while(!queue.isEmpty() && queue.peek() != target) {
 			String current_node = queue.poll();
 			int distance = labeling.get(current_node);
 			Set<String> neighbours = adjacentNodes(current_node);
@@ -209,5 +212,10 @@ class BreadthFirstModelImpl implements BreadthFirstModel {
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public double getTime() {
+		return 0;
 	}
 }
