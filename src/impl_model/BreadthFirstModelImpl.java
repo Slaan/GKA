@@ -95,7 +95,7 @@ class BreadthFirstModelImpl implements BreadthFirstModel {
 	public Set<String> backwardsAdjacentNodes(String node) {
 		if(node == null) 	throw new NullPointerException();
 		if(_graph == null)	throw new NullPointerException();
-		Set<String> accu = new HashSet();
+		Set<String> accu = new HashSet<>();
 		if(isDirected()) {
 			Set<NamedWeightedEdge> edges = ((DirectedGraph) _graph).incomingEdgesOf(node);
 			for(NamedWeightedEdge e : edges) {
@@ -113,6 +113,7 @@ class BreadthFirstModelImpl implements BreadthFirstModel {
 	 * @param aMap has a set as value
 	 * @return a union of all sets as values
 	 */
+	@SuppressWarnings("unused")
 	private <K, V> Set<V> mergeValueSets(Map<K, Set<V>> aMap) {
 		if(aMap == null) throw new NullPointerException();
 		Set<V> accu = new HashSet<>();

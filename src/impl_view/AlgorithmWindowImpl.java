@@ -1,6 +1,6 @@
 package impl_view;
 
-import interface_view.BreadthFirstWindow;
+import interface_view.AlgorithmWindow;
 
 import java.awt.BorderLayout;
 import java.awt.ComponentOrientation;
@@ -16,32 +16,33 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-class BreadthFirstWindowImpl extends JFrame implements BreadthFirstWindow {
+class AlgorithmWindowImpl extends JFrame implements AlgorithmWindow {
 	
-	private			final	String			_title = "Breadth First";
 	private			final	Dimension		_size = new Dimension(400, 150);
 	private					JPanel			_panel;
 	private					JButton			_startbutton;
 	private					JTextField		_start_vertex_field;
 	private					JTextField		_target_vertex_field;
-	private					JTextArea		_result;
-	private					JTextArea		_accesses;
+	private					JTextArea		_resultTextArea;
+	private					JTextArea		_accessesTextArea;
+	private					JTextArea		_timeTextArea;
 	
 	// Creation
-	public static BreadthFirstWindow create() {
-		return new BreadthFirstWindowImpl();
+	public static AlgorithmWindow create(String title) {
+		return new AlgorithmWindowImpl(title);
 	}
 	
-	private BreadthFirstWindowImpl() {
-		setTitle(_title);
+	private AlgorithmWindowImpl(String title) {
+		setTitle(title);
 		setSize(_size);
 		_startbutton 			= new JButton("Start");
 		_start_vertex_field 	= new JTextField(10);
 		_target_vertex_field 	= new JTextField(10);
-		_result					= new JTextArea(1, 20);
-		_accesses				= new JTextArea(1, 20);
-		_result.enable(false);
-		_accesses.enable(false);		
+		_resultTextArea			= new JTextArea(1, 20);
+		_accessesTextArea		= new JTextArea(1, 20);
+		_timeTextArea			= new JTextArea(1, 20);	
+		_resultTextArea.enable(false);
+		_accessesTextArea.enable(false);		
 		FlowLayout layout = new FlowLayout();
 		_panel					= new JPanel(layout);
 		layout.setAlignment(FlowLayout.TRAILING);
@@ -49,8 +50,9 @@ class BreadthFirstWindowImpl extends JFrame implements BreadthFirstWindow {
 		_panel.add(_start_vertex_field);
 		_panel.add(_target_vertex_field);
 		_panel.add(_startbutton);
-		_panel.add(_result);
-		_panel.add(_accesses);
+		_panel.add(_resultTextArea);
+		_panel.add(_accessesTextArea);
+		//_panel.add(_timeTextArea);
 		add(_panel);
 		setVisible(true);
 	}
@@ -64,7 +66,7 @@ class BreadthFirstWindowImpl extends JFrame implements BreadthFirstWindow {
 	@Override
 	public void setResultText(String result) {
 		if(result == null) throw new NullPointerException();
-		_result.setText(result);
+		_resultTextArea.setText(result);
 	}
 
 	@Override
@@ -82,7 +84,14 @@ class BreadthFirstWindowImpl extends JFrame implements BreadthFirstWindow {
 	@Override
 	public void setGraphAccesses(int hops) {
 		// cast to string with ("" + hops)
-		_accesses.setText("" + hops);
+		_accessesTextArea.setText("Hops: " + hops);
+	}
+
+	@Override
+	public void setTime(Double time) {
+		// cast to String with ""
+		_timeTextArea.setText("Time: " + time);
+		
 	}
 
 }

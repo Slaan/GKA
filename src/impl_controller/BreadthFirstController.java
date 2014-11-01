@@ -5,7 +5,7 @@ import impl_model.NamedWeightedEdge;
 import impl_view.GKAView;
 import interface_controller.BreadthFirst;
 import interface_model.BreadthFirstModel;
-import interface_view.BreadthFirstWindow;
+import interface_view.AlgorithmWindow;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,10 +15,9 @@ import org.jgrapht.Graph;
 
 class BreadthFirstController implements BreadthFirst {
 
-	private		BreadthFirstModel 	_bfsm;
-	private		BreadthFirstWindow	_bfsw;
-	// NOTE: may delete graph?
-	private 	Graph				_graph;
+	private		BreadthFirstModel 					_bfsm;
+	private		AlgorithmWindow						_bfsw;
+	private 	Graph<String, NamedWeightedEdge>	_graph;
 	
 	// Creation
 	public static BreadthFirst create(Graph<String, NamedWeightedEdge> graph) {
@@ -30,7 +29,7 @@ class BreadthFirstController implements BreadthFirst {
 		if(graph == null) throw new NullPointerException();
 		_graph = graph;
 		_bfsm = GKAModel.breadthFirst(_graph);
-		_bfsw = GKAView.breadthFirstWindow();
+		_bfsw = GKAView.algorithmWindow("Breadth First");
 		_bfsw.addStartButtonListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
