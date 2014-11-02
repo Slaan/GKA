@@ -12,8 +12,11 @@ public interface MainWindow {
 	public void addLoadListener(ActionListener al);
 	public void addSaveListener(ActionListener al);
 	// edit menu
+	public void addGenerateListener(ActionListener al);
 	// algorithm menu
+	public void addDijkstraListener(ActionListener al);
 	public void addBreadthFirstListener(ActionListener al);
+	public void addFloydWarshallListener(ActionListener al);
 	// non-menu
 	public void setGraph(Graph<String, NamedWeightedEdge> graph);
 	public void setPath(String path);

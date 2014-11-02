@@ -1,10 +1,13 @@
 package impl_controller;
 
-import org.jgrapht.Graph;
-
+import impl_model.NamedWeightedEdge;
 import interface_controller.BreadthFirst;
+import interface_controller.Dijkstra;
 import interface_controller.FileHandler;
+import interface_controller.FloydWarshall;
 import interface_controller.GraphHandler;
+
+import org.jgrapht.Graph;
 
 public final class GKA {
 
@@ -25,7 +28,18 @@ public final class GKA {
 	/**
 	 * @return new BreadthFirst
 	 */
-	public static BreadthFirst breadthFirst(Graph graph) {
+	public static BreadthFirst breadthFirst(Graph<String, NamedWeightedEdge> graph) {
+		if(graph == null) throw new NullPointerException();
 		return BreadthFirstController.create(graph);
+	}
+	
+	public static Dijkstra dijkstra(Graph<String, NamedWeightedEdge> graph) {
+		if(graph == null) throw new NullPointerException();
+		return DijkstraController.create(graph);
+	}
+	
+	public static FloydWarshall floydWarshall(Graph<String, NamedWeightedEdge> graph) {
+		if(graph == null) throw new NullPointerException();
+		return FloydWarshallController.create(graph);
 	}
 }

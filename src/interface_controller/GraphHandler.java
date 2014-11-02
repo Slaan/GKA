@@ -20,4 +20,9 @@ public interface GraphHandler {
 	 * Get loaded or stored graph
 	 */
 	public Graph<String, NamedWeightedEdge>	getGraph();
+	
+	/**
+	 * Get path from file
+	 */
+	public String getPath();
 }

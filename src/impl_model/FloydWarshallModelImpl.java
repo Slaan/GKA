@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 import org.jgrapht.Graph;
 
-public class FloydWarshallModelImpl implements FloydWarshallModel {
+class FloydWarshallModelImpl implements FloydWarshallModel {
 
 	// Creation
 	public static FloydWarshallModel create(Graph<String, NamedWeightedEdge> graph) {

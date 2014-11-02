@@ -1,7 +1,7 @@
 package impl_controller;
 
+import impl_model.NamedWeightedEdge;
 import impl_view.GKAView;
-import interface_controller.BreadthFirst;
 import interface_controller.GraphHandler;
 import interface_view.MainWindow;
 
@@ -12,10 +12,10 @@ import org.jgrapht.Graph;
 
 public class MainController {
 	
-	private static 	MainController 				_instance;
-	private			MainWindow 					_window;
-	private			GraphHandler				_graphhandler;		
-	private			Graph						_graph;
+	private static 	MainController 					 _instance;
+	private			MainWindow 						 _window;
+	private			GraphHandler					 _graphhandler;		
+	private			Graph<String, NamedWeightedEdge> _graph;
 	
 	// Creation
 	public static MainController create() {
@@ -33,6 +33,7 @@ public class MainController {
 			public void actionPerformed(ActionEvent e) {
 				_graphhandler.load();
 				_graph = _graphhandler.getGraph();
+				_window.setPath(_graphhandler.getPath());
 				_window.setGraph(_graph);
 			}
 		});
@@ -46,12 +47,24 @@ public class MainController {
 				}
 			}
 		});
-		// Since breadthFirst doesn't change something in mainwindow, we don't
+		// Since algorithms don't change, we don't
 		// need to store it as instance variable
 		_window.addBreadthFirstListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				GKA.breadthFirst(_graph);
+			}
+		});
+		_window.addDijkstraListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				GKA.dijkstra(_graph);
+			}
+		});
+		_window.addFloydWarshallListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				GKA.floydWarshall(_graph);
 			}
 		});
 	}

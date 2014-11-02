@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 import org.jgrapht.Graph;
 
-public class DijkstraModelImpl implements DijkstraModel {
+class DijkstraModelImpl implements DijkstraModel {
 
 	private		Integer		_graph_accesses = 0; 
 	

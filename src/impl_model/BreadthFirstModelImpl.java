@@ -39,7 +39,7 @@ class BreadthFirstModelImpl implements BreadthFirstModel {
 	private Set<String> directedAdjacentNodes(String node) {
 		if(node == null) throw new NullPointerException();
 		Set<String> accu = new HashSet<>();
-		Set<NamedWeightedEdge> edges = ((DirectedGraph) _graph).outgoingEdgesOf(node);
+		Set<NamedWeightedEdge> edges = ((DirectedGraph<String, NamedWeightedEdge>) _graph).outgoingEdgesOf(node);
 		for(NamedWeightedEdge e : edges) {
 			_graph_accesses++;
 			String neigbour = _graph.getEdgeTarget(e);
@@ -60,7 +60,6 @@ class BreadthFirstModelImpl implements BreadthFirstModel {
 			String source = _graph.getEdgeSource(e);
 			String target = _graph.getEdgeTarget(e);
 			_graph_accesses++;
-			System.out.println(source + " " + target);
 			if(source.equals(node)) {
 				accu.add(target);
 			} else if(target.equals(node)){
@@ -73,7 +72,7 @@ class BreadthFirstModelImpl implements BreadthFirstModel {
 	}
 	
 	/**
-	 * @return all adjacent nodes which are accessable from given node
+	 * @return all adjacent nodes which are accessible from given node
 	 * It adds outgoing, adjacent nodes!
 	 */
 	public Set<String> adjacentNodes(String node) {
@@ -97,7 +96,8 @@ class BreadthFirstModelImpl implements BreadthFirstModel {
 		if(_graph == null)	throw new NullPointerException();
 		Set<String> accu = new HashSet<>();
 		if(isDirected()) {
-			Set<NamedWeightedEdge> edges = ((DirectedGraph) _graph).incomingEdgesOf(node);
+			Set<NamedWeightedEdge> edges;
+			edges = ((DirectedGraph<String, NamedWeightedEdge>) _graph).incomingEdgesOf(node);
 			for(NamedWeightedEdge e : edges) {
 				String neigbour = _graph.getEdgeSource(e);
 				_graph_accesses++;
@@ -161,7 +161,6 @@ class BreadthFirstModelImpl implements BreadthFirstModel {
 			// we can't reach it. It's not accessible!
 			return new ArrayList<>();
 		}
-		System.out.println(isDirected() + " " + labeling);
 		// shortest way
 		ArrayList<String> shortest_way = new ArrayList<>();
 		String current_node = target;

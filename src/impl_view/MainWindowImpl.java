@@ -41,8 +41,11 @@ public class MainWindowImpl extends JFrame implements MainWindow {
 	private			JMenuItem									_load_item;
 	private			JMenuItem									_save_item;
 	private			JMenu										_edit_menu;
+	private			JMenuItem									_generate_graph_item;
 	private			JMenu										_algo_menu;
 	private			JMenuItem									_breadth_item;
+	private			JMenuItem									_dijkstra_item;
+	private			JMenuItem									_floydwarshall_item;
 	private			JMenu										_version_menu;
 	
 	// Creation
@@ -102,6 +105,10 @@ public class MainWindowImpl extends JFrame implements MainWindow {
 	
 	private JMenu edit_menu() {
 		JMenu edit = new JMenu("Edit");
+		// generate graph
+		_generate_graph_item = new JMenuItem("Generate graph");
+		_generate_graph_item.setMnemonic(KeyEvent.VK_G);
+		edit.add(_generate_graph_item);
 		// file.add(add_vertex);
 		// file.add(add_edge);
 		// file.add(remove_vertex);
@@ -115,14 +122,25 @@ public class MainWindowImpl extends JFrame implements MainWindow {
 		_breadth_item = new JMenuItem("Breadth First");
 		_breadth_item.setMnemonic(KeyEvent.VK_B);
 		algo.add(_breadth_item);
+		// dijkstra
+		_dijkstra_item = new JMenuItem("Dijkstra");
+		_dijkstra_item.setMnemonic(KeyEvent.VK_D);
+		algo.add(_dijkstra_item);
+		// floyd warshall
+		_floydwarshall_item = new JMenuItem("Floyd Warshall");
+		_floydwarshall_item.setMnemonic(KeyEvent.VK_F);
+		algo.add(_floydwarshall_item);
 		return algo;
 	}
 	
 	private JMenu version_menu() {
 		JMenu version = new JMenu("Version");
 		JMenuItem detail = new JMenuItem("Version: " + _version);
+		detail.enable(false);
 		JMenuItem author1 = new JMenuItem("Alex Mantel");
+		author1.enable(false);
 		JMenuItem author2 = new JMenuItem("Daniel Hofmeister");
+		author2.enable(false);
 		version.add(detail);
 		version.add(author1);
 		version.add(author2);
@@ -141,6 +159,14 @@ public class MainWindowImpl extends JFrame implements MainWindow {
 		if(al == null) throw new NullPointerException();
 		_save_item.addActionListener(al);
 	}
+	
+	// edit menu
+	@Override
+	public void addGenerateListener(ActionListener al) {
+		if(al == null) throw new NullPointerException();
+		if(_generate_graph_item == null) throw new NullPointerException();
+		_generate_graph_item.addActionListener(al);
+	}
 
 	// algorithm menu
 	@Override
@@ -150,11 +176,25 @@ public class MainWindowImpl extends JFrame implements MainWindow {
 		_breadth_item.addActionListener(al);
 	}
 
+	@Override
+	public void addDijkstraListener(ActionListener al) {
+		if(al == null) throw new NullPointerException();
+		if(_dijkstra_item == null) throw new NullPointerException();
+		_dijkstra_item.addActionListener(al);
+	}
+	
+	@Override
+	public void addFloydWarshallListener(ActionListener al) {
+		if(al == null) throw new NullPointerException();
+		if(_floydwarshall_item == null) throw new NullPointerException();
+		_floydwarshall_item.addActionListener(al);
+		
+	}
+	
 	// non-menu
 	@Override
 	public void setGraph(Graph<String, NamedWeightedEdge> graph) {
 		if(graph == null) throw new NullPointerException();
-		// put graph in listenablegraph?
 		_graph = graph;
 		JPanel panel = new JPanel();
 		if(_pane != null) {
@@ -162,8 +202,8 @@ public class MainWindowImpl extends JFrame implements MainWindow {
 		}
 		_adapter = new JGraphXAdapter<String, NamedWeightedEdge>(_graph);
 		_adapter_compo = new mxGraphComponent(_adapter);
-		// since jgrapht prints directed graph by default we need
-		// to change the printstyle
+		// since jgrapht prints undirected graph as directed graph by default, 
+		// we need to change the layout
 		if(graph instanceof UndirectedGraph<?, ?>) {
 			mxGraphModel graphModel  = (mxGraphModel)_adapter_compo.getGraph().getModel(); 
 			Collection<Object> cells =  graphModel.getCells().values(); 
@@ -172,8 +212,8 @@ public class MainWindowImpl extends JFrame implements MainWindow {
 		}
         panel.add(_adapter_compo);
         panel.setMaximumSize(panel.getPreferredSize());
-        //add(_panel,BorderLayout.CENTER);
         _pane = new JScrollPane(panel);
+        // scrollbars for graph
         _pane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         _pane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         add(_pane);
@@ -187,5 +227,5 @@ public class MainWindowImpl extends JFrame implements MainWindow {
 		if(path == null) throw new NullPointerException("Can't set path to null.");
 		setTitle(_title + " - " + path);
 	}
-
+	
 }

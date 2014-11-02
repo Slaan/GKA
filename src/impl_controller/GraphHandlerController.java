@@ -50,4 +50,9 @@ public class GraphHandlerController implements GraphHandler {
 		if(_graph == null) throw new NullPointerException();
 		return _graph;
 	}
+
+	@Override
+	public String getPath() {
+		return _fh.get_path();
+	}
 }
