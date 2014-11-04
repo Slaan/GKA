@@ -6,14 +6,13 @@ import impl_model.NamedWeightedEdge;
 import interface_model.GraphHandlerModel;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 import org.jgraph.graph.DefaultEdge;
 import org.jgrapht.Graph;
 import org.jgrapht.ListenableGraph;
 import org.jgrapht.graph.DefaultListenableGraph;
 import org.jgrapht.graph.DirectedPseudograph;
-import org.jgrapht.graph.DirectedWeightedPseudograph;
-import org.jgrapht.graph.ListenableDirectedGraph;
 import org.jgrapht.graph.Pseudograph;
 import org.junit.Before;
 import org.junit.Test;
@@ -67,12 +66,17 @@ public class TestGraphHandlerModel {
 		dg.addVertex("b");
 		dg.addVertex("c");
 		dg.addVertex("d");
-		dg.addEdge("a", "b");
-		dg.addEdge("a", "a");
-		dg.addEdge("b", "c");
-		dg.addEdge("c", "d");
-		
+		NamedWeightedEdge edge1 = dg.addEdge("a", "b");
+		NamedWeightedEdge edge2 = dg.addEdge("a", "a");
+		NamedWeightedEdge edge3 = dg.addEdge("b", "c");
+		NamedWeightedEdge edge4 = dg.addEdge("c", "d");
+		edge1.setWeight(1.0);
+		edge2.setWeight(1.0);
+		edge3.setWeight(1.0);
+		edge4.setWeight(1.0);
 		dg_created = _gh.to_graph(array_dg);
+		//System.out.println(dg_created);
+		//System.out.println(dg);
 		assertTrue(dg_created.equals(dg));
 	}
 	
@@ -97,8 +101,20 @@ public class TestGraphHandlerModel {
 		dg.addEdge("c", "d");
 		
 		dg_created = _gh.to_graph(array_dg);
+		//System.out.println(dg_created);
+		//System.out.println(dg);
 		assertTrue(dg_created.equals(dg));
 	}
-
+	
+	@Test
+	public void GraphGeneratorTest() {
+		Graph<String, NamedWeightedEdge> dg = new DirectedPseudograph<>(NamedWeightedEdge.class);
+		dg = _gh.generateGraph(10, 50);
+		Set<String> vertexes = dg.vertexSet();
+		Set<NamedWeightedEdge> edges = dg.edgeSet();
+		System.out.println(dg);
+		assertTrue(vertexes.size()==10);
+		assertTrue(edges.size()==50);
+	}
 }
 

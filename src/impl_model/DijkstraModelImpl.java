@@ -35,6 +35,8 @@ class DijkstraModelImpl implements DijkstraModel {
 	
 	/**
 	 * @see AlgorithmModel
+	 * start ist der Hauptaufruf dieses Algorithmus, hiermit wird der kürzeste Weg eines
+	 * Graphen bestimmt.
 	 */
 	@Override
 	public ArrayList<String> start(String source, String target) {
@@ -42,26 +44,29 @@ class DijkstraModelImpl implements DijkstraModel {
 		assert target != null : "Vorbedingung verletzt: target != null";
 		assert _graph != null : "Vorbedingung verletzt: _graph != null";
 		
+		//Initailisierung der benötigten Datenstrukturen
 		List<String> result = new ArrayList<>();
-		Set<String> nodes = _graph.vertexSet();
-		Set<NamedWeightedEdge> edges = _graph.edgeSet();
 		_finishedNodes = new HashSet<>();
 		_openNodes = new HashSet<>();
 		_pred = new HashMap<>();
 		_dist = new HashMap<>();
+		
+		//Setzen des ersten Wertes
 		_pred.put(source, null);
 		_dist.put(source, 0.0);
 		_openNodes.add(source);
 		  
+		//So lange wir das Ziel nicht mit dem Algorithmus komplett abgehandelt wurde,
+		//es also nicht der kleinste Wert gewesen ist, wird der Algorithmus weiter verfolgt.
 		while (!_finishedNodes.contains(target)) {
 			String closest_vertex = getMinimum(_openNodes);
 			update(closest_vertex);
 		    _finishedNodes.add(closest_vertex);
 		    _openNodes.remove(closest_vertex); 
 		}
-
+		
+		//Ermittlung des kürzesten Weges
 	    String step = target;
-	    // check if a path exists
 	    if (_pred.get(step) == null) {
 	      return null;
 	    }
@@ -115,6 +120,7 @@ class DijkstraModelImpl implements DijkstraModel {
 	}
 	
 	  private double getDistance(String destination) {
+		  assert destination != null : "Vorbedingung verletzt: destination != null";
 		    Double d = _dist.get(destination);
 		    if (d == null) {
 		      return Double.MAX_VALUE;
