@@ -4,6 +4,7 @@ import interface_model.AlgorithmModel;
 import interface_model.DijkstraModel;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -43,6 +44,9 @@ class DijkstraModelImpl implements DijkstraModel {
 		assert source != null : "Vorbedingung verletzt: source != null";
 		assert target != null : "Vorbedingung verletzt: target != null";
 		assert _graph != null : "Vorbedingung verletzt: _graph != null";
+		Set<String> vertex_set = _graph.vertexSet();
+		assert vertex_set.contains(source) : "Vorbedingung verletzt: _graph.vertexSet().contains(source)";
+		assert vertex_set.contains(target) : "Vorbedingung verletzt: _graph.vertexSet().contains(target)";
 		
 		//Initailisierung der benötigten Datenstrukturen
 		List<String> result = new ArrayList<>();
@@ -75,6 +79,7 @@ class DijkstraModelImpl implements DijkstraModel {
 	      step = _pred.get(step);
 	      result.add(step);
 	    }
+	    Collections.reverse(result);
 		return (ArrayList<String>) result;
 	}
 
@@ -88,8 +93,8 @@ class DijkstraModelImpl implements DijkstraModel {
 			}
 		}
 		for (String s : adjacent) {
-			NamedWeightedEdge edge = _graph.getEdge(s, closest_vertex);
-			System.out.println(edge);
+			if (!s.equals(closest_vertex)) {
+			NamedWeightedEdge edge = _graph.getEdge(closest_vertex, s);
 			Double weight = edge.getthisWeight();
 			Double cur_dist = _dist.get(s);
 			Double optional_dist = (_dist.get(closest_vertex)+weight);
@@ -101,6 +106,7 @@ class DijkstraModelImpl implements DijkstraModel {
 				_pred.put(s, closest_vertex);
 			}
 			_openNodes.add(s);
+			}
 		}		
 	}
 

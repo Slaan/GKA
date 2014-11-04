@@ -117,6 +117,8 @@ public class OtherGraphHandlerModelImpl implements GraphHandlerModel {
 					// add the default weight, when no weight is given
 					edge_accu.setWeight(WeightedGraph.DEFAULT_EDGE_WEIGHT);
 				} else {
+					Double weight_value = Double.valueOf(weight);
+					assert weight_value>0.0 : "Vorbedingung verletzt: weight_value>0.0";
 					edge_accu.setWeight(Double.valueOf(weight));
 				}
 			} else {
@@ -215,7 +217,7 @@ public class OtherGraphHandlerModelImpl implements GraphHandlerModel {
 			Integer v_int2 = generator.nextInt(vertexes-1)+1;
 			System.out.println(v_int2);
 			edge = result.addEdge(v_int1.toString(), v_int2.toString());
-			Integer weight = generator.nextInt(20)+1;
+			Integer weight = generator.nextInt(19)+1;
 			edge.setWeight(Double.valueOf(weight));
 		}
 		
