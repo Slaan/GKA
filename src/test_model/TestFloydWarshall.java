@@ -210,9 +210,4 @@ public class TestFloydWarshall {
 		assertEquals(Arrays.asList("v3", "v2", "v4", "v1"), _km.start("v3", "v1"));
 	}
 	
-	@Test
-	public void testUnaccessableGraphs() {
-		
-	}
-	
 }

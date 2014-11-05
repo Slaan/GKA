@@ -103,16 +103,21 @@ class FloydWarshallModelImpl implements FloydWarshallModel {
 		if(target == null) throw new NullPointerException();
 		_total_graph_accesses += _graph_accesses;
 		_graph_accesses = 0;
+		_weight = getDistanceValue(source, target);
+		return run(source, target);
+	}
+	
+	private ArrayList<String> run(String source, String target) {
 		ArrayList<String> accu = new ArrayList<>();
 		if(0 == getTransitValue(source, target)) {
 			accu.addAll(Arrays.asList(source, target));
 			return accu;
 		}
 		String between = indexToVertex(getTransitValue(source, target));
-		accu.addAll(start(source, between));
+		accu.addAll(run(source, between));
 		// remove last item
 		accu.remove(accu.size()-1);
-		accu.addAll(start(between, target));
+		accu.addAll(run(between, target));
 		return accu;
 	}
 
