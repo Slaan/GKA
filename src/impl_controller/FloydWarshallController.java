@@ -39,7 +39,6 @@ class FloydWarshallController implements FloydWarshall {
 				_aw.setResultText(result.toString());
 				_aw.setGraphAccesses(_fwm.getGraphAccesses(), _fwm.getTotalGraphAccesses());
 				_aw.setWeight(_fwm.getWeight());
-				System.out.println(_fwm.getDistanceMatrix());
 			}
 		});
 	}

@@ -38,6 +38,7 @@ class DijkstraController implements Dijkstra {
 				ArrayList<String> result = _dm.start(source, target);
 				_aw.setResultText(result.toString());
 				_aw.setGraphAccesses(_dm.getGraphAccesses(), _dm.getTotalGraphAccesses());
+				_aw.setWeight(_dm.getWeight());
 			}
 		});
 	}
