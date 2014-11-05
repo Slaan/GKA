@@ -18,6 +18,7 @@ import org.jgrapht.UndirectedGraph;
 class DijkstraModelImpl implements DijkstraModel {
 
 	private		Integer									_graph_accesses = 0; 
+	private		Integer									_total_graph_accesses = 0; 
 	public 		Graph<String,NamedWeightedEdge> 		_graph;
 	private 	Set<String> 							_finishedNodes;
 	private 	Set<String> 							_openNodes;
@@ -36,11 +37,13 @@ class DijkstraModelImpl implements DijkstraModel {
 	
 	/**
 	 * @see AlgorithmModel
-	 * start ist der Hauptaufruf dieses Algorithmus, hiermit wird der kürzeste Weg eines
+	 * start ist der Hauptaufruf dieses Algorithmus, hiermit wird der kuerzeste Weg eines
 	 * Graphen bestimmt.
 	 */
 	@Override
 	public ArrayList<String> start(String source, String target) {
+		_total_graph_accesses += _graph_accesses;
+		_graph_accesses = 0;
 		assert source != null : "Vorbedingung verletzt: source != null";
 		assert target != null : "Vorbedingung verletzt: target != null";
 		assert _graph != null : "Vorbedingung verletzt: _graph != null";
@@ -48,7 +51,7 @@ class DijkstraModelImpl implements DijkstraModel {
 		assert vertex_set.contains(source) : "Vorbedingung verletzt: _graph.vertexSet().contains(source)";
 		assert vertex_set.contains(target) : "Vorbedingung verletzt: _graph.vertexSet().contains(target)";
 		
-		//Initailisierung der benötigten Datenstrukturen
+		//Initailisierung der benoetigten Datenstrukturen
 		List<String> result = new ArrayList<>();
 		_finishedNodes = new HashSet<>();
 		_openNodes = new HashSet<>();
@@ -69,7 +72,7 @@ class DijkstraModelImpl implements DijkstraModel {
 		    _openNodes.remove(closest_vertex); 
 		}
 		
-		//Ermittlung des kürzesten Weges
+		//Ermittlung des k��rzesten Weges
 	    String step = target;
 	    if (_pred.get(step) == null) {
 	      return null;
@@ -220,6 +223,17 @@ class DijkstraModelImpl implements DijkstraModel {
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public int getTotalGraphAccesses() {
+		return _total_graph_accesses;
+	}
+
+	@Override
+	public double getWeight() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 	
 }

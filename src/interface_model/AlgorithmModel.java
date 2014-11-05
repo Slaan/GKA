@@ -18,7 +18,14 @@ public interface AlgorithmModel {
 	public int getGraphAccesses();
 	
 	/**
+	 * 
+	 * @return amount of accesses on graph during all runs.
+	 */
+	public int getTotalGraphAccesses();
+	
+	/**
 	 * @return Time used in milliseconds. By default 0.
 	 */
 	public double getTime();
+	
 }

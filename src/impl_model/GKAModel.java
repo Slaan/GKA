@@ -47,9 +47,6 @@ public final class GKAModel {
 	 */
 	public static FloydWarshallModel floydWarshall(Graph<String, NamedWeightedEdge> graph) {
 		if(graph == null) throw new NullPointerException();
-//		if(graph instanceof UndirectedGraph) {
-//			throw new IllegalArgumentException("Undirected graphs are not allowed");
-//		}
 		return FloydWarshallModelImpl.create(graph);
 	}
 	

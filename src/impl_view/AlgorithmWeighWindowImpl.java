@@ -1,22 +1,20 @@
 package impl_view;
 
+import interface_view.AlgorithmWeighWindow;
 import interface_view.AlgorithmWindow;
 
-import java.awt.BorderLayout;
 import java.awt.ComponentOrientation;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.GridBagLayout;
 import java.awt.event.ActionListener;
 
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-class AlgorithmWindowImpl extends JFrame implements AlgorithmWindow {
+class AlgorithmWeighWindowImpl extends JFrame implements AlgorithmWeighWindow {
 	
 	private			final	Dimension		_size = new Dimension(400, 150);
 	private					JPanel			_panel;
@@ -26,13 +24,14 @@ class AlgorithmWindowImpl extends JFrame implements AlgorithmWindow {
 	private					JTextArea		_resultTextArea;
 	private					JTextArea		_accessesTextArea;
 	private					JTextArea		_timeTextArea;
+	private					JTextArea		_weightTextArea;
 	
 	// Creation
-	public static AlgorithmWindow create(String title) {
-		return new AlgorithmWindowImpl(title);
+	public static AlgorithmWeighWindow create(String title) {
+		return new AlgorithmWeighWindowImpl(title);
 	}
 	
-	private AlgorithmWindowImpl(String title) {
+	private AlgorithmWeighWindowImpl(String title) {
 		setTitle(title);
 		setSize(_size);
 		_startbutton 			= new JButton("Start");
@@ -40,9 +39,11 @@ class AlgorithmWindowImpl extends JFrame implements AlgorithmWindow {
 		_target_vertex_field 	= new JTextField(10);
 		_resultTextArea			= new JTextArea(1, 20);
 		_accessesTextArea		= new JTextArea(1, 20);
-		_timeTextArea			= new JTextArea(1, 20);	
+		_timeTextArea			= new JTextArea(1, 20);
+		_weightTextArea			= new JTextArea(1, 20);
 		_resultTextArea.enable(false);
 		_accessesTextArea.enable(false);		
+		_weightTextArea.enable(false);
 		FlowLayout layout = new FlowLayout();
 		_panel					= new JPanel(layout);
 		layout.setAlignment(FlowLayout.TRAILING);
@@ -52,6 +53,7 @@ class AlgorithmWindowImpl extends JFrame implements AlgorithmWindow {
 		_panel.add(_startbutton);
 		_panel.add(_resultTextArea);
 		_panel.add(_accessesTextArea);
+		_panel.add(_weightTextArea);
 		//_panel.add(_timeTextArea);
 		add(_panel);
 		setVisible(true);
@@ -82,15 +84,19 @@ class AlgorithmWindowImpl extends JFrame implements AlgorithmWindow {
 	}
 
 	@Override
+	public void setGraphAccesses(int last, int total) {
+		_accessesTextArea.setText("Total: " + total + " Last :" + last);
+	}
+
+	@Override
 	public void setTime(Double time) {
-		// cast to String with ""
 		_timeTextArea.setText("Time: " + time);
 		
 	}
 
 	@Override
-	public void setGraphAccesses(int total, int last) {
-		_accessesTextArea.setText("Hops: " + total + " Last :" + last);
+	public void setWeight(Double weight) {
+		_weightTextArea.setText("Weight: " + weight);
 	}
 
 }

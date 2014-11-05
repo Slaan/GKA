@@ -13,6 +13,9 @@ import org.jgrapht.UndirectedGraph;
 
 class FloydWarshallModelImpl implements FloydWarshallModel {
 
+	private Integer							_total_graph_accesses = 0;
+	private	Integer							_graph_accesses = 0;
+	private	Double							_weight = 0.0;
 	private Map<String, Integer> 			_vertexindex;
 	private ArrayList<ArrayList<Double>> 	_distance_matrix;
 	private ArrayList<ArrayList<Integer>> 	_transit_matrix;
@@ -28,12 +31,15 @@ class FloydWarshallModelImpl implements FloydWarshallModel {
 		// vertex to index 
 		int v = 0;
 		for(String vertex : graph.vertexSet()) {
+			_graph_accesses++;
 			_vertexindex.put(vertex, v);
 			v++;
 		}
 		_distance_matrix = new ArrayList<>();
 		// set all fields to zero or inifinty
+		_graph_accesses++;
 		for(int i = 0; i < graph.vertexSet().size(); i++) {
+			_graph_accesses++;
 			ArrayList<Double> trans = new ArrayList<>();
 			for(int j = 0; j < graph.vertexSet().size(); j++) {
 				if(i == j) {
@@ -44,35 +50,37 @@ class FloydWarshallModelImpl implements FloydWarshallModel {
 			}
 			_distance_matrix.add(i, trans);
 		}
-		if(graph instanceof UndirectedGraph) {
-			for(NamedWeightedEdge edge : graph.edgeSet()) {
-				String source = graph.getEdgeSource(edge);
-				String target = graph.getEdgeTarget(edge);
-				setDistanceValue(source, target, edge.getthisWeight());
+
+		for(NamedWeightedEdge edge : graph.edgeSet()) {
+			String source = graph.getEdgeSource(edge);
+			String target = graph.getEdgeTarget(edge);
+			_graph_accesses++;
+			setDistanceValue(source, target, edge.getthisWeight());
+			if(graph instanceof UndirectedGraph) {
+				// Differentiate between undirected and directed graphs
+				// so we add edges into both directions for undirected
 				setDistanceValue(target, source, edge.getthisWeight());
 			}
-		} else if(graph instanceof DirectedGraph) {
-			for(NamedWeightedEdge edge : graph.edgeSet()) {
-				String source = graph.getEdgeSource(edge);
-				String target = graph.getEdgeTarget(edge);
-				setDistanceValue(source, target, edge.getthisWeight());
-			}			
-		} else {
-			throw new Error("Unexpected Error!");
-		}
+		}			
 		_transit_matrix = new ArrayList<>();
+		// build transitmatrix
 		for(String source : graph.vertexSet()) {
+			_graph_accesses++;
 			ArrayList<Integer> tran = new ArrayList<>();
 			for(String target : graph.vertexSet()) {
+				_graph_accesses++;
 				tran.add(_vertexindex.get(target), 0);
 			}
 			_transit_matrix.add(_vertexindex.get(source), tran);
 		}
 		// iteration
 		for(String j : graph.vertexSet()) {
+			_graph_accesses++;
 			for(String i : graph.vertexSet()) {
+				_graph_accesses++;
 				if(!(i.equals(j))) {
 					for(String k : graph.vertexSet()) {
+						_graph_accesses++;
 						if(!(k.equals(j))) {
 							Double ikweight = getDistanceValue(i, k);
 							Double ijweight = getDistanceValue(i, j);
@@ -93,6 +101,8 @@ class FloydWarshallModelImpl implements FloydWarshallModel {
 	public ArrayList<String> start(String source, String target) {
 		if(source == null) throw new NullPointerException();
 		if(target == null) throw new NullPointerException();
+		_total_graph_accesses += _graph_accesses;
+		_graph_accesses = 0;
 		ArrayList<String> accu = new ArrayList<>();
 		if(0 == getTransitValue(source, target)) {
 			accu.addAll(Arrays.asList(source, target));
@@ -108,8 +118,7 @@ class FloydWarshallModelImpl implements FloydWarshallModel {
 
 	@Override
 	public int getGraphAccesses() {
-		// TODO Auto-generated method stub
-		return 0;
+		return _graph_accesses;
 	}
 
 	@Override
@@ -172,20 +181,6 @@ class FloydWarshallModelImpl implements FloydWarshallModel {
 	}
 
 	@Override
-	public boolean isInfinity(String source, String target) {
-		if(source == null) throw new NullPointerException();
-		if(target == null) throw new NullPointerException();
-		return (getDistanceValue(source, target).equals(Double.POSITIVE_INFINITY));
-	}
-
-	@Override
-	public boolean isZero(String source, String target) {
-		if(source == null) throw new NullPointerException();
-		if(target == null) throw new NullPointerException();
-		return (getDistanceValue(source, target).equals(0.0));
-	}
-
-	@Override
 	public Map<String, Integer> getIndexMap() {
 		return _vertexindex;
 	}
@@ -198,6 +193,16 @@ class FloydWarshallModelImpl implements FloydWarshallModel {
 	@Override
 	public ArrayList<ArrayList<Integer>> getTransitMatrix() {
 		return _transit_matrix;
+	}
+
+	@Override
+	public int getTotalGraphAccesses() {
+		return _total_graph_accesses;
+	}
+
+	@Override
+	public double getWeight() {
+		return _weight;
 	}
 
 

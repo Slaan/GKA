@@ -1,6 +1,6 @@
 package impl_view;
 
-import interface_model.BreadthFirstModel;
+import interface_view.AlgorithmWeighWindow;
 import interface_view.AlgorithmWindow;
 import interface_view.MainWindow;
 
@@ -19,5 +19,15 @@ public final class GKAView {
 	public static AlgorithmWindow algorithmWindow(String title) {
 		if(title == null) throw new NullPointerException();
 		return AlgorithmWindowImpl.create(title);
+	}
+	
+	/**
+	 * 
+	 * @param title
+	 * @return a window for weighted graph algorithms
+	 */
+	public static AlgorithmWeighWindow algorithmWeighWindow(String title) {
+		if(title == null) throw new NullPointerException();
+		return AlgorithmWeighWindowImpl.create(title);
 	}
 }

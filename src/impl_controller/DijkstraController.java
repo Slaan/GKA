@@ -5,7 +5,7 @@ import impl_model.NamedWeightedEdge;
 import impl_view.GKAView;
 import interface_controller.Dijkstra;
 import interface_model.DijkstraModel;
-import interface_view.AlgorithmWindow;
+import interface_view.AlgorithmWeighWindow;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,7 +16,7 @@ import org.jgrapht.Graph;
 class DijkstraController implements Dijkstra {
 
 	private		DijkstraModel						_dm;
-	private		AlgorithmWindow						_aw;
+	private		AlgorithmWeighWindow				_aw;
 	private 	Graph<String, NamedWeightedEdge>	_graph;
 	
 	// Creation
@@ -29,7 +29,7 @@ class DijkstraController implements Dijkstra {
 		if(graph == null) throw new NullPointerException();
 		_graph = graph;
 		_dm = GKAModel.dijkstra(_graph);
-		_aw = GKAView.algorithmWindow("Dijkstra");
+		_aw = GKAView.algorithmWeighWindow("Dijkstra");
 		_aw.addStartButtonListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -37,7 +37,7 @@ class DijkstraController implements Dijkstra {
 				String target = _aw.getTargetVertex();
 				ArrayList<String> result = _dm.start(source, target);
 				_aw.setResultText(result.toString());
-				_aw.setGraphAccesses(_dm.getGraphAccesses());
+				_aw.setGraphAccesses(_dm.getGraphAccesses(), _dm.getTotalGraphAccesses());
 			}
 		});
 	}

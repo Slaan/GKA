@@ -90,39 +90,41 @@ public class OtherGraphHandlerModelImpl implements GraphHandlerModel {
 		for(String edge_with_whitespace : edges) {
 			if(edge_with_whitespace == null) throw new NullPointerException();
 			String edge = remove_whitespaces(edge_with_whitespace);
-			Matcher m = reg.matcher(edge);
-			if(m.matches()) {
-				String v1 	  = m.group("v1");
-				if(v1 == null) {
-					// source is a musthave
-					throw new IllegalArgumentException("Missing source vertex");
-				}
-				accu.addVertex(v1);
- 				String v2 	  = m.group("v2");
- 				NamedWeightedEdge edge_accu;
- 				if(v2 == null) {
- 					// when there is no target vertex, we've a loop
- 					edge_accu = accu.addEdge(v1, v1);
- 				} else {
- 					accu.addVertex(v2);
- 					edge_accu = accu.addEdge(v1, v2);
- 				}
-				String name	  = m.group("edgename");
-				if(name == null) {
-					edge_accu.setName("");
-				}
-				String weight = m.group("edgeweight");
-				if(weight == null) {
-					// since all graphs are weighted, we need to 
-					// add the default weight, when no weight is given
-					edge_accu.setWeight(WeightedGraph.DEFAULT_EDGE_WEIGHT);
+			if(!edge.isEmpty()) {
+				Matcher m = reg.matcher(edge);
+				if(m.matches()) {
+					String v1 	  = m.group("v1");
+					if(v1 == null) {
+						// source is a musthave
+						throw new IllegalArgumentException("Missing source vertex");
+					}
+					accu.addVertex(v1);
+	 				String v2 	  = m.group("v2");
+	 				NamedWeightedEdge edge_accu;
+	 				if(v2 == null) {
+	 					// when there is no target vertex, we've a loop
+	 					edge_accu = accu.addEdge(v1, v1);
+	 				} else {
+	 					accu.addVertex(v2);
+	 					edge_accu = accu.addEdge(v1, v2);
+	 				}
+					String name	  = m.group("edgename");
+					if(name == null) {
+						edge_accu.setName("");
+					}
+					String weight = m.group("edgeweight");
+					if(weight == null) {
+						// since all graphs are weighted, we need to 
+						// add the default weight, when no weight is given
+						edge_accu.setWeight(WeightedGraph.DEFAULT_EDGE_WEIGHT);
+					} else {
+						Double weight_value = Double.valueOf(weight);
+						assert weight_value>0.0 : "Vorbedingung verletzt: weight_value>0.0";
+						edge_accu.setWeight(Double.valueOf(weight));
+					}
 				} else {
-					Double weight_value = Double.valueOf(weight);
-					assert weight_value>0.0 : "Vorbedingung verletzt: weight_value>0.0";
-					edge_accu.setWeight(Double.valueOf(weight));
+					throw new IllegalArgumentException("An edge ( " + edge + " ) has invalid format.");
 				}
-			} else {
-				throw new IllegalArgumentException("An edge ( " + edge + " ) has invalid format.");
 			}
 		}
 		return accu;

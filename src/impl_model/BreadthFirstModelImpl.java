@@ -16,10 +16,13 @@ import org.jgrapht.DirectedGraph;
 import org.jgrapht.Graph;
 import org.jgrapht.UndirectedGraph;
 
+import com.mxgraph.swing.util.mxGraphActions.UpdateGroupBoundsAction;
+
 class BreadthFirstModelImpl implements BreadthFirstModel {
 
 	private		Graph<String, NamedWeightedEdge> _graph;
 	private		Integer							 _graph_accesses = 0; 
+	private		Integer							 _total_graph_accesses = 0;
 	
 	// Creation
 	public static BreadthFirstModel create(Graph<String, NamedWeightedEdge> g) {
@@ -129,6 +132,8 @@ class BreadthFirstModelImpl implements BreadthFirstModel {
 	 */
 	@Override
 	public ArrayList<String> start(String source, String target) {
+		_total_graph_accesses += _graph_accesses;
+		_graph_accesses = 0;
 		if(_graph == null) throw new NullPointerException("Graph is null.");
 		if(source == null) throw new NullPointerException("Source is null.");
 		if(target == null) throw new NullPointerException("Target is null.");
@@ -217,5 +222,10 @@ class BreadthFirstModelImpl implements BreadthFirstModel {
 	@Override
 	public double getTime() {
 		return 0;
+	}
+
+	@Override
+	public int getTotalGraphAccesses() {
+		return _total_graph_accesses;
 	}
 }

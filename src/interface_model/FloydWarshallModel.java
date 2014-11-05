@@ -3,7 +3,7 @@ package interface_model;
 import java.util.ArrayList;
 import java.util.Map;
 
-public interface FloydWarshallModel extends AlgorithmModel {
+public interface FloydWarshallModel extends AlgorithmWeighModel {
 	
 	/**
 	 * 
@@ -36,22 +36,6 @@ public interface FloydWarshallModel extends AlgorithmModel {
 	 * @param value
 	 */
 	public void setTransitValue(String source, String target, Integer value);
-	
-	/**
-	 * 
-	 * @param source
-	 * @param target
-	 * @return true when value is infinity
-	 */
-	public boolean isInfinity(String source, String target);
-	
-	/**
-	 * 
-	 * @param source
-	 * @param target
-	 * @return true when value is zero
-	 */
-	public boolean isZero(String source, String target);
 	
 	/**
 	 * 

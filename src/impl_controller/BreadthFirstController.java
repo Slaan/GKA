@@ -37,7 +37,7 @@ class BreadthFirstController implements BreadthFirst {
 				String target = _aw.getTargetVertex();
 				ArrayList<String> result = _bfsm.start(source, target);
 				_aw.setResultText(result.toString());
-				_aw.setGraphAccesses(_bfsm.getGraphAccesses());
+				_aw.setGraphAccesses(_bfsm.getGraphAccesses(), _bfsm.getTotalGraphAccesses());
 			}
 		});
 	}
