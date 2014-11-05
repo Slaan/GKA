@@ -1,9 +1,12 @@
 package impl_controller;
 
+import impl_model.GKAModel;
 import impl_model.NamedWeightedEdge;
 import impl_view.GKAView;
+import interface_controller.Generator;
 import interface_controller.GraphHandler;
-import interface_view.GenerateWindow;
+import interface_model.GeneratorModel;
+import interface_view.GeneratorWindow;
 import interface_view.MainWindow;
 
 import java.awt.event.ActionEvent;
@@ -12,28 +15,42 @@ import java.awt.event.ActionListener;
 import org.jgrapht.Graph;
 
 public class MainController {
-	
-	private static 	MainController 					 _instance;
-	private			MainWindow 						 _window;
-	private			GraphHandler					 _graphhandler;		
-	private			Graph<String, NamedWeightedEdge> _graph;
-	
+
+	private static MainController _instance;
+	private MainWindow _window;
+	private GraphHandler _graphhandler;
+	private Graph<String, NamedWeightedEdge> _graph;
+	private	GeneratorModel					 _gm;
+	private	GeneratorWindow					 _gw;
+
 	// Creation
 	public static MainController create() {
-		if(_instance == null) {
+		if (_instance == null) {
 			_instance = new MainController();
 		}
 		return _instance;
 	}
-	
+
 	public MainController() {
 		_window = GKAView.mainWindow();
 		_graphhandler = GKA.graphHandler();
+		_gm = GKAModel.generator();
+		_gw = GKAView.generatorWindow();
+		_gw.setInvisible();
+		_gw.addGenerateListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent r) {
+				int e = Integer.valueOf(_gw.getEdgeAmount());
+				int v = Integer.valueOf(_gw.getVertexAmount());
+				_graph = _gm.generateDirectedGraph(v, e);
+				_window.setGraph(_graph);
+				_gw.setInvisible();
+			}
+		});
 		_window.addGenerateListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO: implement own entity for generation
-				
+				_gw.setVisible();
 			}
 		});
 		_window.addLoadListener(new ActionListener() {
@@ -50,7 +67,7 @@ public class MainController {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					_graphhandler.save();
-				} catch(Exception exception) {
+				} catch (Exception exception) {
 					exception.printStackTrace();
 				}
 			}
@@ -76,7 +93,7 @@ public class MainController {
 			}
 		});
 	}
-	
+
 	public static void main(String[] args) {
 		MainController.create();
 	}

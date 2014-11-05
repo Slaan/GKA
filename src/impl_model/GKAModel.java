@@ -4,6 +4,7 @@ import interface_model.BreadthFirstModel;
 import interface_model.DijkstraModel;
 import interface_model.FileHandlerModel;
 import interface_model.FloydWarshallModel;
+import interface_model.GeneratorModel;
 import interface_model.GraphHandlerModel;
 
 import org.jgrapht.Graph;
@@ -57,5 +58,9 @@ public final class GKAModel {
 	public static DijkstraModel dijkstra(Graph<String, NamedWeightedEdge> graph) {
 		if(graph == null) throw new NullPointerException();
 		return DijkstraModelImpl.create(graph);
+	}
+	
+	public static GeneratorModel generator() {
+		return GeneratorModelImpl.create();
 	}
 }

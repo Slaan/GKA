@@ -48,16 +48,16 @@ public class TestGraphHandlerModel {
 	}
 	
 	
-	@Test
-	public void GraphGeneratorTest() {
-		Graph<String, NamedWeightedEdge> dg = new DirectedPseudograph<>(NamedWeightedEdge.class);
-		dg = _gh.generateGraph(10, 50);
-		Set<String> vertexes = dg.vertexSet();
-		Set<NamedWeightedEdge> edges = dg.edgeSet();
-		System.out.println(dg);
-		assertTrue(vertexes.size()==10);
-		assertTrue(edges.size()==50);
-	}
+//	@Test
+//	public void GraphGeneratorTest() {
+//		Graph<String, NamedWeightedEdge> dg = new DirectedPseudograph<>(NamedWeightedEdge.class);
+//		dg = _gh.generateGraph(10, 50);
+//		Set<String> vertexes = dg.vertexSet();
+//		Set<NamedWeightedEdge> edges = dg.edgeSet();
+//		System.out.println(dg);
+//		assertTrue(vertexes.size()==10);
+//		assertTrue(edges.size()==50);
+//	}
 	
 	
 	

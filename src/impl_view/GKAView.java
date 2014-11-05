@@ -2,7 +2,7 @@ package impl_view;
 
 import interface_view.AlgorithmWeighWindow;
 import interface_view.AlgorithmWindow;
-import interface_view.GenerateWindow;
+import interface_view.GeneratorWindow;
 import interface_view.MainWindow;
 
 public final class GKAView {
@@ -32,7 +32,11 @@ public final class GKAView {
 		return AlgorithmWeighWindowImpl.create(title);
 	}
 	
-	public static GenerateWindow generateWindow() {
+	/**
+	 * 
+	 * @return
+	 */
+	public static GeneratorWindow generatorWindow() {
 		return GenerateWindowImpl.create();
 	}
 }

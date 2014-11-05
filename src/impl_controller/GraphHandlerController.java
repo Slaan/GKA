@@ -2,10 +2,14 @@ package impl_controller;
 
 import impl_model.GKAModel;
 import impl_model.NamedWeightedEdge;
+import impl_view.GKAView;
 import interface_controller.FileHandler;
 import interface_controller.GraphHandler;
 import interface_model.GraphHandlerModel;
+import interface_view.GeneratorWindow;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import org.jgrapht.Graph;
@@ -16,6 +20,7 @@ public class GraphHandlerController implements GraphHandler {
 	private	GraphHandlerModel	_ghm;
 	private	FileHandler			_fh;
 	private	Graph				_graph;
+	private	GeneratorWindow		_gw;
 	
 	// Creation
 	public static GraphHandler create() {
@@ -56,8 +61,4 @@ public class GraphHandlerController implements GraphHandler {
 		return _fh.get_path();
 	}
 
-	@Override
-	public Graph generateGraph(int vertexes, int edges) {
-		return _ghm.generateGraph(vertexes, edges);
-	}
 }

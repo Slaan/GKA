@@ -2,7 +2,7 @@ package interface_view;
 
 import java.awt.event.ActionListener;
 
-public interface GenerateWindow {
+public interface GeneratorWindow {
 
 	/**
 	 * 
@@ -21,5 +21,9 @@ public interface GenerateWindow {
 	 * @return amount of edges to generate
 	 */
 	public String getEdgeAmount();
+	
+	public void setVisible();
+	
+	public void setInvisible();
 	
 }

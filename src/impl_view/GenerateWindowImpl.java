@@ -3,14 +3,14 @@ package impl_view;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 
-import interface_view.GenerateWindow;
+import interface_view.GeneratorWindow;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-class GenerateWindowImpl extends JFrame implements GenerateWindow {
+class GenerateWindowImpl extends JFrame implements GeneratorWindow {
 
 	private			final	Dimension		_size = new Dimension(400, 150);
 	private					JPanel			_panel;
@@ -20,7 +20,7 @@ class GenerateWindowImpl extends JFrame implements GenerateWindow {
 	private					ActionListener	_generate_listener;
 	
 	// Creation
-	public static GenerateWindow create() {
+	public static GeneratorWindow create() {
 		return new GenerateWindowImpl();
 	}
 	
@@ -34,13 +34,14 @@ class GenerateWindowImpl extends JFrame implements GenerateWindow {
 		_panel.add(_vertex_field);
 		_panel.add(_edges_field);
 		_panel.add(_generate_button);
+		add(_panel);
 		setVisible(true);
 	}
 	
 	@Override
 	public void addGenerateListener(ActionListener al) {
 		if(al == null) throw new NullPointerException();
-		_generate_listener = al;
+		_generate_button.addActionListener(al);
 	}
 
 	@Override
@@ -53,4 +54,15 @@ class GenerateWindowImpl extends JFrame implements GenerateWindow {
 		return _edges_field.getText();
 	}
 
+	@Override
+	public void setVisible() {
+		setVisible(true);
+	}
+
+	@Override
+	public void setInvisible() {
+		setVisible(false);
+	}
+
+	
 }

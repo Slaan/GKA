@@ -5,6 +5,7 @@ import interface_controller.BreadthFirst;
 import interface_controller.Dijkstra;
 import interface_controller.FileHandler;
 import interface_controller.FloydWarshall;
+import interface_controller.Generator;
 import interface_controller.GraphHandler;
 
 import org.jgrapht.Graph;
@@ -16,6 +17,10 @@ public final class GKA {
 	 */
 	public static FileHandler fileHandler() {
 		return FileHandlerController.create();
+	}
+	
+	public static Generator generator() {
+		return GeneratorController.create();
 	}
 	
 	/**

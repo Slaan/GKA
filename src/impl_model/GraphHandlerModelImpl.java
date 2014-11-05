@@ -258,11 +258,4 @@ class GraphHandlerModelImpl implements GraphHandlerModel {
 		return false;
 	}
 
-	@Override
-	public Graph<String, NamedWeightedEdge> generateGraph(int vertexes,
-			int edges) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }
