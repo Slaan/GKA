@@ -3,12 +3,18 @@ package impl_model;
 import interface_model.GraphHandlerModel;
 
 import java.util.ArrayList;
+import java.util.Random;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.jgrapht.Graph;
 import org.jgrapht.WeightedGraph;
 import org.jgrapht.graph.DirectedWeightedPseudograph;
+import org.jgrapht.graph.ListenableDirectedGraph;
+import org.jgrapht.graph.ListenableDirectedWeightedGraph;
+import org.jgrapht.graph.ListenableUndirectedGraph;
+import org.jgrapht.graph.ListenableUndirectedWeightedGraph;
 import org.jgrapht.graph.WeightedPseudograph;
 
 public class OtherGraphHandlerModelImpl implements GraphHandlerModel {
@@ -111,6 +117,8 @@ public class OtherGraphHandlerModelImpl implements GraphHandlerModel {
 					// add the default weight, when no weight is given
 					edge_accu.setWeight(WeightedGraph.DEFAULT_EDGE_WEIGHT);
 				} else {
+					Double weight_value = Double.valueOf(weight);
+					assert weight_value>0.0 : "Vorbedingung verletzt: weight_value>0.0";
 					edge_accu.setWeight(Double.valueOf(weight));
 				}
 			} else {
@@ -121,9 +129,99 @@ public class OtherGraphHandlerModelImpl implements GraphHandlerModel {
 	}
 
 	@Override
-	public ArrayList<String> from_graph(Graph<String, NamedWeightedEdge> graph) {
+	public ArrayList<String> from_graph(Graph graph) {
+		if(graph == null) throw new NullPointerException();
 		// TODO Auto-generated method stub
-		return null;
+		ArrayList<String> result = new ArrayList<>();
+		
+		if (graph instanceof ListenableDirectedWeightedGraph)  {
+			Set<NamedWeightedEdge> edge_set = graph.edgeSet();
+			Set<String> vertex_set = graph.vertexSet();
+			System.out.println("are we here? dir_weigh");
+			for (NamedWeightedEdge edge : edge_set) {
+				double weight = graph.getEdgeWeight(edge);
+				System.out.println(weight);
+				String s = edge.toString();
+				s.replaceAll(" ", "");
+				String a = s.replace("(", "");
+				String b = a.replace(")", "");
+				String c = b.replace(":","->");
+				String d = c+" : " +weight+";";
+				result.add(d);
+			}
+		} else if (graph instanceof ListenableDirectedGraph) {
+			Set<NamedWeightedEdge> edge_set = graph.edgeSet();
+			Set<String> vertex_set = graph.vertexSet();
+			System.out.println("are we here? dir");
+			for (NamedWeightedEdge edge : edge_set) {
+				String s = edge.toString();
+				s.replaceAll(" ", "");
+				String a = s.replace("(", "");
+				String b = a.replace(")", "");
+				String c = b.replace(":","->");
+				String d = c+";";
+				result.add(d);
+			}
+		} else if (graph instanceof ListenableUndirectedWeightedGraph) {
+			Set<NamedWeightedEdge> edge_set = graph.edgeSet();
+			Set<String> vertex_set = graph.vertexSet();
+			System.out.println("are we here? undir_weigh");	
+			for (NamedWeightedEdge edge : edge_set) {
+				double weight = graph.getEdgeWeight(edge);
+				System.out.println(weight);
+				String s = edge.toString();
+				s.replaceAll(" ", "");
+				String a = s.replace("(", "");
+				String b = a.replace(")", "");
+				String c = b.replace(":","->");
+				String d = c+":"+weight+";";
+				result.add(d);
+			}
+		} else if (graph instanceof ListenableUndirectedGraph) {
+			Set<NamedWeightedEdge> edge_set = graph.edgeSet();
+			Set<String> vertex_set = graph.vertexSet();
+			System.out.println("are we here? undir");
+			for (NamedWeightedEdge edge : edge_set) {
+				String s = edge.toString();
+				s.replaceAll(" ", "");
+				String a = s.replace("(", "");
+				String b = a.replace(")", "");
+				String c = b.replace(":","--");
+				String d = c+";";
+				result.add(d);
+			}
+		} 
+		return result;
 	}
+	
+	private ArrayList<Integer> makeSequence(int begin, int end) {
+		  ArrayList<Integer> ret = new ArrayList<>(end-begin+1);
+		  for(int i = begin; i <= end; i++, ret.add(i));
+		  return ret;  
+		}
 
+	@Override
+	public Graph<String, NamedWeightedEdge> generateGraph(int vertexes,int edges) {
+		DirectedWeightedPseudograph<String, NamedWeightedEdge> result = new DirectedWeightedPseudograph<>(NamedWeightedEdge.class);
+		ArrayList<Integer> range = makeSequence(0, vertexes-1);
+		System.out.println(range);
+		for (Integer i :range) {
+			result.addVertex(i.toString());
+		}
+		System.out.println(result);
+		for (int i=0; i<edges; i++) {
+			NamedWeightedEdge edge;
+			Random generator = new Random();
+			Integer v_int1 = generator.nextInt(vertexes-1)+1;
+			System.out.println(v_int1);
+			Integer v_int2 = generator.nextInt(vertexes-1)+1;
+			System.out.println(v_int2);
+			edge = result.addEdge(v_int1.toString(), v_int2.toString());
+			Integer weight = generator.nextInt(19)+1;
+			edge.setWeight(Double.valueOf(weight));
+		}
+		
+		
+		return result;
+	}
 }
