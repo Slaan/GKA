@@ -99,16 +99,19 @@ class DijkstraModelImpl implements DijkstraModel {
 		}
 		for (String s : adjacent) {
 			if (!s.equals(closest_vertex)) {
-			NamedWeightedEdge edge = _graph.getEdge(closest_vertex, s);
-			Double weight = edge.getthisWeight();
-			Double cur_dist = _dist.get(s);
-			Double optional_dist = (_dist.get(closest_vertex)+weight);
-			if (cur_dist==null) {
-				cur_dist=Double.MAX_VALUE;
-			}
-			if (cur_dist>optional_dist) {
-				_dist.put(s, optional_dist);
-				_pred.put(s, closest_vertex);
+			Set<NamedWeightedEdge> edges = _graph.getAllEdges(closest_vertex, s); 
+			_graph_accesses++;
+			for (NamedWeightedEdge edge : edges) {
+				Double weight = edge.getthisWeight();
+				Double cur_dist = _dist.get(s);
+				Double optional_dist = (_dist.get(closest_vertex)+weight);
+				if (cur_dist==null) {
+					cur_dist=Double.MAX_VALUE;
+				}
+				if (cur_dist>optional_dist) {
+					_dist.put(s, optional_dist);
+					_pred.put(s, closest_vertex);
+				}
 			}
 			_openNodes.add(s);
 			}

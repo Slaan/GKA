@@ -206,18 +206,14 @@ public class OtherGraphHandlerModelImpl implements GraphHandlerModel {
 	public Graph<String, NamedWeightedEdge> generateGraph(int vertexes,int edges) {
 		DirectedWeightedPseudograph<String, NamedWeightedEdge> result = new DirectedWeightedPseudograph<>(NamedWeightedEdge.class);
 		ArrayList<Integer> range = makeSequence(0, vertexes-1);
-		System.out.println(range);
 		for (Integer i :range) {
 			result.addVertex(i.toString());
 		}
-		System.out.println(result);
 		for (int i=0; i<edges; i++) {
 			NamedWeightedEdge edge;
 			Random generator = new Random();
 			Integer v_int1 = generator.nextInt(vertexes-1)+1;
-			System.out.println(v_int1);
 			Integer v_int2 = generator.nextInt(vertexes-1)+1;
-			System.out.println(v_int2);
 			edge = result.addEdge(v_int1.toString(), v_int2.toString());
 			Integer weight = generator.nextInt(19)+1;
 			edge.setWeight(Double.valueOf(weight));
