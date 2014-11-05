@@ -24,6 +24,7 @@ class DijkstraModelImpl implements DijkstraModel {
 	private 	Set<String> 							_openNodes;
 	private		Map<String, String> 					_pred;
 	private 	Map<String, Double> 					_dist;
+	private 	Double									_totalweight;
 	
 	// Creation
 	public static DijkstraModel create(Graph<String, NamedWeightedEdge> graph) {
@@ -72,7 +73,8 @@ class DijkstraModelImpl implements DijkstraModel {
 		    _openNodes.remove(closest_vertex); 
 		}
 		
-		//Ermittlung des k��rzesten Weges
+		//Ermittlung des kuerzesten Weges
+		_totalweight = _dist.get(target);
 	    String step = target;
 	    if (_pred.get(step) == null) {
 	      return null;
@@ -232,8 +234,7 @@ class DijkstraModelImpl implements DijkstraModel {
 
 	@Override
 	public double getWeight() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this._totalweight;
 	}
 	
 }
