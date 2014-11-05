@@ -37,8 +37,6 @@ public class TestGraphHandlerModel {
 		dg.addEdge("a", "b");
 		_dg = new DefaultListenableGraph<>(dg);
 		
-		// directed weighted graph
-		
 		// undirected graph
 		Pseudograph<String, DefaultEdge> ug1;
 		ug1 = new Pseudograph(DefaultEdge.class);
@@ -47,8 +45,6 @@ public class TestGraphHandlerModel {
 		ug1.addVertex("c");
 		ug1.addEdge("a", "b");
 		_ug = new DefaultListenableGraph<>(ug1);
-		
-		// undirected weighted graph
 		
 	}
 	

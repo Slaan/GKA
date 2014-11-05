@@ -6,9 +6,8 @@ import interface_model.FileHandlerModel;
 import interface_model.FloydWarshallModel;
 import interface_model.GraphHandlerModel;
 
-import org.jgraph.graph.DefaultEdge;
 import org.jgrapht.Graph;
-import org.jgrapht.ListenableGraph;
+import org.jgrapht.UndirectedGraph;
 
 public final class GKAModel {
 
@@ -43,11 +42,14 @@ public final class GKAModel {
 	}
 	
 	/**
-	 * 
+	 * @param graph has to be directed
 	 * @return new FolyWarshallModel functor
 	 */
 	public static FloydWarshallModel floydWarshall(Graph<String, NamedWeightedEdge> graph) {
 		if(graph == null) throw new NullPointerException();
+//		if(graph instanceof UndirectedGraph) {
+//			throw new IllegalArgumentException("Undirected graphs are not allowed");
+//		}
 		return FloydWarshallModelImpl.create(graph);
 	}
 	

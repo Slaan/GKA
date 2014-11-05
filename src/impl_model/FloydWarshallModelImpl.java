@@ -3,10 +3,19 @@ package impl_model;
 import interface_model.FloydWarshallModel;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
+import org.jgrapht.DirectedGraph;
 import org.jgrapht.Graph;
+import org.jgrapht.UndirectedGraph;
 
 class FloydWarshallModelImpl implements FloydWarshallModel {
+
+	private Map<String, Integer> 			_vertexindex;
+	private ArrayList<ArrayList<Double>> 	_distance_matrix;
+	private ArrayList<ArrayList<Integer>> 	_transit_matrix;
 
 	// Creation
 	public static FloydWarshallModel create(Graph<String, NamedWeightedEdge> graph) {
@@ -15,15 +24,86 @@ class FloydWarshallModelImpl implements FloydWarshallModel {
 	}
 	
 	private FloydWarshallModelImpl(Graph<String, NamedWeightedEdge> graph) {
-		// TODO Auto-generated constructor stub
+		_vertexindex = new HashMap<>();
+		// vertex to index 
+		int v = 0;
+		for(String vertex : graph.vertexSet()) {
+			_vertexindex.put(vertex, v);
+			v++;
+		}
+		_distance_matrix = new ArrayList<>();
+		// set all fields to zero or inifinty
+		for(int i = 0; i < graph.vertexSet().size(); i++) {
+			ArrayList<Double> trans = new ArrayList<>();
+			for(int j = 0; j < graph.vertexSet().size(); j++) {
+				if(i == j) {
+					trans.add(j, 0.0);
+				} else {
+					trans.add(j, Double.POSITIVE_INFINITY);
+				}
+			}
+			_distance_matrix.add(i, trans);
+		}
+		if(graph instanceof UndirectedGraph) {
+			for(NamedWeightedEdge edge : graph.edgeSet()) {
+				String source = graph.getEdgeSource(edge);
+				String target = graph.getEdgeTarget(edge);
+				setDistanceValue(source, target, edge.getthisWeight());
+				setDistanceValue(target, source, edge.getthisWeight());
+			}
+		} else if(graph instanceof DirectedGraph) {
+			for(NamedWeightedEdge edge : graph.edgeSet()) {
+				String source = graph.getEdgeSource(edge);
+				String target = graph.getEdgeTarget(edge);
+				setDistanceValue(source, target, edge.getthisWeight());
+			}			
+		} else {
+			throw new Error("Unexpected Error!");
+		}
+		_transit_matrix = new ArrayList<>();
+		for(String source : graph.vertexSet()) {
+			ArrayList<Integer> tran = new ArrayList<>();
+			for(String target : graph.vertexSet()) {
+				tran.add(_vertexindex.get(target), 0);
+			}
+			_transit_matrix.add(_vertexindex.get(source), tran);
+		}
+		// iteration
+		for(String j : graph.vertexSet()) {
+			for(String i : graph.vertexSet()) {
+				if(!(i.equals(j))) {
+					for(String k : graph.vertexSet()) {
+						if(!(k.equals(j))) {
+							Double ikweight = getDistanceValue(i, k);
+							Double ijweight = getDistanceValue(i, j);
+							Double jkweight = getDistanceValue(j, k);
+							Double sum = jkweight + ijweight;
+							if(sum < ikweight) {
+								setDistanceValue(i, k, sum);
+								setTransitValue(i, k, _vertexindex.get(j)+1);
+							}
+						}
+					}					
+				}
+			}
+		}
 	}
 	
 	@Override
 	public ArrayList<String> start(String source, String target) {
 		if(source == null) throw new NullPointerException();
 		if(target == null) throw new NullPointerException();
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<String> accu = new ArrayList<>();
+		if(0 == getTransitValue(source, target)) {
+			accu.addAll(Arrays.asList(source, target));
+			return accu;
+		}
+		String between = indexToVertex(getTransitValue(source, target));
+		accu.addAll(start(source, between));
+		// remove last item
+		accu.remove(accu.size()-1);
+		accu.addAll(start(between, target));
+		return accu;
 	}
 
 	@Override
@@ -37,5 +117,88 @@ class FloydWarshallModelImpl implements FloydWarshallModel {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	
+	public String indexToVertex(Integer i) {
+		if(i == null) throw new NullPointerException();
+		for(Map.Entry<String, Integer> kvp : _vertexindex.entrySet()) {
+			// we need to subtract because of the 
+			// index <-> vertex indexing starts with 0
+			if(kvp.getValue() == i-1) {
+				return kvp.getKey();
+			}
+		}
+		return null;
+	}
+	
+	@Override
+	public Double getDistanceValue(String source, String target) {
+		if(source == null) throw new NullPointerException();
+		if(target == null) throw new NullPointerException();
+		Integer source_index = _vertexindex.get(source);
+		Integer target_index = _vertexindex.get(target);
+		ArrayList<Double> targets = _distance_matrix.get(source_index);
+		return targets.get(target_index);
+	}
+
+	@Override
+	public Integer getTransitValue(String source, String target) {
+		if(source == null) throw new NullPointerException();
+		if(target == null) throw new NullPointerException();
+		return _transit_matrix.get(_vertexindex.get(source)).get(_vertexindex.get(target));
+	}
+
+	@Override
+	public void setTransitValue(String source, String target, Integer value) {
+		if(source == null) throw new NullPointerException();
+		if(target == null) throw new NullPointerException();
+		if(value == null) throw new NullPointerException();
+		int source_index = _vertexindex.get(source);
+		int target_index = _vertexindex.get(target);
+		ArrayList<Integer> tran = _transit_matrix.get(source_index);
+		tran.set(target_index, value);
+		_transit_matrix.set(source_index, tran);
+	}
+
+	@Override
+	public void setDistanceValue(String source, String target, Double value) {
+		if(source == null) throw new NullPointerException();
+		if(target == null) throw new NullPointerException();
+		if(value == null) throw new NullPointerException();
+		int source_index = _vertexindex.get(source);
+		int target_index = _vertexindex.get(target);
+		ArrayList<Double> targets = _distance_matrix.get(source_index);
+		targets.set(target_index, value);
+		_distance_matrix.set(source_index, targets);
+	}
+
+	@Override
+	public boolean isInfinity(String source, String target) {
+		if(source == null) throw new NullPointerException();
+		if(target == null) throw new NullPointerException();
+		return (getDistanceValue(source, target).equals(Double.POSITIVE_INFINITY));
+	}
+
+	@Override
+	public boolean isZero(String source, String target) {
+		if(source == null) throw new NullPointerException();
+		if(target == null) throw new NullPointerException();
+		return (getDistanceValue(source, target).equals(0.0));
+	}
+
+	@Override
+	public Map<String, Integer> getIndexMap() {
+		return _vertexindex;
+	}
+
+	@Override
+	public ArrayList<ArrayList<Double>> getDistanceMatrix() {
+		return _distance_matrix;
+	}
+
+	@Override
+	public ArrayList<ArrayList<Integer>> getTransitMatrix() {
+		return _transit_matrix;
+	}
+
 
 }
