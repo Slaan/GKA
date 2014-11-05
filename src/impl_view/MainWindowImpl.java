@@ -82,33 +82,33 @@ public class MainWindowImpl extends JFrame implements MainWindow {
 	
 	private JMenu file_menu() {
 	    JMenu   file  = new JMenu("File");
+	    // generate
+	    _generate_graph_item = new JMenuItem("Generate graph");
+		_generate_graph_item.setMnemonic(KeyEvent.VK_G);
+		file.add(_generate_graph_item);
+	    // Load graph
+	    _load_item = new JMenuItem("Load");
+	    _load_item.setMnemonic(KeyEvent.VK_L);
+	    file.add(_load_item);
+	    // Save graph
+	    _save_item = new JMenuItem("Save");
+	    _save_item.setMnemonic(KeyEvent.VK_S);
+	    file.add(_save_item);
 	    // Close 
 	    JMenuItem close = new JMenuItem("Close");
 	    close.setMnemonic(KeyEvent.VK_E);
 	    close.addActionListener(new ActionListener() {
-	      @Override
-	      public void actionPerformed(ActionEvent e) {
-	        System.exit(0);
-	      }
+	    	@Override
+	    	public void actionPerformed(ActionEvent e) {
+	    		System.exit(0);
+	    	}
 	    });
-	    // Load graph
-	    _load_item = new JMenuItem("Load");
-	    _load_item.setMnemonic(KeyEvent.VK_L);
-	    // Save graph
-	    _save_item = new JMenuItem("Save");
-	    _save_item.setMnemonic(KeyEvent.VK_S);
-	    file.add(_load_item);
-	    file.add(_save_item);
 	    file.add(close);
 	    return file;
 	  }
 	
 	private JMenu edit_menu() {
 		JMenu edit = new JMenu("Edit");
-		// generate graph
-		_generate_graph_item = new JMenuItem("Generate graph");
-		_generate_graph_item.setMnemonic(KeyEvent.VK_G);
-		edit.add(_generate_graph_item);
 		// file.add(add_vertex);
 		// file.add(add_edge);
 		// file.add(remove_vertex);

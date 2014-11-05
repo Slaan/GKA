@@ -2,6 +2,7 @@ package impl_view;
 
 import interface_view.AlgorithmWeighWindow;
 import interface_view.AlgorithmWindow;
+import interface_view.GenerateWindow;
 import interface_view.MainWindow;
 
 public final class GKAView {
@@ -29,5 +30,9 @@ public final class GKAView {
 	public static AlgorithmWeighWindow algorithmWeighWindow(String title) {
 		if(title == null) throw new NullPointerException();
 		return AlgorithmWeighWindowImpl.create(title);
+	}
+	
+	public static GenerateWindow generateWindow() {
+		return GenerateWindowImpl.create();
 	}
 }

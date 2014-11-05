@@ -55,4 +55,9 @@ public class GraphHandlerController implements GraphHandler {
 	public String getPath() {
 		return _fh.get_path();
 	}
+
+	@Override
+	public Graph generateGraph(int vertexes, int edges) {
+		return _ghm.generateGraph(vertexes, edges);
+	}
 }

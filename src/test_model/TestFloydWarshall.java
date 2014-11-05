@@ -84,13 +84,6 @@ public class TestFloydWarshall {
 		_km = GKAModel.floydWarshall(_klaucks_graph);
 	}
 
-//	@Test(expected=IllegalArgumentException.class)
-//	public void testErrorUndirectedGraph() {
-//		Graph<String, NamedWeightedEdge> g;
-//		g = new Pseudograph<>(NamedWeightedEdge.class);
-//		FloydWarshallModel m = GKAModel.floydWarshall(g);
-//	}
-	
 	@Test
 	public void testDistanceMatrixInit() {
 		ArrayList<Double> asource = new ArrayList<>();

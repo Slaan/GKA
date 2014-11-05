@@ -11,8 +11,8 @@ public interface MainWindow {
 	// files menu
 	public void addLoadListener(ActionListener al);
 	public void addSaveListener(ActionListener al);
-	// edit menu
 	public void addGenerateListener(ActionListener al);
+	// edit menu
 	// algorithm menu
 	public void addDijkstraListener(ActionListener al);
 	public void addBreadthFirstListener(ActionListener al);

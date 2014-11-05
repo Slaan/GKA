@@ -25,4 +25,12 @@ public interface GraphHandler {
 	 * Get path from file
 	 */
 	public String getPath();
+	
+	/**
+	 * 
+	 * @param vertex
+	 * @param edges
+	 * @return graph 
+	 */
+	public Graph generateGraph(int vertex, int edges);
 }

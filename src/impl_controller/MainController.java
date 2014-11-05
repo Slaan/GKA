@@ -3,6 +3,7 @@ package impl_controller;
 import impl_model.NamedWeightedEdge;
 import impl_view.GKAView;
 import interface_controller.GraphHandler;
+import interface_view.GenerateWindow;
 import interface_view.MainWindow;
 
 import java.awt.event.ActionEvent;
@@ -28,6 +29,13 @@ public class MainController {
 	public MainController() {
 		_window = GKAView.mainWindow();
 		_graphhandler = GKA.graphHandler();
+		_window.addGenerateListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO: implement own entity for generation
+				
+			}
+		});
 		_window.addLoadListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
