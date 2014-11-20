@@ -46,6 +46,8 @@ public class MainWindowImpl extends JFrame implements MainWindow {
 	private			JMenuItem									_breadth_item;
 	private			JMenuItem									_dijkstra_item;
 	private			JMenuItem									_floydwarshall_item;
+	private 		JMenuItem									_ford_and_fulkerson_item;
+	private 		JMenuItem									_edmonds_and_karp_item;
 	private			JMenu										_version_menu;
 	
 	// Creation
@@ -130,6 +132,12 @@ public class MainWindowImpl extends JFrame implements MainWindow {
 		_floydwarshall_item = new JMenuItem("Floyd Warshall");
 		_floydwarshall_item.setMnemonic(KeyEvent.VK_F);
 		algo.add(_floydwarshall_item);
+		//Ford und Fulkerson
+		_ford_and_fulkerson_item = new JMenuItem("Ford and Fulkerson");
+		algo.add(_ford_and_fulkerson_item);
+		//Edmonds and Karp
+		_edmonds_and_karp_item = new JMenuItem("Edmonds undn Karp");
+		algo.add(_edmonds_and_karp_item);
 		return algo;
 	}
 	
@@ -188,6 +196,22 @@ public class MainWindowImpl extends JFrame implements MainWindow {
 		if(al == null) throw new NullPointerException();
 		if(_floydwarshall_item == null) throw new NullPointerException();
 		_floydwarshall_item.addActionListener(al);
+		
+	}
+	
+	@Override
+	public void addFordandFulkersonListener(ActionListener al) {
+		if(al == null) throw new NullPointerException();
+		if(_ford_and_fulkerson_item == null) throw new NullPointerException();
+		_ford_and_fulkerson_item.addActionListener(al);
+		
+	}
+	
+	@Override
+	public void addEdmondsandKarpListener(ActionListener al) {
+		if(al == null) throw new NullPointerException();
+		if(_edmonds_and_karp_item == null) throw new NullPointerException();
+		_edmonds_and_karp_item.addActionListener(al);
 		
 	}
 	

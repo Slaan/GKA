@@ -17,6 +17,8 @@ public interface MainWindow {
 	public void addDijkstraListener(ActionListener al);
 	public void addBreadthFirstListener(ActionListener al);
 	public void addFloydWarshallListener(ActionListener al);
+	public void addFordandFulkersonListener(ActionListener al);
+	public void addEdmondsandKarpListener(ActionListener al);
 	// non-menu
 	public void setGraph(Graph<String, NamedWeightedEdge> graph);
 	public void setPath(String path);
