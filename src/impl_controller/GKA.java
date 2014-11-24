@@ -3,8 +3,10 @@ package impl_controller;
 import impl_model.NamedWeightedEdge;
 import interface_controller.BreadthFirst;
 import interface_controller.Dijkstra;
+import interface_controller.EdmondKarp;
 import interface_controller.FileHandler;
 import interface_controller.FloydWarshall;
+import interface_controller.FordFulkerson;
 import interface_controller.Generator;
 import interface_controller.GraphHandler;
 
@@ -46,5 +48,15 @@ public final class GKA {
 	public static FloydWarshall floydWarshall(Graph<String, NamedWeightedEdge> graph) {
 		if(graph == null) throw new NullPointerException();
 		return FloydWarshallController.create(graph);
+	}
+	
+	public static FordFulkerson fordFulkerson(Graph<String, NamedWeightedEdge> graph) {
+		if(graph == null) throw new NullPointerException();
+		return FordFulkersonController.create(graph);
+	}
+	
+	public static EdmondKarp edmondKarp(Graph<String, NamedWeightedEdge> graph) {
+		if(graph == null) throw new NullPointerException();
+		return EdmondKarpController.create(graph);
 	}
 }

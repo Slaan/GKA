@@ -1,6 +1,6 @@
 package impl_model;
 
-import interface_model.AlgorithmModel;
+import interface_model.ShortestWayModel;
 import interface_model.DijkstraModel;
 
 import java.util.ArrayList;
@@ -37,7 +37,7 @@ class DijkstraModelImpl implements DijkstraModel {
 	}
 	
 	/**
-	 * @see AlgorithmModel
+	 * @see ShortestWayModel
 	 * start ist der Hauptaufruf dieses Algorithmus, hiermit wird der kuerzeste Weg eines
 	 * Graphen bestimmt.
 	 */
@@ -144,7 +144,7 @@ class DijkstraModelImpl implements DijkstraModel {
 		  }
 
 	/**
-	 * @see AlgorithmModel
+	 * @see ShortestWayModel
 	 */
 	@Override
 	public int getGraphAccesses() {
@@ -152,7 +152,7 @@ class DijkstraModelImpl implements DijkstraModel {
 	}
 
 	/**
-	 * @see AlgorithmModel
+	 * @see ShortestWayModel
 	 */
 	@Override
 	public double getTime() {

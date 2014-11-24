@@ -92,6 +92,18 @@ public class MainController {
 				GKA.floydWarshall(_graph);
 			}
 		});
+		_window.addFordFulkersonListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				GKA.fordFulkerson(_graph);
+			}
+		});
+		_window.addEdmondsandKarpListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				GKA.edmondKarp(_graph);
+			}
+		});
 	}
 
 	public static void main(String[] args) {

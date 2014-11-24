@@ -208,7 +208,7 @@ public class MainWindowImpl extends JFrame implements MainWindow {
 	}
 	
 	@Override
-	public void addFordandFulkersonListener(ActionListener al) {
+	public void addFordFulkersonListener(ActionListener al) {
 		if(al == null) throw new NullPointerException();
 		if(_ford_and_fulkerson_item == null) throw new NullPointerException();
 		_ford_and_fulkerson_item.addActionListener(al);
@@ -244,7 +244,7 @@ public class MainWindowImpl extends JFrame implements MainWindow {
 			    cells.toArray(), mxConstants.STYLE_ENDARROW, mxConstants.NONE);
 		}
         panel.add(_adapter_compo);
-        panel.setMaximumSize(panel.getPreferredSize());
+        panel.setMaximumSize(getPreferredSize());
         _pane = new JScrollPane(panel);
         // scrollbars for graph
         _pane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);

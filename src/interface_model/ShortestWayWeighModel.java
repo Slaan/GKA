@@ -2,7 +2,7 @@ package interface_model;
 
 import java.util.ArrayList;
 
-public interface AlgorithmWeighModel extends AlgorithmModel {
+public interface ShortestWayWeighModel extends ShortestWayModel {
 	
 	/**
 	 * 

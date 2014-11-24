@@ -3,7 +3,7 @@ package interface_model;
 import java.util.ArrayList;
 import java.util.Map;
 
-public interface FloydWarshallModel extends AlgorithmWeighModel {
+public interface FloydWarshallModel extends ShortestWayWeighModel {
 	
 	/**
 	 * 

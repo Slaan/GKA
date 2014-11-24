@@ -2,8 +2,10 @@ package impl_model;
 
 import interface_model.BreadthFirstModel;
 import interface_model.DijkstraModel;
+import interface_model.EdmondKarpModel;
 import interface_model.FileHandlerModel;
 import interface_model.FloydWarshallModel;
+import interface_model.FordFulkersonModel;
 import interface_model.GeneratorModel;
 import interface_model.GraphHandlerModel;
 
@@ -51,6 +53,16 @@ public final class GKAModel {
 		return FloydWarshallModelImpl.create(graph);
 	}
 	
+	public static FordFulkersonModel fordFulkerson(Graph<String, NamedWeightedEdge> graph) {
+		if(graph == null) throw new NullPointerException();
+		return FordFulkersonModelImpl.create(graph);
+	}
+	
+	public static EdmondKarpModel edmondKarp(Graph<String, NamedWeightedEdge> graph) {
+		if(graph == null) throw new NullPointerException();
+		return EdmondKarpModelImpl.create(graph);
+	}
+	
 	/**
 	 * 
 	 * @return new DijkstraModel functor
@@ -63,4 +75,5 @@ public final class GKAModel {
 	public static GeneratorModel generator() {
 		return GeneratorModelImpl.create();
 	}
+	
 }
