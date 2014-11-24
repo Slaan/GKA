@@ -3,16 +3,16 @@ package impl_model;
 import interface_model.GraphHandlerModel;
 
 import java.util.ArrayList;
-import java.util.Random;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.jgrapht.DirectedGraph;
 import org.jgrapht.Graph;
+import org.jgrapht.UndirectedGraph;
 import org.jgrapht.WeightedGraph;
 import org.jgrapht.graph.DirectedWeightedPseudograph;
-import org.jgrapht.graph.ListenableDirectedGraph;
-import org.jgrapht.graph.ListenableDirectedWeightedGraph;
 import org.jgrapht.graph.ListenableUndirectedGraph;
 import org.jgrapht.graph.ListenableUndirectedWeightedGraph;
 import org.jgrapht.graph.WeightedPseudograph;
@@ -102,26 +102,27 @@ public class OtherGraphHandlerModelImpl implements GraphHandlerModel {
 	 				String v2 	  = m.group("v2");
 	 				NamedWeightedEdge edge_accu;
 	 				if(v2 == null) {
-	 					// when there is no target vertex, we've a loop
-	 					edge_accu = accu.addEdge(v1, v1);
+	 					// when there is no target vertex,
+	 					// we've an node without edges
+	 					// nop
 	 				} else {
 	 					accu.addVertex(v2);
 	 					edge_accu = accu.addEdge(v1, v2);
+	 					String name	  = m.group("edgename");
+	 					if(name == null) {
+	 						edge_accu.setName("");
+	 					}
+	 					String weight = m.group("edgeweight");
+	 					if(weight == null) {
+	 						// since all graphs are weighted, we need to 
+	 						// add the default weight, when no weight is given
+	 						edge_accu.setWeight(WeightedGraph.DEFAULT_EDGE_WEIGHT);
+	 					} else {
+	 						Double weight_value = Double.valueOf(weight);
+	 						assert weight_value>0.0 : "Vorbedingung verletzt: weight_value>0.0";
+	 						edge_accu.setWeight(Double.valueOf(weight));
+	 					}
 	 				}
-					String name	  = m.group("edgename");
-					if(name == null) {
-						edge_accu.setName("");
-					}
-					String weight = m.group("edgeweight");
-					if(weight == null) {
-						// since all graphs are weighted, we need to 
-						// add the default weight, when no weight is given
-						edge_accu.setWeight(WeightedGraph.DEFAULT_EDGE_WEIGHT);
-					} else {
-						Double weight_value = Double.valueOf(weight);
-						assert weight_value>0.0 : "Vorbedingung verletzt: weight_value>0.0";
-						edge_accu.setWeight(Double.valueOf(weight));
-					}
 				} else {
 					throw new IllegalArgumentException("An edge ( " + edge + " ) has invalid format.");
 				}
@@ -129,71 +130,46 @@ public class OtherGraphHandlerModelImpl implements GraphHandlerModel {
 		}
 		return accu;
 	}
-
+	
 	@Override
 	public ArrayList<String> from_graph(Graph graph) {
-		if(graph == null) throw new NullPointerException();
-		// TODO Auto-generated method stub
-		ArrayList<String> result = new ArrayList<>();
-		
-		if (graph instanceof ListenableDirectedWeightedGraph)  {
-			Set<NamedWeightedEdge> edge_set = graph.edgeSet();
-			Set<String> vertex_set = graph.vertexSet();
-			System.out.println("are we here? dir_weigh");
-			for (NamedWeightedEdge edge : edge_set) {
-				double weight = graph.getEdgeWeight(edge);
-				System.out.println(weight);
-				String s = edge.toString();
-				s.replaceAll(" ", "");
-				String a = s.replace("(", "");
-				String b = a.replace(")", "");
-				String c = b.replace(":","->");
-				String d = c+" : " +weight+";";
-				result.add(d);
-			}
-		} else if (graph instanceof ListenableDirectedGraph) {
-			Set<NamedWeightedEdge> edge_set = graph.edgeSet();
-			Set<String> vertex_set = graph.vertexSet();
-			System.out.println("are we here? dir");
-			for (NamedWeightedEdge edge : edge_set) {
-				String s = edge.toString();
-				s.replaceAll(" ", "");
-				String a = s.replace("(", "");
-				String b = a.replace(")", "");
-				String c = b.replace(":","->");
-				String d = c+";";
-				result.add(d);
-			}
-		} else if (graph instanceof ListenableUndirectedWeightedGraph) {
-			Set<NamedWeightedEdge> edge_set = graph.edgeSet();
-			Set<String> vertex_set = graph.vertexSet();
-			System.out.println("are we here? undir_weigh");	
-			for (NamedWeightedEdge edge : edge_set) {
-				double weight = graph.getEdgeWeight(edge);
-				System.out.println(weight);
-				String s = edge.toString();
-				s.replaceAll(" ", "");
-				String a = s.replace("(", "");
-				String b = a.replace(")", "");
-				String c = b.replace(":","->");
-				String d = c+":"+weight+";";
-				result.add(d);
-			}
-		} else if (graph instanceof ListenableUndirectedGraph) {
-			Set<NamedWeightedEdge> edge_set = graph.edgeSet();
-			Set<String> vertex_set = graph.vertexSet();
-			System.out.println("are we here? undir");
-			for (NamedWeightedEdge edge : edge_set) {
-				String s = edge.toString();
-				s.replaceAll(" ", "");
-				String a = s.replace("(", "");
-				String b = a.replace(")", "");
-				String c = b.replace(":","--");
-				String d = c+";";
-				result.add(d);
-			}
-		} 
-		return result;
+		if(graph == null) throw new IllegalArgumentException();
+		ArrayList<String> accu = new ArrayList<>();
+		Set<NamedWeightedEdge> edge_set = graph.edgeSet();
+		for (NamedWeightedEdge edge : edge_set) {
+			// we can simply get the graph weight because
+			// all graphs are weighted
+			double 	weight = graph.getEdgeWeight(edge);
+			String	source = (String) graph.getEdgeSource(edge);
+			String 	target = (String) graph.getEdgeTarget(edge);
+			if(graph instanceof DirectedGraph) {
+				accu.add(source + "->" + target + ":" + Double.toString(weight) + ";");
+			} else if(graph instanceof UndirectedGraph) {
+				accu.add(source + "--" + target + ":" + Double.toString(weight) + ";");
+			} 		
+		}
+		Set<String> vertex_set = new HashSet<>();
+		vertex_set.addAll(graph.vertexSet());
+		// get nodes without edges
+		vertex_set.removeAll(nodesWithEdges(graph));
+		for(String vertex : vertex_set) {
+			accu.add(vertex + ";");
+		}
+		return accu;
 	}
 	
+	/**
+	 * 
+	 * @param graph
+	 * @return all nodes which has at least one edge
+	 */
+	private Set<String> nodesWithEdges(Graph<String, NamedWeightedEdge> graph) {
+		if(graph == null) throw new IllegalArgumentException();
+		Set<String> accu = new HashSet<>();
+		for(NamedWeightedEdge edge : graph.edgeSet()) {
+			accu.add(graph.getEdgeSource(edge));
+			accu.add(graph.getEdgeTarget(edge));
+		}
+		return accu;
+	}
 }

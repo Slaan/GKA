@@ -66,7 +66,7 @@ public class MainController {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					_graphhandler.save();
+					_graphhandler.save(_graph);
 				} catch (Exception exception) {
 					exception.printStackTrace();
 				}

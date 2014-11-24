@@ -34,9 +34,12 @@ public class GraphHandlerController implements GraphHandler {
 	}
 
 	@Override
-	public void save() {
+	public void save(Graph<String, NamedWeightedEdge> graph) {
+		System.out.println(graph);
+		_graph = graph;
 		ArrayList<String> graph_in_strings;
 		graph_in_strings = _ghm.from_graph(_graph);
+		System.out.println(graph_in_strings);
 		_fh.save(graph_in_strings);
 	}
 

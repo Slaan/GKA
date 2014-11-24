@@ -42,6 +42,7 @@ public class MainWindowImpl extends JFrame implements MainWindow {
 	private			JMenuItem									_save_item;
 	private			JMenu										_edit_menu;
 	private			JMenuItem									_generate_graph_item;
+	private			JMenuItem									_generate_network_item;
 	private			JMenu										_algo_menu;
 	private			JMenuItem									_breadth_item;
 	private			JMenuItem									_dijkstra_item;
@@ -176,6 +177,13 @@ public class MainWindowImpl extends JFrame implements MainWindow {
 		_generate_graph_item.addActionListener(al);
 	}
 
+	@Override
+	public void addGenerateNetworkListener(ActionListener al) {
+		if(al == null) throw new IllegalArgumentException();
+		if(_generate_network_item == null) throw new IllegalArgumentException();
+		_generate_network_item.addActionListener(al);
+	}
+	
 	// algorithm menu
 	@Override
 	public void addBreadthFirstListener(ActionListener al) {
@@ -206,6 +214,7 @@ public class MainWindowImpl extends JFrame implements MainWindow {
 		_ford_and_fulkerson_item.addActionListener(al);
 		
 	}
+	
 	
 	@Override
 	public void addEdmondsandKarpListener(ActionListener al) {

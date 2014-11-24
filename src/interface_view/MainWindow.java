@@ -12,6 +12,7 @@ public interface MainWindow {
 	public void addLoadListener(ActionListener al);
 	public void addSaveListener(ActionListener al);
 	public void addGenerateListener(ActionListener al);
+	public void addGenerateNetworkListener(ActionListener al);
 	// edit menu
 	// algorithm menu
 	public void addDijkstraListener(ActionListener al);

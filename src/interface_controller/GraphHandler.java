@@ -9,7 +9,7 @@ public interface GraphHandler {
 	/**
 	 * Open save dialog.
 	 */
-	public void 		save();
+	public void 		save(Graph<String, NamedWeightedEdge> graph);
 	
 	/**
 	 * Open load dialog. 
