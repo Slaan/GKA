@@ -4,6 +4,8 @@ import interface_model.FordFulkersonModel;
 
 import org.jgrapht.Graph;
 
+import static impl_model.GraphFunctions.*;
+
 class FordFulkersonModelImpl implements FordFulkersonModel {
 
 	public static FordFulkersonModel create(Graph<String, NamedWeightedEdge> graph) {
@@ -15,12 +17,20 @@ class FordFulkersonModelImpl implements FordFulkersonModel {
 		// TODO Auto-generated constructor stub
 	}
 	
+	/**
+	 * 
+	 * @see FordFulkersonModel
+	 */
 	@Override
 	public double start(String source, String target) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
+	/**
+	 * 
+	 * @see FordFulkersonModel
+	 */
 	@Override
 	public int getGraphAccesses() {
 		// TODO Auto-generated method stub
@@ -33,6 +43,10 @@ class FordFulkersonModelImpl implements FordFulkersonModel {
 		return 0;
 	}
 
+	/**
+	 * 
+	 * @see FordFulkersonModel
+	 */
 	@Override
 	public double getTime() {
 		// TODO Auto-generated method stub
