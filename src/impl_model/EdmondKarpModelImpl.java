@@ -48,6 +48,7 @@ public class EdmondKarpModelImpl implements EdmondKarpModel {
 		_flow = new HashMap<NamedWeightedEdge, Double>();
 		_edgeDirection = new HashMap<NamedWeightedEdge, Boolean>();
 		_pred = new HashMap<NamedWeightedEdge,NamedWeightedEdge>();
+		_maxFlow = 0.0;
 		//initialisierung des flows
 		for (NamedWeightedEdge e : all_edges) {
 			_flow.put(e, 0.0);
@@ -57,7 +58,6 @@ public class EdmondKarpModelImpl implements EdmondKarpModel {
 			System.out.println(way);
 			updateFlow(way);
 			way = getWay(source,target);
-			System.out.println(_maxFlow);
 		}
 		return _maxFlow;
 	}
