@@ -4,8 +4,8 @@ public interface NetworkModel extends AlgorithmModel {
 
 	/**
 	 * 
-	 * @param source
-	 * @param target
+	 * @param source bzw. quelle
+	 * @param target bzw. senke
 	 * @return max flow
 	 */
 	public double start(String source, String target);

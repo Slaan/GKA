@@ -70,10 +70,20 @@ public class TestFordFulkerson {
 	}
 	
 	@Test
-	public void testKlauckFlow() {
+	public void testKlauckFlow1() {
 		_ffm = GKAModel.fordFulkerson(_klauck_graph);
 		assertTrue(_ffm.start("q", "s") == 4.0);
+	}
+	
+	@Test
+	public void testKlauckFlow2() {
+		_ffm = GKAModel.fordFulkerson(_klauck_graph);
 		assertTrue(_ffm.start("v2", "s") == 2.0);
+	}
+	
+	@Test
+	public void testKlauckFlow3() {
+		_ffm = GKAModel.fordFulkerson(_klauck_graph);
 		assertTrue(_ffm.start("v4", "s") == 4.0);
 	}
 	
