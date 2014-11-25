@@ -40,7 +40,7 @@ public final class GraphFunctions {
 			} else if(target.equals(node)){
 				accu.add(source);
 			} else {
-				throw new Error("DUDE!");
+				throw new Error("wot?");
 			}
 		}
 		return accu;
@@ -82,6 +82,28 @@ public final class GraphFunctions {
 		return accu; 
 	}
 	
+	public static Set<NamedWeightedEdge> outGoingEdgesOf(Graph<String, NamedWeightedEdge> graph, String vertex) {
+		if(graph == null) 	throw new NullPointerException();
+		if(vertex == null) 	throw new NullPointerException();
+		if(graph instanceof UndirectedGraph) {
+			return graph.edgesOf(vertex);
+		} 
+		// it's directed, yo!
+		DirectedGraph<String, NamedWeightedEdge> g = (DirectedGraph<String, NamedWeightedEdge>) graph;
+		return g.outgoingEdgesOf(vertex);
+	}
+	
+	public static Set<NamedWeightedEdge> incomingEdgesOf(Graph<String, NamedWeightedEdge> graph, String vertex) {
+		if(graph == null) 	throw new NullPointerException();
+		if(vertex == null) 	throw new NullPointerException();
+		if(graph instanceof UndirectedGraph) {
+			return graph.edgesOf(vertex);
+		} 
+		// it's directed, yo!
+		DirectedGraph<String, NamedWeightedEdge> g = (DirectedGraph<String, NamedWeightedEdge>) graph;
+		return g.incomingEdgesOf(vertex);
+	}
+	
 	public static boolean isDirected(Graph<String, NamedWeightedEdge> graph) {
 		if(graph == null) throw new NullPointerException();
 		if(graph instanceof DirectedGraph) {
@@ -90,11 +112,6 @@ public final class GraphFunctions {
 		return false;
 	}
 	
-	/**
-	 * 
-	 * @param graph
-	 * @return
-	 */
 	public static boolean isUndirected(Graph<String, NamedWeightedEdge> graph) {
 		if(graph == null) throw new NullPointerException();
 		if(graph instanceof UndirectedGraph) {
