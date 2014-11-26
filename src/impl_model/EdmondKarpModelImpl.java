@@ -32,9 +32,9 @@ public class EdmondKarpModelImpl implements EdmondKarpModel {
 	}
 	
 	private EdmondKarpModelImpl(Graph<String, NamedWeightedEdge> graph) {
-		if (!(graph instanceof DirectedWeightedPseudograph<?, ?>)) {
-			throw new IllegalArgumentException();
-		}
+//		if (!(graph instanceof DirectedWeightedPseudograph<?, ?>)) {
+//			throw new IllegalArgumentException();
+//		}
 		_graph = graph;
 		
 	}

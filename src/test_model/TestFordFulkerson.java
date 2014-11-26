@@ -17,6 +17,7 @@ public class TestFordFulkerson {
 
 	Graph<String, NamedWeightedEdge> 	_klauck_graph;
 	Graph<String, NamedWeightedEdge>	_simple_graph;
+	Graph<String, NamedWeightedEdge> 	_graph;
 	
 	FordFulkersonModel 					_ffm;
 	
@@ -95,4 +96,63 @@ public class TestFordFulkerson {
 		assertTrue(_ffm.start("c", "d") == 4.0);
 	}
 
+	@Test
+	public void testOwnGraph() {
+		_graph = new DirectedWeightedPseudograph<String, NamedWeightedEdge>(NamedWeightedEdge.class);
+		_graph.addVertex("s");
+		_graph.addVertex("L");
+		_graph.addVertex("F");
+		_graph.addVertex("A");
+		_graph.addVertex("C");
+		_graph.addVertex("G");
+		_graph.addVertex("B");
+		_graph.addVertex("M");
+		_graph.addVertex("t");
+		
+		NamedWeightedEdge e1 = new NamedWeightedEdge();
+		e1.setWeight(12.0);
+		NamedWeightedEdge e2 = new NamedWeightedEdge();
+		e2.setWeight(13.0);
+		NamedWeightedEdge e3 = new NamedWeightedEdge();
+		e3.setWeight(2.0);
+		NamedWeightedEdge e4 = new NamedWeightedEdge();
+		e4.setWeight(3.0);
+		NamedWeightedEdge e5 = new NamedWeightedEdge();
+		e5.setWeight(6.0);
+		NamedWeightedEdge e6 = new NamedWeightedEdge();
+		e6.setWeight(4.0);
+		NamedWeightedEdge e7 = new NamedWeightedEdge();
+		e7.setWeight(8.0);
+		NamedWeightedEdge e8 = new NamedWeightedEdge();
+		e8.setWeight(2.0);
+		NamedWeightedEdge e9 = new NamedWeightedEdge();
+		e9.setWeight(2.0);
+		NamedWeightedEdge e10 = new NamedWeightedEdge();
+		e10.setWeight(5.0);
+		NamedWeightedEdge e11 = new NamedWeightedEdge();
+		e11.setWeight(7.0);
+		NamedWeightedEdge e12 = new NamedWeightedEdge();
+		e12.setWeight(11.0);
+		NamedWeightedEdge e13 = new NamedWeightedEdge();
+		e13.setWeight(1.0);
+		
+		_graph.addEdge("s", "L", e1);
+		_graph.addEdge("L", "F", e2);
+		_graph.addEdge("F", "A", e4);
+		_graph.addEdge("A", "t", e5);
+		_graph.addEdge("s", "C", e3);
+		_graph.addEdge("C", "G", e10);
+		_graph.addEdge("F", "G", e6);
+		_graph.addEdge("G","A", e7);
+		_graph.addEdge("G","t", e8);
+		_graph.addEdge("M","t", e9);
+		_graph.addEdge("C","B", e11);
+		_graph.addEdge("B","M", e12);
+		_graph.addEdge("M","G", e13);
+		
+		_ffm = GKAModel.fordFulkerson(_graph);
+		System.out.println(_ffm.start("s", "t"));
+		assertTrue(_ffm.start("s", "t") == 9.0);
+		
+	}
 }
