@@ -4,9 +4,8 @@ import impl_model.GKAModel;
 import impl_model.NamedWeightedEdge;
 import impl_view.GKAView;
 import interface_controller.EdmondKarp;
-import interface_controller.FordFulkerson;
 import interface_model.EdmondKarpModel;
-import interface_view.AlgorithmWindow;
+import interface_view.AlgorithmWeighWindow;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,7 +15,7 @@ import org.jgrapht.Graph;
 class EdmondKarpController implements EdmondKarp {
 	
 	private		EdmondKarpModel						_ekm;
-	private		AlgorithmWindow						_aw;
+	private		AlgorithmWeighWindow				_aw;
 	private 	Graph<String, NamedWeightedEdge>	_graph;
 	
 	// Creation
@@ -29,7 +28,7 @@ class EdmondKarpController implements EdmondKarp {
 		if(graph == null) throw new NullPointerException();
 		_graph = graph;
 		_ekm = GKAModel.edmondKarp(_graph);
-		_aw = GKAView.algorithmWindow("Edmond Karp");
+		_aw = GKAView.algorithmWeighWindow("Edmond Karp");
 		_aw.addStartButtonListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -41,5 +40,6 @@ class EdmondKarpController implements EdmondKarp {
 				_aw.setTime(_ekm.getTime());
 			}
 		});
+		
 	}
 }

@@ -54,7 +54,7 @@ class AlgorithmWeighWindowImpl extends JFrame implements AlgorithmWeighWindow {
 		_panel.add(_resultTextArea);
 		_panel.add(_accessesTextArea);
 		_panel.add(_weightTextArea);
-		//_panel.add(_timeTextArea);
+		_panel.add(_timeTextArea);
 		add(_panel);
 		setVisible(true);
 	}
@@ -90,7 +90,7 @@ class AlgorithmWeighWindowImpl extends JFrame implements AlgorithmWeighWindow {
 
 	@Override
 	public void setTime(Double time) {
-		_timeTextArea.setText("Time: " + time);
+		_timeTextArea.setText("Time: " + time/100000000);
 		
 	}
 

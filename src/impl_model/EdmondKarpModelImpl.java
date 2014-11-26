@@ -55,6 +55,7 @@ public class EdmondKarpModelImpl implements EdmondKarpModel {
 		for (NamedWeightedEdge e : all_edges) {
 			_flow.put(e, 0.0);
 		}
+		//Wegfindung
 		way = getWay(source,target);
 		while (!way.isEmpty()) {
 			updateFlow(way);
@@ -79,7 +80,7 @@ public class EdmondKarpModelImpl implements EdmondKarpModel {
 				currentFlows.add(curFlow);
 			}
 		}
-		localFlow = getMinimum(currentFlows);
+		localFlow = Collections.min(currentFlows);
 		for (NamedWeightedEdge e : way) {
 			Double capacity = e.getthisWeight();
 			Double curFlow = _flow.get(e);
@@ -100,16 +101,6 @@ public class EdmondKarpModelImpl implements EdmondKarpModel {
 		}
 		_maxFlow += localFlow;
 		System.out.println(_maxFlow);
-	}
-
-	private Double getMinimum(Set<Double> currentFlows) {
-		Double result = Double.MAX_VALUE;
-		for (Double d : currentFlows) {
-			if (d<result) {
-				result = d;
-			}
-		}
-		return result;
 	}
 
 	private ArrayList<NamedWeightedEdge> getWay(String source, String target) {

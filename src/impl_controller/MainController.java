@@ -45,7 +45,7 @@ public class MainController {
 				int e = Integer.valueOf(_gw.getEdgeAmount());
 				int v = Integer.valueOf(_gw.getVertexAmount());
 				_graph = _gm.generateDirectedGraph(v, e);
-				if (e<200&&v<10000) {
+				if (v<100&&e<5000) {
 					_window.setGraph(_graph);
 				} else {
 					System.out.println("Graph zu gross");
@@ -65,8 +65,10 @@ public class MainController {
 				_graphhandler.load();
 				_graph = _graphhandler.getGraph();
 				_window.setPath(_graphhandler.getPath());
-				if (_graph.vertexSet().size()<100&&_graph.edgeSet().size()<10000) {
+				if (_graph.vertexSet().size()<100&&_graph.edgeSet().size()<5000) {
 					_window.setGraph(_graph);
+				} else {
+					System.out.println("Graph zu gross");
 				}
 				
 			}
