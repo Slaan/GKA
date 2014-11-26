@@ -137,7 +137,7 @@ public class MainWindowImpl extends JFrame implements MainWindow {
 		_ford_and_fulkerson_item = new JMenuItem("Ford and Fulkerson");
 		algo.add(_ford_and_fulkerson_item);
 		//Edmonds and Karp
-		_edmonds_and_karp_item = new JMenuItem("Edmonds undn Karp");
+		_edmonds_and_karp_item = new JMenuItem("Edmonds und Karp");
 		algo.add(_edmonds_and_karp_item);
 		return algo;
 	}

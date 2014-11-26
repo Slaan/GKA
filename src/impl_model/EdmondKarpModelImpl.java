@@ -42,23 +42,27 @@ public class EdmondKarpModelImpl implements EdmondKarpModel {
 
 	@Override
 	public double start(String source, String target) {
+		long startTime = System.nanoTime();
 		ArrayList<NamedWeightedEdge> way = new ArrayList<>();
 		Set<NamedWeightedEdge> all_edges = new HashSet<>();
 		all_edges = _graph.edgeSet();
 		_flow = new HashMap<NamedWeightedEdge, Double>();
 		_edgeDirection = new HashMap<NamedWeightedEdge, Boolean>();
 		_pred = new HashMap<NamedWeightedEdge,NamedWeightedEdge>();
+		_maxFlow = 0.0;
 		//initialisierung des flows
 		for (NamedWeightedEdge e : all_edges) {
 			_flow.put(e, 0.0);
 		}
 		way = getWay(source,target);
 		while (!way.isEmpty()) {
-			System.out.println(way);
 			updateFlow(way);
 			way = getWay(source,target);
-			System.out.println(_maxFlow);
 		}
+		long endTime = System.nanoTime();
+		_time = (endTime - startTime);
+		System.out.println(_maxFlow);
+		System.out.println(_time);
 		return _maxFlow;
 	}
 
@@ -94,7 +98,6 @@ public class EdmondKarpModelImpl implements EdmondKarpModel {
 			}
 		}
 		_maxFlow += localFlow;
-		System.out.println(_maxFlow);
 	}
 
 	private Double getMinimum(Set<Double> currentFlows) {
@@ -158,7 +161,6 @@ public class EdmondKarpModelImpl implements EdmondKarpModel {
 		if (currentEdge==null) {
 			return result;
 		}
-		System.out.println(currentEdge);
 		result.add(currentEdge);
 		while (!(_graph.getEdgeSource(currentEdge)).equals(source)) {
 			currentEdge = _pred.get(currentEdge);
@@ -183,7 +185,7 @@ public class EdmondKarpModelImpl implements EdmondKarpModel {
 	@Override
 	public double getTime() {
 		// TODO Auto-generated method stub
-		return 0;
+		return _time;
 	}
 
 }

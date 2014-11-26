@@ -139,7 +139,7 @@ public class OtherGraphHandlerModelImpl implements GraphHandlerModel {
 		for (NamedWeightedEdge edge : edge_set) {
 			// we can simply get the graph weight because
 			// all graphs are weighted
-			double 	weight = graph.getEdgeWeight(edge);
+			double 	weight = edge.getthisWeight();
 			String	source = (String) graph.getEdgeSource(edge);
 			String 	target = (String) graph.getEdgeTarget(edge);
 			if(graph instanceof DirectedGraph) {
