@@ -173,8 +173,6 @@ class FordFulkersonModelImpl implements FordFulkersonModel {
 					m.pos 		= false;
 					m.previous 	= edge_source;
 					m.flow		= Math.min(_edge_flow.get(o_edge), deltaOf(edge_source));
-					if(edge_source.equals(target)) 
-						sink_is_marked = true;
 				}
 			}
 			// 3) increase flow

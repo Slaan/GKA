@@ -12,6 +12,8 @@ import interface_view.MainWindow;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JOptionPane;
+
 import org.jgrapht.Graph;
 
 public class MainController {
@@ -43,7 +45,11 @@ public class MainController {
 				int e = Integer.valueOf(_gw.getEdgeAmount());
 				int v = Integer.valueOf(_gw.getVertexAmount());
 				_graph = _gm.generateDirectedGraph(v, e);
-				_window.setGraph(_graph);
+				if (e<200&&v<10000) {
+					_window.setGraph(_graph);
+				} else {
+					System.out.println("Graph zu gross");
+				}
 				_gw.setInvisible();
 			}
 		});
@@ -59,7 +65,10 @@ public class MainController {
 				_graphhandler.load();
 				_graph = _graphhandler.getGraph();
 				_window.setPath(_graphhandler.getPath());
-				_window.setGraph(_graph);
+				if (_graph.vertexSet().size()<100&&_graph.edgeSet().size()<10000) {
+					_window.setGraph(_graph);
+				}
+				
 			}
 		});
 		_window.addSaveListener(new ActionListener() {
