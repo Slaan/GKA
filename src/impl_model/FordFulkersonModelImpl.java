@@ -117,7 +117,7 @@ class FordFulkersonModelImpl implements FordFulkersonModel {
 			_edge_flow.put(edge, flow + _edge_flow.get(edge));			
 		} else if(!m.pos) {
 			// reduce edge flow
-			_edge_flow.put(edge, flow - _edge_flow.get(edge));
+			_edge_flow.put(edge, _edge_flow.get(edge) - flow);
 		}
 		increaseEdgeFlow(m.previous, flow);
 	}
@@ -171,8 +171,9 @@ class FordFulkersonModelImpl implements FordFulkersonModel {
 				if(!(isMarked(edge_target)) && _edge_flow.get(o_edge) > 0.) {
 					Marking m = new Marking();
 					m.pos 		= false;
-					m.previous 	= edge_source;
+					m.previous 	= edge_target;
 					m.flow		= Math.min(_edge_flow.get(o_edge), deltaOf(edge_source));
+					_marking.put(edge_source, m);
 					if(edge_source.equals(target)) 
 						sink_is_marked = true;
 				}
@@ -182,6 +183,10 @@ class FordFulkersonModelImpl implements FordFulkersonModel {
 				Double increment = _marking.get(target).flow;
 				increaseEdgeFlow(target, increment);
 				d += increment;
+				System.out.println("increment: " + increment);
+				System.out.println("marking:   " + _marking);
+				System.out.println("inspected: " + _inspected_vertexes);
+				System.out.println("edge_flow: " + _edge_flow);
 				_marking 			= new HashMap<>();
 				_inspected_vertexes = new HashSet<>(); 
 				// we've still q_mark from init

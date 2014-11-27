@@ -90,14 +90,14 @@ public class TestFordFulkerson {
 	
 	@Test
 	public void testSimpleNetwork() {
-		_ffm = GKAModel.fordFulkerson(_simple_graph);
+		_ffm = GKAModel.fordFulkerson(_simple_graph); 
 		assertTrue(_ffm.start("a", "d") == 1.0);
 		assertTrue(_ffm.start("d", "a") == 0.0);
 		assertTrue(_ffm.start("c", "d") == 4.0);
 	}
 
 	@Test
-	public void testOwnGraph() {
+	public void EdmondsKarpTest1() {
 		_graph = new DirectedWeightedPseudograph<String, NamedWeightedEdge>(NamedWeightedEdge.class);
 		_graph.addVertex("s");
 		_graph.addVertex("L");
@@ -137,22 +137,20 @@ public class TestFordFulkerson {
 		e13.setWeight(1.0);
 		
 		_graph.addEdge("s", "L", e1);
+		_graph.addEdge("s", "C", e3);
 		_graph.addEdge("L", "F", e2);
 		_graph.addEdge("F", "A", e4);
-		_graph.addEdge("A", "t", e5);
-		_graph.addEdge("s", "C", e3);
-		_graph.addEdge("C", "G", e10);
 		_graph.addEdge("F", "G", e6);
-		_graph.addEdge("G","A", e7);
-		_graph.addEdge("G","t", e8);
-		_graph.addEdge("M","t", e9);
+		_graph.addEdge("A", "t", e5);
+		_graph.addEdge("C", "G", e10);
 		_graph.addEdge("C","B", e11);
+		_graph.addEdge("G","A", e7);
 		_graph.addEdge("B","M", e12);
 		_graph.addEdge("M","G", e13);
+		_graph.addEdge("M","t", e9);
+		_graph.addEdge("G","t", e8);
 		
 		_ffm = GKAModel.fordFulkerson(_graph);
-		System.out.println(_ffm.start("s", "t"));
 		assertTrue(_ffm.start("s", "t") == 9.0);
-		
 	}
 }

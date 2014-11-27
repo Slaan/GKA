@@ -55,7 +55,8 @@ public final class GKAModel {
 	
 	public static FordFulkersonModel fordFulkerson(Graph<String, NamedWeightedEdge> graph) {
 		if(graph == null) throw new NullPointerException();
-		return FordFulkersonModelImpl.create(graph);
+//		return FordFulkersonModelImpl.create(graph);
+		return FordImpl.create(graph);
 	}
 	
 	public static EdmondKarpModel edmondKarp(Graph<String, NamedWeightedEdge> graph) {
