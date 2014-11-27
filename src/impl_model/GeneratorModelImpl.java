@@ -26,8 +26,8 @@ class GeneratorModelImpl implements GeneratorModel {
 		int a = 1;
 		for (int i=0; i<edges; i++) {
 			NamedWeightedEdge edge;
-			Integer v_int1 = generator.nextInt(vertexes-1)+1;
-			Integer v_int2 = generator.nextInt(vertexes-1)+1;
+			Integer v_int1 = generator.nextInt(vertexes)+1;
+			Integer v_int2 = generator.nextInt(vertexes)+1;
 			edge = result.addEdge(v_int1.toString(), v_int2.toString());
 			Integer weight = generator.nextInt(19)+1;
 			edge.setWeight(Double.valueOf(weight));

@@ -15,6 +15,7 @@ import org.junit.Test;
 public class TestEdmondsKarp {
 
 	Graph<String,NamedWeightedEdge>				_graph;
+	Graph<String,NamedWeightedEdge>				_graph2;
 	Graph<String,NamedWeightedEdge>				_klauck_graph;
 	EdmondKarpModel								_ekm;
 	
@@ -112,5 +113,35 @@ public class TestEdmondsKarp {
 	
 		_ekm = GKAModel.edmondKarp(_klauck_graph);
 		assertTrue(_ekm.start("q", "s") == 4.0);
+	}
+	
+	@Test
+	public void EdmondsKarpTest3() {
+		_graph2 = new DirectedWeightedPseudograph<String, NamedWeightedEdge>(NamedWeightedEdge.class);
+		
+		_graph2.addVertex("q");
+		_graph2.addVertex("A");
+		_graph2.addVertex("B");
+		_graph2.addVertex("s");
+		
+		NamedWeightedEdge e1 = new NamedWeightedEdge();
+		e1.setWeight(2.0);
+		NamedWeightedEdge e2 = new NamedWeightedEdge();
+		e2.setWeight(8.0);
+		NamedWeightedEdge e3 = new NamedWeightedEdge();
+		e3.setWeight(8.0);
+		NamedWeightedEdge e4 = new NamedWeightedEdge();
+		e4.setWeight(8.0);
+		NamedWeightedEdge e5 = new NamedWeightedEdge();
+		e5.setWeight(8.0);
+		
+		_graph2.addEdge("A", "B", e1);
+		_graph2.addEdge("q", "A", e2);
+		_graph2.addEdge("q", "B", e3);
+		_graph2.addEdge("B", "s", e4);
+		_graph2.addEdge("A", "s", e5);
+
+		_ekm = GKAModel.edmondKarp(_graph2);
+		assertTrue(_ekm.start("q", "s") == 16.0);
 	}
 }

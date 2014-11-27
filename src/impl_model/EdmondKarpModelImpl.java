@@ -14,6 +14,7 @@ import java.util.Queue;
 import java.util.Set;
 
 import org.jgrapht.Graph;
+import org.jgrapht.UndirectedGraph;
 import org.jgrapht.graph.DirectedWeightedPseudograph;
 
 public class EdmondKarpModelImpl implements EdmondKarpModel {
@@ -54,6 +55,7 @@ public class EdmondKarpModelImpl implements EdmondKarpModel {
 		for (NamedWeightedEdge e : all_edges) {
 			_flow.put(e, 0.0);
 		}
+		//Wegfindung
 		way = getWay(source,target);
 		while (!way.isEmpty()) {
 			updateFlow(way);
@@ -78,7 +80,7 @@ public class EdmondKarpModelImpl implements EdmondKarpModel {
 				currentFlows.add(curFlow);
 			}
 		}
-		localFlow = getMinimum(currentFlows);
+		localFlow = Collections.min(currentFlows);
 		for (NamedWeightedEdge e : way) {
 			Double capacity = e.getthisWeight();
 			Double curFlow = _flow.get(e);
@@ -98,16 +100,7 @@ public class EdmondKarpModelImpl implements EdmondKarpModel {
 			}
 		}
 		_maxFlow += localFlow;
-	}
-
-	private Double getMinimum(Set<Double> currentFlows) {
-		Double result = Double.MAX_VALUE;
-		for (Double d : currentFlows) {
-			if (d<result) {
-				result = d;
-			}
-		}
-		return result;
+		System.out.println(_maxFlow);
 	}
 
 	private ArrayList<NamedWeightedEdge> getWay(String source, String target) {
@@ -123,12 +116,7 @@ public class EdmondKarpModelImpl implements EdmondKarpModel {
 				_edgeDirection.put(e, true);
 			}
 		}
-		for (NamedWeightedEdge e : incomingEdgesOf(_graph,currentNode)) {
-			if (_flow.get(e)>0.0) {
-				queueEdges.add(e);
-				_edgeDirection.put(e, false);
-			}
-		}		
+
 		while(!queueEdges.isEmpty()) {
 			NamedWeightedEdge curEdge = queueEdges.poll();
 			
@@ -150,10 +138,18 @@ public class EdmondKarpModelImpl implements EdmondKarpModel {
 				}
 			}
 			for (NamedWeightedEdge e : incomingEdgesOf(_graph,currentNode)) {
-				if (!(_edgeDirection.containsKey(e)) && _flow.get(e)>0.0) {
-					queueEdges.add(e);
-					_edgeDirection.put(e, false);
-					_pred.put(e, curEdge);
+				if (_graph instanceof UndirectedGraph<?, ?>) {
+					if (!(_edgeDirection.containsKey(e)) && _flow.get(e).equals(e.getthisWeight())) {
+						queueEdges.add(e);
+						_edgeDirection.put(e, false);
+						_pred.put(e, curEdge);
+					}
+				} else {
+					if (!(_edgeDirection.containsKey(e)) && _flow.get(e)>0.0) {
+						queueEdges.add(e);
+						_edgeDirection.put(e, false);
+						_pred.put(e, curEdge);
+					}
 				}
 			}
 		}
