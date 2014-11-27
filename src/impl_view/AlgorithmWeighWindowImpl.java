@@ -90,7 +90,7 @@ class AlgorithmWeighWindowImpl extends JFrame implements AlgorithmWeighWindow {
 
 	@Override
 	public void setTime(Double time) {
-		_timeTextArea.setText("Time: " + time/100000000);
+		_timeTextArea.setText("Time: " + time/1000000000);
 		
 	}
 
