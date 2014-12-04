@@ -20,6 +20,8 @@ public interface MainWindow {
 	public void addFloydWarshallListener(ActionListener al);
 	public void addFordFulkersonListener(ActionListener al);
 	public void addEdmondsandKarpListener(ActionListener al);
+	public void addMinimalerSpannbaumHeuristikListener(ActionListener al);
+	public void addNaechstgelegnerKnotenListener(ActionListener al);
 	// non-menu
 	public void setGraph(Graph<String, NamedWeightedEdge> graph);
 	public void setPath(String path);

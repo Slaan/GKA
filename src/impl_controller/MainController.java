@@ -115,6 +115,18 @@ public class MainController {
 				GKA.edmondKarp(_graph);
 			}
 		});
+		_window.addMinimalerSpannbaumHeuristikListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				GKA.minimalerSpannbaumHeuristik(_graph);
+			}
+		});
+		_window.addNaechstgelegnerKnotenListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				GKA.naechstgelegenerKnotenAlg(_graph);
+			}
+		});
 	}
 
 	public static void main(String[] args) {

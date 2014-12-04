@@ -49,6 +49,8 @@ public class MainWindowImpl extends JFrame implements MainWindow {
 	private			JMenuItem									_floydwarshall_item;
 	private 		JMenuItem									_ford_and_fulkerson_item;
 	private 		JMenuItem									_edmonds_and_karp_item;
+	private 		JMenuItem									_minimal_spannbaum_heuristik_item;
+	private 		JMenuItem									_naechstgelegner_knoten_alg_item;
 	private			JMenu										_version_menu;
 	
 	// Creation
@@ -139,6 +141,11 @@ public class MainWindowImpl extends JFrame implements MainWindow {
 		//Edmonds and Karp
 		_edmonds_and_karp_item = new JMenuItem("Edmonds und Karp");
 		algo.add(_edmonds_and_karp_item);
+		//Minimaler Spannbaum Heuristik
+		_minimal_spannbaum_heuristik_item = new JMenuItem("Minimaler Spannbaum Heuristik");
+		algo.add(_minimal_spannbaum_heuristik_item);
+		_naechstgelegner_knoten_alg_item = new JMenuItem("Naechstgelegener Knoten Algorithmus");
+		algo.add(_naechstgelegner_knoten_alg_item);
 		return algo;
 	}
 	
@@ -204,7 +211,6 @@ public class MainWindowImpl extends JFrame implements MainWindow {
 		if(al == null) throw new NullPointerException();
 		if(_floydwarshall_item == null) throw new NullPointerException();
 		_floydwarshall_item.addActionListener(al);
-		
 	}
 	
 	@Override
@@ -212,7 +218,6 @@ public class MainWindowImpl extends JFrame implements MainWindow {
 		if(al == null) throw new NullPointerException();
 		if(_ford_and_fulkerson_item == null) throw new NullPointerException();
 		_ford_and_fulkerson_item.addActionListener(al);
-		
 	}
 	
 	
@@ -220,8 +225,21 @@ public class MainWindowImpl extends JFrame implements MainWindow {
 	public void addEdmondsandKarpListener(ActionListener al) {
 		if(al == null) throw new NullPointerException();
 		if(_edmonds_and_karp_item == null) throw new NullPointerException();
-		_edmonds_and_karp_item.addActionListener(al);
-		
+		_edmonds_and_karp_item.addActionListener(al);	
+	}
+	
+	@Override
+	public void addMinimalerSpannbaumHeuristikListener(ActionListener al) {
+		if(al == null) throw new NullPointerException();
+		if(_minimal_spannbaum_heuristik_item == null) throw new NullPointerException();
+		_minimal_spannbaum_heuristik_item.addActionListener(al);	
+	}
+
+	@Override
+	public void addNaechstgelegnerKnotenListener(ActionListener al) {
+		if(al == null) throw new NullPointerException();
+		if(_naechstgelegner_knoten_alg_item == null) throw new NullPointerException();
+		_naechstgelegner_knoten_alg_item.addActionListener(al);		
 	}
 	
 	// non-menu
@@ -260,5 +278,4 @@ public class MainWindowImpl extends JFrame implements MainWindow {
 		if(path == null) throw new NullPointerException("Can't set path to null.");
 		setTitle(_title + " - " + path);
 	}
-	
 }

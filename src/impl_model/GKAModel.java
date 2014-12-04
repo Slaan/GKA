@@ -8,6 +8,8 @@ import interface_model.FloydWarshallModel;
 import interface_model.FordFulkersonModel;
 import interface_model.GeneratorModel;
 import interface_model.GraphHandlerModel;
+import interface_model.MinimalerSpannbaumHeuristikModel;
+import interface_model.NaechstgelegnerKnotenAlgModel;
 
 import org.jgrapht.Graph;
 import org.jgrapht.UndirectedGraph;
@@ -71,6 +73,16 @@ public final class GKAModel {
 	public static DijkstraModel dijkstra(Graph<String, NamedWeightedEdge> graph) {
 		if(graph == null) throw new NullPointerException();
 		return DijkstraModelImpl.create(graph);
+	}
+	
+	public static MinimalerSpannbaumHeuristikModel minimalerSpannbaumHeuristik(Graph<String,NamedWeightedEdge> graph) {
+		if(graph == null) throw new NullPointerException();
+		return MinimalerSpannbaumHeuristikModelImpl.create(graph);
+	}
+	
+	public static NaechstgelegnerKnotenAlgModel naechstgelegnerKnotenAlg(Graph<String,NamedWeightedEdge> graph) {
+		if(graph == null) throw new NullPointerException();
+		return NaechstgelegnerKnotenAlgModelImpl.create(graph);
 	}
 	
 	public static GeneratorModel generator() {

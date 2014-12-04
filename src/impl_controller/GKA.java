@@ -9,6 +9,8 @@ import interface_controller.FloydWarshall;
 import interface_controller.FordFulkerson;
 import interface_controller.Generator;
 import interface_controller.GraphHandler;
+import interface_controller.MinimalSpannbaumHeuristik;
+import interface_controller.NaechstgelegnerKnotenAlg;
 
 import org.jgrapht.Graph;
 
@@ -58,5 +60,15 @@ public final class GKA {
 	public static EdmondKarp edmondKarp(Graph<String, NamedWeightedEdge> graph) {
 		if(graph == null) throw new NullPointerException();
 		return EdmondKarpController.create(graph);
+	}
+	
+	public static MinimalSpannbaumHeuristik minimalerSpannbaumHeuristik(Graph<String, NamedWeightedEdge> graph) {
+		if(graph == null) throw new NullPointerException();
+		return MinimalerSpannbaumHeuristikController.create(graph);
+	}
+	
+	public static NaechstgelegnerKnotenAlg naechstgelegenerKnotenAlg(Graph<String, NamedWeightedEdge> graph) {
+		if(graph == null) throw new NullPointerException();
+		return NaechstgelegnerKnotenAlgController.create(graph);
 	}
 }
