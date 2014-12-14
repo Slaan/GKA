@@ -31,7 +31,7 @@ public class NaechstgelegnerKnotenAlgController implements NaechstgelegnerKnoten
 		if(graph == null) throw new NullPointerException();
 		_graph = graph;
 		_nkm = GKAModel.naechstgelegnerKnotenAlg(_graph);
-		_aw = GKAView.algorithmWeighWindow("Edmond Karp");
+		_aw = GKAView.algorithmWeighWindow("Nächstgelegener Knoten Algorithmus");
 		_aw.addStartButtonListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

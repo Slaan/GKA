@@ -40,6 +40,7 @@ public class MainWindowImpl extends JFrame implements MainWindow {
 	private			JMenu										_file_menu;
 	private			JMenuItem									_load_item;
 	private			JMenuItem									_save_item;
+	private			JMenuItem									_generate_tsp;
 	private			JMenu										_edit_menu;
 	private			JMenuItem									_generate_graph_item;
 	private			JMenuItem									_generate_network_item;
@@ -91,6 +92,9 @@ public class MainWindowImpl extends JFrame implements MainWindow {
 	    _generate_graph_item = new JMenuItem("Generate graph");
 		_generate_graph_item.setMnemonic(KeyEvent.VK_G);
 		file.add(_generate_graph_item);
+		// generate TSP
+		_generate_tsp = new JMenuItem("TSP Alg Battle");
+		file.add(_generate_tsp);
 	    // Load graph
 	    _load_item = new JMenuItem("Load");
 	    _load_item.setMnemonic(KeyEvent.VK_L);
@@ -164,6 +168,13 @@ public class MainWindowImpl extends JFrame implements MainWindow {
 	}
 
 	// file menu
+	
+	@Override
+	public void addGenerateTSPListener(ActionListener al) {
+		if(al == null) throw new NullPointerException();
+		_generate_tsp.addActionListener(al);
+	}
+	
 	@Override
 	public void addLoadListener(ActionListener al) {
 		if(al == null) throw new NullPointerException();

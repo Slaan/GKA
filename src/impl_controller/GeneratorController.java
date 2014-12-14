@@ -25,14 +25,13 @@ class GeneratorController implements Generator {
 	private GeneratorController() {
 		_gm = GKAModel.generator();
 		_gw = GKAView.generatorWindow();
-		_gw.setInvisible();
+		_gw.setVisible();
 		_gw.addGenerateListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent r) {
 				int e = Integer.valueOf(_gw.getEdgeAmount());
 				int v = Integer.valueOf(_gw.getVertexAmount());
 				_graph = _gm.generateDirectedGraph(v, e);
-				_gw.setInvisible();
 			}
 		});
 	}
@@ -52,5 +51,4 @@ class GeneratorController implements Generator {
 	public void setGraphListener(ActionListener a) {
 		_gw.addGenerateListener(a);
 	}
-
 }

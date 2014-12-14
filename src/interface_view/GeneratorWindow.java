@@ -25,5 +25,9 @@ public interface GeneratorWindow {
 	public void setVisible();
 	
 	public void setInvisible();
+
+	void addGenerateTSPListener(ActionListener al);
+
+	void addTSPBattleListener(ActionListener al);
 	
 }

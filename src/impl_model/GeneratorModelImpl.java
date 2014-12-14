@@ -2,10 +2,12 @@ package impl_model;
 
 import interface_model.GeneratorModel;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import org.jgrapht.Graph;
 import org.jgrapht.graph.DirectedWeightedPseudograph;
+import org.jgrapht.graph.WeightedPseudograph;
 
 class GeneratorModelImpl implements GeneratorModel {
 
@@ -34,6 +36,25 @@ class GeneratorModelImpl implements GeneratorModel {
 			
 			System.out.println(a++);
 		}		
+		return result;
+	}
+	
+	@Override
+	public Graph<String,NamedWeightedEdge> genereateCompleteUndirectedGraph(int vertexes) {
+		WeightedPseudograph<String, NamedWeightedEdge> result = new WeightedPseudograph<>(NamedWeightedEdge.class);
+		ArrayList<String> vertex_list = new ArrayList<>();
+		for (Integer i=1;i<=vertexes;vertex_list.add(""+i),result.addVertex(""+i++));
+		Random generator = new Random();
+		int position = 1;
+		for (String s1 : vertex_list) {
+			for (int i=position; i<vertexes;i++) {
+				NamedWeightedEdge edge = new NamedWeightedEdge();
+				edge.setWeight(generator.nextInt(9)+10.0);
+				result.addEdge(s1, vertex_list.get(i), edge);
+			}
+		position++;
+		}
+			
 		return result;
 	}
 }

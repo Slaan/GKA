@@ -53,12 +53,39 @@ public class MainController {
 				_gw.setInvisible();
 			}
 		});
+		_gw.addGenerateTSPListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				int v = Integer.valueOf(_gw.getVertexAmount());
+				_graph = _gm.genereateCompleteUndirectedGraph(v);
+				_window.setGraph(_graph);
+				System.out.println(_graph);
+				_gw.setInvisible();
+			}
+		});
+		_gw.addTSPBattleListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				// HERE BATTLE WILL BE DONE (or in another method/class?)
+			}
+		});
 		_window.addGenerateListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				_gw.setVisible();
 			}
 		});
+		
+//		_window.addGenerateListener(new ActionListener() {
+//			
+//			@Override
+//			public void actionPerformed(ActionEvent arg0) {
+//				_graph=GKA.generator().getGraph();
+//				
+//			}
+//		});
 		_window.addLoadListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

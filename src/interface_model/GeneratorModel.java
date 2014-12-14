@@ -12,5 +12,8 @@ public interface GeneratorModel {
 	 * @param edges
 	 * @return
 	 */
-	public Graph<String, NamedWeightedEdge> generateDirectedGraph(int vertex, int edges); 
+	public Graph<String, NamedWeightedEdge> generateDirectedGraph(int vertex, int edges);
+
+	Graph<String, NamedWeightedEdge> genereateCompleteUndirectedGraph(
+			int vertexes); 
 }
