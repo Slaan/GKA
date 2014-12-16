@@ -9,6 +9,7 @@ import interface_model.FordFulkersonModel;
 import interface_model.GeneratorModel;
 import interface_model.GraphHandlerModel;
 import interface_model.MinimalerSpannbaumHeuristikModel;
+import interface_model.MinimalerSpannbaumModel;
 import interface_model.NaechstgelegnerKnotenAlgModel;
 
 import org.jgrapht.Graph;
@@ -87,6 +88,15 @@ public final class GKAModel {
 	
 	public static GeneratorModel generator() {
 		return GeneratorModelImpl.create();
+	}
+	
+	/**
+	 * MinimalSpannbaum is the minimal tree with lowest edges. 
+	 * @param graph
+	 * @return a functor
+	 */
+	public static MinimalerSpannbaumModel minimalerSpannbaum(Graph<String, NamedWeightedEdge> graph) {
+		return MinimalerSpannbaumImpl.create(graph);
 	}
 	
 }

@@ -1,13 +1,21 @@
 package impl_model;
 
-import org.jgrapht.Graph;
-
 import interface_model.MinimalerSpannbaumModel;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+
+import org.jgrapht.Graph;
+import org.jgrapht.graph.WeightedPseudograph;
 
 public class MinimalerSpannbaumImpl implements MinimalerSpannbaumModel {
 	
 	private Graph<String, NamedWeightedEdge> _graph;
 	private Graph<String, NamedWeightedEdge> _minimalgraph;
+	private double							 _time = 0.0;
+	private Integer							 _graph_accesses = 0; 
 
 	public static MinimalerSpannbaumModel create(Graph<String, NamedWeightedEdge> graph) {
 		if(graph == null) throw new IllegalArgumentException("Graph is null.");
@@ -20,26 +28,46 @@ public class MinimalerSpannbaumImpl implements MinimalerSpannbaumModel {
 	}
 	
 	private Graph<String, NamedWeightedEdge> minimalerSpannBaum(Graph<String, NamedWeightedEdge> graph) {
-		// TODO: Implement me!
-		return null;
+		_time = System.nanoTime();
+		ArrayList<NamedWeightedEdge> 	 edges 		= new ArrayList<>(graph.edgeSet());
+		_graph_accesses++;
+		Graph<String, NamedWeightedEdge> g  		= new WeightedPseudograph<>(NamedWeightedEdge.class);
+		// ensure all vertexes are in minimal tree
+		for(String vertex : graph.vertexSet())
+			g.addVertex(vertex);
+		System.out.println(graph.edgeSet());
+		ArrayListSort s = new ArrayListSort(edges);
+		edges = s.quicksort();
+		Set<String> vertexInGraph = new HashSet<>();
+		for(Iterator<NamedWeightedEdge> i = edges.iterator(); i.hasNext(); ) {
+			NamedWeightedEdge smallestEdge = i.next();
+			String source = graph.getEdgeSource(smallestEdge);
+			String target = graph.getEdgeTarget(smallestEdge);
+			if(source != target) {
+				if(!vertexInGraph.contains(source) || !vertexInGraph.contains(target)) {
+					g.addEdge(source, target, smallestEdge);
+					vertexInGraph.add(source);
+					vertexInGraph.add(target);
+				}				
+			}
+		}
+		_time = System.nanoTime() - _time;
+		return g;
 	}
 	
 	@Override
 	public int getGraphAccesses() {
-		// TODO Auto-generated method stub
-		return 0;
+		return _graph_accesses;
 	}
 
 	@Override
 	public int getTotalGraphAccesses() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public double getTime() {
-		// TODO Auto-generated method stub
-		return 0;
+		return _time;
 	}
 
 	@Override
