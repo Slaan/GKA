@@ -23,8 +23,6 @@ public class BattleControllerImpl implements BattleController {
 	private BattleWindow							_bw;
 	private Double									_nka_time_max=0.0;
 	private Double									_nka_distance_max=0.0;
-	private ArrayList<Double>						_msh_time_array;
-	private ArrayList<Double>						_msh_distance_array;
 	private Double									_msh_time_max;
 	private Double									_msh_distance_max;
 	private GeneratorModel							_generator;
@@ -46,6 +44,11 @@ public class BattleControllerImpl implements BattleController {
 	}
 	
 	public void startbattle() {
+		_msh_time_max = 0.0;
+		_nka_time_max = 0.0;
+		_nka_distance_max = 0.0;
+		_msh_distance_max = 0.0;
+		
 		for (int i=0;i<100;i++) {
 			_generator = GKAModel.generator();
 			Graph<String,NamedWeightedEdge> graph;
@@ -56,8 +59,7 @@ public class BattleControllerImpl implements BattleController {
 			double nka_time = nka.getTime();
 			double nka_distance = nka.getWeight();
 			_nka_time_max += nka_time;
-			_nka_distance_max += nka_distance;
-			System.out.println(_nka_distance_max);
+			_nka_distance_max += nka_distance;	
 			
 			_bw.setCounter(i+1);
 			_bw.setNKAAverageDistance(_nka_distance_max/(i+1));
@@ -65,11 +67,23 @@ public class BattleControllerImpl implements BattleController {
 			_bw.setNKATotalDistance(_nka_distance_max);
 			_bw.setNKATotalTime(_nka_time_max);
 			_bw.update(); 
+			
+			msh.start("1",null);
+			double msh_time = msh.getTime();
+			double msh_distance = msh.getWeight();
+			_msh_time_max += msh_time;
+			_msh_distance_max += msh_distance;
+			
+			_bw.setMSHAverageDistance(_msh_distance_max/(i+1));
+			_bw.setMSHAverageTime(_msh_time_max/(i+1));
+			_bw.setMSHTotalDistance(_msh_distance_max);
+			_bw.setMSHTotalTime(_msh_time_max);
+			
 			SwingUtilities.invokeLater(new Runnable() {
 				
 				@Override
 				public void run() {
-					_bw.setCounter(i+1);
+					_bw.update();
 				}
 			});
 		}

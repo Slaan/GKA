@@ -1,2 +1,3 @@
-/impl_model/
-/interface_model/
+/impl_controller/
+/impl_view/
+/interface_view/

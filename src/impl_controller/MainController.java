@@ -22,7 +22,6 @@ public class MainController {
 	private Graph<String, NamedWeightedEdge> 			_graph;
 	private	GeneratorModel						 		_gm;
 	private	GeneratorWindow								 _gw;
-	private BattleController							_bw;
 	
 	// Creation
 	public static MainController create() {
@@ -52,26 +51,15 @@ public class MainController {
 				_gw.setInvisible();
 			}
 		});
-		_gw.addGenerateTSPListener(new ActionListener() {
+		
+		_window.addGenerateTSPListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				int v = Integer.valueOf(_gw.getVertexAmount());
-				_graph = _gm.genereateCompleteUndirectedGraph(v);
-				if (v<500) {
-					_window.setGraph(_graph);
-				} else {
-					System.out.println("Graph zu gross");
-				}
-				_gw.setInvisible();
+				System.out.println("Richtig hier?");
+				GKA.battle();
 			}
 		});
-		_gw.addTSPBattleListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				_bw = GKA.battle();
-			}
-		});
+		
 		_window.addGenerateListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -79,14 +67,6 @@ public class MainController {
 			}
 		});
 		
-//		_window.addGenerateListener(new ActionListener() {
-//			
-//			@Override
-//			public void actionPerformed(ActionEvent arg0) {
-//				_graph=GKA.generator().getGraph();
-//				
-//			}
-//		});
 		_window.addLoadListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
