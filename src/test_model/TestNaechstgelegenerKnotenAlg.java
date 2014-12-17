@@ -58,7 +58,4 @@ public class TestNaechstgelegenerKnotenAlg {
 		assertTrue(actual_result.equals(expected_result));
 		assertTrue(_nka.getWeight()==8.0);
 	}
-	
-	
-
 }

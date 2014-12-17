@@ -3,7 +3,7 @@ package impl_controller;
 import impl_model.GKAModel;
 import impl_model.NamedWeightedEdge;
 import impl_view.GKAView;
-import interface_controller.Generator;
+import interface_controller.BattleController;
 import interface_controller.GraphHandler;
 import interface_model.GeneratorModel;
 import interface_view.GeneratorWindow;
@@ -12,8 +12,6 @@ import interface_view.MainWindow;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JOptionPane;
-
 import org.jgrapht.Graph;
 
 public class MainController {
@@ -21,10 +19,11 @@ public class MainController {
 	private static MainController _instance;
 	private MainWindow _window;
 	private GraphHandler _graphhandler;
-	private Graph<String, NamedWeightedEdge> _graph;
-	private	GeneratorModel					 _gm;
-	private	GeneratorWindow					 _gw;
-
+	private Graph<String, NamedWeightedEdge> 			_graph;
+	private	GeneratorModel						 		_gm;
+	private	GeneratorWindow								 _gw;
+	private BattleController							_bw;
+	
 	// Creation
 	public static MainController create() {
 		if (_instance == null) {
@@ -58,8 +57,11 @@ public class MainController {
 			public void actionPerformed(ActionEvent arg0) {
 				int v = Integer.valueOf(_gw.getVertexAmount());
 				_graph = _gm.genereateCompleteUndirectedGraph(v);
-				_window.setGraph(_graph);
-				System.out.println(_graph);
+				if (v<500) {
+					_window.setGraph(_graph);
+				} else {
+					System.out.println("Graph zu gross");
+				}
 				_gw.setInvisible();
 			}
 		});
@@ -67,8 +69,7 @@ public class MainController {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				// HERE BATTLE WILL BE DONE (or in another method/class?)
+				_bw = GKA.battle();
 			}
 		});
 		_window.addGenerateListener(new ActionListener() {

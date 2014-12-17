@@ -39,6 +39,7 @@ class GenerateWindowImpl extends JFrame implements GeneratorWindow {
 		_panel.add(_edges_field);
 		_panel.add(_generate_button);
 		_panel.add(_generate_tsp_button);
+		_panel.add(_generate_battle_button);
 		add(_panel);
 		setVisible(true);
 	}

@@ -39,4 +39,8 @@ public final class GKAView {
 	public static GeneratorWindow generatorWindow() {
 		return GenerateWindowImpl.create();
 	}
+	
+	public static BattleWindow generateBattle() {
+		return BattleWindow.create();
+	}
 }
