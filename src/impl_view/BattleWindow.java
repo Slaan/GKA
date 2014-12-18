@@ -1,5 +1,6 @@
 package impl_view;
 
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -58,26 +59,34 @@ public class BattleWindow {
 		_comp_total_timer = new JLabel("Gesamtzeit: ");
 		con.add(_comp_total_timer);
 		_nka_total_timer = new JLabel("0");
+		_nka_total_timer.setOpaque(true);
 		con.add(_nka_total_timer);
 		_msh_total_timer = new JLabel("0");
+		_msh_total_timer.setOpaque(true);
 		con.add(_msh_total_timer);
 		_comp_average_timer = new JLabel("Durchschnittszeit: ");
 		con.add(_comp_average_timer);
 		_nka_average_timer = new JLabel("0");
+		_nka_average_timer.setOpaque(true);
 		con.add(_nka_average_timer);
 		_msh_average_timer = new JLabel("0");
+		_msh_average_timer.setOpaque(true);
 		con.add(_msh_average_timer);
 		_comp_total_distance = new JLabel("Gesamtdistanz: ");
 		con.add(_comp_total_distance);
 		_nka_total_distance = new JLabel("0");
+		_nka_total_distance.setOpaque(true);
 		con.add(_nka_total_distance);
 		_msh_total_distance = new JLabel("0");
+		_msh_total_distance.setOpaque(true);
 		con.add(_msh_total_distance);
 		_comp_average_distance = new JLabel("Durchschnittsdistanz: ");
 		con.add(_comp_average_distance);
 		_nka_average_distance = new JLabel("0");
+		_nka_average_distance.setOpaque(true);
 		con.add(_nka_average_distance);
 		_msh_average_distance = new JLabel("0");
+		_msh_average_distance.setOpaque(true);
 		con.add(_msh_average_distance);
 		_start = new JButton("Start");
 		con.add(_start);
@@ -147,5 +156,47 @@ public class BattleWindow {
 	public void update() {
 		_jframe.revalidate();
 		_jframe.repaint();
+	}
+
+	public void paint_avg_time(boolean b) {
+		if (b) {
+			_nka_average_timer.setBackground(Color.GREEN);
+			_msh_average_timer.setBackground(Color.RED);
+		} else {
+			_nka_average_timer.setBackground(Color.RED);
+			_msh_average_timer.setBackground(Color.GREEN);
+		}
+		
+	}
+
+	public void paint_avg_dist(boolean b) {
+		if(b) {
+			_nka_average_distance.setBackground(Color.GREEN);
+			_msh_average_distance.setBackground(Color.RED);
+		} else {
+			_nka_average_distance.setBackground(Color.RED);
+			_msh_average_distance.setBackground(Color.GREEN);
+		}
+	}
+
+	public void paint_max_time(boolean b) {
+		if(b) {
+			_nka_total_timer.setBackground(Color.GREEN);
+			_msh_total_timer.setBackground(Color.RED);
+		} else {
+			_nka_total_timer.setBackground(Color.RED);
+			_msh_total_timer.setBackground(Color.GREEN);
+		}
+	}
+
+	public void paint_max_dist(boolean b) {
+		if(b) {
+			_nka_total_distance.setBackground(Color.GREEN);
+			_msh_total_distance.setBackground(Color.RED);
+		} else {
+			_nka_total_distance.setBackground(Color.RED);
+			_msh_total_distance.setBackground(Color.GREEN);
+		}
+		
 	}
 }
