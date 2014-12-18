@@ -2,6 +2,7 @@ package impl_view;
 
 import interface_view.AlgorithmWeighWindow;
 import interface_view.AlgorithmWindow;
+import interface_view.DialogWindow;
 import interface_view.GeneratorWindow;
 import interface_view.MainWindow;
 
@@ -38,5 +39,15 @@ public final class GKAView {
 	 */
 	public static GeneratorWindow generatorWindow() {
 		return GenerateWindowImpl.create();
+	}
+	
+	/**
+	 * 
+	 * @param title of dialog window
+	 * @return a new dialog window
+	 */
+	public static DialogWindow dialogWindow(String title) {
+		if(title == null) throw new IllegalArgumentException();
+		return DialogImpl.create(title);
 	}
 }

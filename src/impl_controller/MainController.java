@@ -69,6 +69,8 @@ public class MainController {
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				// HERE BATTLE WILL BE DONE (or in another method/class?)
+				// dunno, may you should realy implement stuff suggested by
+				// axel? 
 			}
 		});
 		_window.addGenerateListener(new ActionListener() {
@@ -77,15 +79,7 @@ public class MainController {
 				_gw.setVisible();
 			}
 		});
-		
-//		_window.addGenerateListener(new ActionListener() {
-//			
-//			@Override
-//			public void actionPerformed(ActionEvent arg0) {
-//				_graph=GKA.generator().getGraph();
-//				
-//			}
-//		});
+
 		_window.addLoadListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -152,6 +146,12 @@ public class MainController {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				GKA.naechstgelegenerKnotenAlg(_graph);
+			}
+		});
+		_window.addSpanningTreeListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				new SpanningtreeController(_graph);
 			}
 		});
 	}

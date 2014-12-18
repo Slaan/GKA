@@ -51,7 +51,8 @@ public class MainWindowImpl extends JFrame implements MainWindow {
 	private 		JMenuItem									_ford_and_fulkerson_item;
 	private 		JMenuItem									_edmonds_and_karp_item;
 	private 		JMenuItem									_minimal_spannbaum_heuristik_item;
-	private 		JMenuItem									_naechstgelegner_knoten_alg_item;
+	private 		JMenuItem									_naechstgelegner_knoten_item;
+	private 		JMenuItem									_spanning_tree_item;
 	private			JMenu										_version_menu;
 	
 	// Creation
@@ -148,8 +149,10 @@ public class MainWindowImpl extends JFrame implements MainWindow {
 		//Minimaler Spannbaum Heuristik
 		_minimal_spannbaum_heuristik_item = new JMenuItem("Minimaler Spannbaum Heuristik");
 		algo.add(_minimal_spannbaum_heuristik_item);
-		_naechstgelegner_knoten_alg_item = new JMenuItem("Naechstgelegener Knoten Algorithmus");
-		algo.add(_naechstgelegner_knoten_alg_item);
+		_naechstgelegner_knoten_item = new JMenuItem("Naechstgelegener Knoten Algorithmus");
+		algo.add(_naechstgelegner_knoten_item);
+		_spanning_tree_item = new JMenuItem("Spanningtree Weight");
+		algo.add(_spanning_tree_item);
 		return algo;
 	}
 	
@@ -249,8 +252,14 @@ public class MainWindowImpl extends JFrame implements MainWindow {
 	@Override
 	public void addNaechstgelegnerKnotenListener(ActionListener al) {
 		if(al == null) throw new NullPointerException();
-		if(_naechstgelegner_knoten_alg_item == null) throw new NullPointerException();
-		_naechstgelegner_knoten_alg_item.addActionListener(al);		
+		if(_naechstgelegner_knoten_item == null) throw new NullPointerException();
+		_naechstgelegner_knoten_item.addActionListener(al);		
+	}
+	
+	@Override
+	public void addSpanningTreeListener(ActionListener al) {
+		if(al == null) throw new IllegalArgumentException();
+		_spanning_tree_item.addActionListener(al);
 	}
 	
 	// non-menu
@@ -289,4 +298,5 @@ public class MainWindowImpl extends JFrame implements MainWindow {
 		if(path == null) throw new NullPointerException("Can't set path to null.");
 		setTitle(_title + " - " + path);
 	}
+	
 }

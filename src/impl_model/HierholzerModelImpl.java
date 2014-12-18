@@ -54,12 +54,9 @@ class HierholzerModelImpl implements HierholzerModel {
 		ArrayList<ArrayList<String>> cycles = new ArrayList<>();
 		cycles.add(findCycle(source));
 		int i = 0;
-		System.out.println("#############################");
-		System.out.println(cycles);
 		while(!_touched_edges.equals(_graph.edgeSet())) {
 			_graph_accesses++;
 			for(String vertex : cycles.get(i)) {
-				System.out.println(incidentUntouchedFrom(vertex));
 				if(incidentUntouchedFrom(vertex).size() > 0) {
 					ArrayList<String> new_cycle = findCycle(vertex);
 					cycles.add(new_cycle);
@@ -116,9 +113,7 @@ class HierholzerModelImpl implements HierholzerModel {
 	
 	private Set<NamedWeightedEdge> incidentUntouchedFrom(String vertex) {
 		Set<NamedWeightedEdge> edges = new HashSet<>(_graph.edgesOf(vertex));
-		System.out.println("actual edges (" + vertex + "): " + edges);
 		edges.removeAll(_touched_edges);
-		System.out.println("touched edges:    " + _touched_edges);
 		return edges;
 	}
 	
@@ -175,10 +170,10 @@ class HierholzerModelImpl implements HierholzerModel {
 			NamedWeightedEdge d_c = new NamedWeightedEdge();
 			graph.addEdge("d", "c", d_c);
 			HierholzerModel a = new HierholzerModelImpl(graph);
-			System.out.println(a.start("a", "a"));
+//			System.out.println(a.start("a", "a"));
 			
 		}
-		System.out.println("####################");
+//		System.out.println("####################");
 		{		
 			Graph<String, NamedWeightedEdge> g2;
 			g2 = new WeightedPseudograph<>(NamedWeightedEdge.class);
@@ -204,7 +199,7 @@ class HierholzerModelImpl implements HierholzerModel {
 			NamedWeightedEdge e_a = new NamedWeightedEdge();
 			g2.addEdge("e", "a", e_a);
 			HierholzerModel a = new HierholzerModelImpl(g2);
-			System.out.println(a.start("a", "a"));
+//			System.out.println(a.start("a", "a"));
 		}
 	}
 }

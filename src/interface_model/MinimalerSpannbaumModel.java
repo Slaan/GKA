@@ -16,4 +16,9 @@ public interface MinimalerSpannbaumModel extends AlgorithmModel {
 	 * @return graph given in constructor
 	 */
 	public Graph<String, NamedWeightedEdge> graph();
+	
+	/**
+	 * @return sum of edge weights
+	 */
+	public double getWeight();
 }

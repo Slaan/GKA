@@ -136,7 +136,7 @@ public class TestMinimalerSpannbaum {
 		
 		spann.addEdge("a", "b", a_b);
 		spann.addEdge("b", "d", b_d);
-		spann.addEdge("b", "c", b_c);
+		spann.addEdge("b", "e", b_e);
 		spann.addEdge("c", "e", c_e);
 		spann.addEdge("e", "f", e_f);
 		

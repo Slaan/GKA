@@ -6,6 +6,7 @@ import interface_model.MinimalerSpannbaumModel;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import org.jgrapht.Graph;
@@ -16,6 +17,7 @@ public class MinimalerSpannbaumHeuristikModelImpl implements MinimalerSpannbaumH
 	private Graph<String, NamedWeightedEdge> _spanning_tree;
 	private double							 _time 				= 0.0;
 	private Integer							 _graph_accesses 	= 0;
+	private double							 _weight			= 0.0;
 	
 	private MinimalerSpannbaumHeuristikModelImpl(Graph<String, NamedWeightedEdge> graph) {
 		_graph = graph;
@@ -39,7 +41,7 @@ public class MinimalerSpannbaumHeuristikModelImpl implements MinimalerSpannbaumH
 	
 	@Override
 	public double getWeight() {
-		return 0;
+		return _weight;
 	}
 
 	@Override
@@ -53,12 +55,30 @@ public class MinimalerSpannbaumHeuristikModelImpl implements MinimalerSpannbaumH
 		ArrayList<String> result = hhm.start(source, source);
 		result = removeDubs(result);
 		result.add(source);
-		// calculate weight
+		calculateWeight(result);
 		_time = System.nanoTime() - _time;
 		_graph_accesses += hhm.getGraphAccesses();
 		return result;
 	}
 
+	private void calculateWeight(ArrayList<String> travel) {
+		Iterator<String> i = travel.iterator();
+		_weight = 0.0;
+		if(!i.hasNext()) 
+			throw new Error("unexpected error!");
+		String current = i.next();
+		while(i.hasNext()) {
+			String next = i.next();
+			Set<NamedWeightedEdge> edges = _spanning_tree.getAllEdges(current, next);
+			// we know all edges between current and next have the 
+			// same weight
+			NamedWeightedEdge edge = _graph.getEdge(current, next);
+			System.out.println(edge);
+			_weight += edge.getthisWeight();
+			current = next;
+		}
+	}
+	
 	@Override
 	public int getGraphAccesses() {
 		return _graph_accesses;
@@ -75,8 +95,8 @@ public class MinimalerSpannbaumHeuristikModelImpl implements MinimalerSpannbaumH
 	}
 
 	private <E> ArrayList<E> removeDubs(ArrayList<E> aList) {
-		Set<E> 			in_list = new HashSet<>();
-		ArrayList<E> 	accu 	= new ArrayList<>();
+		Set<E> 		 in_list = new HashSet<>();
+		ArrayList<E> accu 	= new ArrayList<>();
 		for(E e : aList) {
 			if(in_list.add(e))
 				accu.add(e);

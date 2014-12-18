@@ -23,6 +23,7 @@ public interface MainWindow {
 	public void addEdmondsandKarpListener(ActionListener al);
 	public void addMinimalerSpannbaumHeuristikListener(ActionListener al);
 	public void addNaechstgelegnerKnotenListener(ActionListener al);
+	public void addSpanningTreeListener(ActionListener al);
 	// non-menu
 	public void setGraph(Graph<String, NamedWeightedEdge> graph);
 	public void setPath(String path);

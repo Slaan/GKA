@@ -21,46 +21,46 @@ public class TestMinimalerSpannbaumHeuristik {
 
 	private MinimalerSpannbaumHeuristikModel _msh;
 	
-//	@Test
-//	public void testMSH() {
-//		Graph<String,NamedWeightedEdge> graph = new WeightedPseudograph<>(NamedWeightedEdge.class);
-//		graph.addVertex("a");
-//		graph.addVertex("b");
-//		graph.addVertex("c");
-//		graph.addVertex("d");
-//		
-//		NamedWeightedEdge a_b = new NamedWeightedEdge();
-//		a_b.setWeight(2.0);
-//		NamedWeightedEdge a_c = new NamedWeightedEdge();
-//		a_c.setWeight(4.0);
-//		NamedWeightedEdge a_d = new NamedWeightedEdge();
-//		a_d.setWeight(3.0);
-//		NamedWeightedEdge b_c = new NamedWeightedEdge();
-//		b_c.setWeight(2.0);
-//		NamedWeightedEdge b_d = new NamedWeightedEdge();
-//		b_d.setWeight(3.0);
-//		NamedWeightedEdge c_d = new NamedWeightedEdge();
-//		c_d.setWeight(1.0);
-//		
-//		graph.addEdge("a", "b", a_b);
-//		graph.addEdge("a", "c", a_c);
-//		graph.addEdge("a", "d", a_d);
-//		graph.addEdge("b", "c", b_c);
-//		graph.addEdge("b", "d", b_d);
-//		graph.addEdge("c", "d", c_d);
-//		
-//		ArrayList<String> expected_result = new ArrayList<>();
-//		expected_result.add("a");
-//		expected_result.add("b");
-//		expected_result.add("c");
-//		expected_result.add("d");
-//		expected_result.add("a");
-//
-//		_msh = GKAModel.minimalerSpannbaumHeuristik(graph);
-//		ArrayList<String> actual_result = _msh.start("a","a");
-//		assertEquals(expected_result, actual_result);
-////		assertTrue(_msh.getWeight()==8.0);
-//	}
+	@Test
+	public void testMSH() {
+		Graph<String,NamedWeightedEdge> graph = new WeightedPseudograph<>(NamedWeightedEdge.class);
+		graph.addVertex("a");
+		graph.addVertex("b");
+		graph.addVertex("c");
+		graph.addVertex("d");
+		
+		NamedWeightedEdge a_b = new NamedWeightedEdge();
+		a_b.setWeight(2.0);
+		NamedWeightedEdge a_c = new NamedWeightedEdge();
+		a_c.setWeight(4.0);
+		NamedWeightedEdge a_d = new NamedWeightedEdge();
+		a_d.setWeight(3.0);
+		NamedWeightedEdge b_c = new NamedWeightedEdge();
+		b_c.setWeight(2.0);
+		NamedWeightedEdge b_d = new NamedWeightedEdge();
+		b_d.setWeight(3.0);
+		NamedWeightedEdge c_d = new NamedWeightedEdge();
+		c_d.setWeight(1.0);
+		
+		graph.addEdge("a", "b", a_b);
+		graph.addEdge("a", "c", a_c);
+		graph.addEdge("a", "d", a_d);
+		graph.addEdge("b", "c", b_c);
+		graph.addEdge("b", "d", b_d);
+		graph.addEdge("c", "d", c_d);
+		
+		ArrayList<String> expected_result = new ArrayList<>();
+		expected_result.add("a");
+		expected_result.add("b");
+		expected_result.add("c");
+		expected_result.add("d");
+		expected_result.add("a");
+
+		_msh = GKAModel.minimalerSpannbaumHeuristik(graph);
+		ArrayList<String> actual_result = _msh.start("a","a");
+		assertEquals(expected_result, actual_result);
+//		assertTrue(_msh.getWeight()==8.0);
+	}
 	
 	@Test
 	public void testGrossenBaum() {
@@ -125,8 +125,8 @@ public class TestMinimalerSpannbaumHeuristik {
 
 		_msh = GKAModel.minimalerSpannbaumHeuristik(graph);
 		ArrayList<String> actual_result = _msh.start("a","a");
-		assertEquals(expected_result, actual_result);
-//		assertTrue(_msh.getWeight()==8.0);
+		MinimalerSpannbaumModel msm = GKAModel.minimalerSpannbaum(graph);
+		assertTrue(_msh.getWeight() < msm.getWeight());
 		
 	}
 	
