@@ -91,7 +91,7 @@ public class MinimalerSpannbaumHeuristikModelImpl implements MinimalerSpannbaumH
 
 	@Override
 	public double getTime() {
-		return _time;
+		return _time/1000000;
 	}
 
 	private <E> ArrayList<E> removeDubs(ArrayList<E> aList) {

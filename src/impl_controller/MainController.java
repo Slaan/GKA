@@ -52,6 +52,22 @@ public class MainController {
 			}
 		});
 		
+		_gw.addGenerateTSPListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				
+				int v = Integer.valueOf(_gw.getVertexAmount());
+				_graph = _gm.genereateCompleteUndirectedGraph(v);
+				if (v<100) {
+					_window.setGraph(_graph);
+				} else {
+					System.out.println("Graph zu gross");
+				}
+				_gw.setInvisible();
+			}
+		});
+		
 		_window.addGenerateTSPListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {

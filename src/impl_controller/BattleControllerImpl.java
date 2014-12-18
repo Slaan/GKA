@@ -21,7 +21,7 @@ import org.jgrapht.Graph;
 
 public class BattleControllerImpl implements BattleController {
 
-	private final Integer							VERTEX_NUMBER=200;
+	private final Integer							VERTEX_NUMBER=100;
 	private BattleWindow							_bw;
 	private Double									_nka_time_max=0.0;
 	private Double									_nka_distance_max=0.0;
@@ -87,6 +87,34 @@ public class BattleControllerImpl implements BattleController {
 					
 					_bw.setCounter(i+1);
 				}
+				Double nka_time_avg = _nka_time_max/(100);
+				Double nka_dist_avg = _nka_distance_max/(100);
+				Double msh_time_avg = _msh_time_max/(100);
+				Double msh_dist_avg = _msh_distance_max/(100);
+				
+				if (nka_time_avg < msh_time_avg) {
+					_bw.paint_avg_time(true);
+				} else {
+					_bw.paint_avg_time(false);
+				}
+				
+				if (nka_dist_avg < msh_dist_avg) {
+					_bw.paint_avg_dist(true);
+				} else {
+					_bw.paint_avg_dist(false);
+				}
+				
+				if (_nka_time_max < _msh_time_max) {
+					_bw.paint_max_time(true);
+				} else {
+					_bw.paint_max_time(false);
+				}
+				
+				if(_nka_distance_max < _msh_distance_max) {
+					_bw.paint_max_dist(true);
+				} else {
+					_bw.paint_max_dist(false);
+				}
 				return null;
 			}
 			
@@ -94,35 +122,6 @@ public class BattleControllerImpl implements BattleController {
 		
 		BattleTask task = new BattleTask();
 		task.execute();
-		
-		Double nka_time_avg = _nka_time_max/(100);
-		Double nka_dist_avg = _nka_distance_max/(100);
-		Double msh_time_avg = _msh_time_max/(100);
-		Double msh_dist_avg = _msh_distance_max/(100);
-		
-		if (nka_time_avg < msh_time_avg) {
-			_bw.paint_avg_time(true);
-		} else {
-			_bw.paint_avg_time(false);
-		}
-		
-		if (nka_dist_avg < msh_dist_avg) {
-			_bw.paint_avg_dist(true);
-		} else {
-			_bw.paint_avg_dist(false);
-		}
-		
-		if (_nka_time_max < _msh_time_max) {
-			_bw.paint_max_time(true);
-		} else {
-			_bw.paint_max_time(false);
-		}
-		
-		if(_nka_distance_max < _msh_distance_max) {
-			_bw.paint_max_dist(true);
-		} else {
-			_bw.paint_max_dist(false);
-		}
 	}
 	
 }
