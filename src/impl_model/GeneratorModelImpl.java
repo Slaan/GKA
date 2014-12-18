@@ -11,6 +11,7 @@ import org.jgrapht.graph.WeightedPseudograph;
 
 class GeneratorModelImpl implements GeneratorModel {
 
+	private final int 			WEIGHT_SPREAD=50;
 	// Creation
 	public static GeneratorModel create() {
 		return new GeneratorModelImpl();
@@ -49,7 +50,7 @@ class GeneratorModelImpl implements GeneratorModel {
 		for (String s1 : vertex_list) {
 			for (int i=position; i<vertexes;i++) {
 				NamedWeightedEdge edge = new NamedWeightedEdge();
-				edge.setWeight(generator.nextInt(9)+10.0);
+				edge.setWeight(generator.nextInt(WEIGHT_SPREAD)+(WEIGHT_SPREAD-1.0));
 				result.addEdge(s1, vertex_list.get(i), edge);
 			}
 		position++;

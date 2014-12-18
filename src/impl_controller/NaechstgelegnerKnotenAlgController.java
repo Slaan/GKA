@@ -38,7 +38,7 @@ public class NaechstgelegnerKnotenAlgController implements NaechstgelegnerKnoten
 				String source = _aw.getStartVertex();
 				String target = _aw.getTargetVertex();
 				ArrayList<String> result = _nkm.start(source, target);
-				_aw.setResultText("Max. flow: " + result.toString());
+				_aw.setResultText(result.toString());
 				_aw.setGraphAccesses(_nkm.getGraphAccesses(), _nkm.getTotalGraphAccesses());
 				_aw.setTime(_nkm.getTime());
 				_aw.setWeight(_nkm.getWeight());

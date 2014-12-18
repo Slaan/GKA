@@ -1,6 +1,7 @@
 package impl_controller;
 
 import impl_model.NamedWeightedEdge;
+import interface_controller.BattleController;
 import interface_controller.BreadthFirst;
 import interface_controller.Dijkstra;
 import interface_controller.EdmondKarp;
@@ -71,4 +72,9 @@ public final class GKA {
 		if(graph == null) throw new NullPointerException();
 		return NaechstgelegnerKnotenAlgController.create(graph);
 	}
+	
+	public static BattleController battle() {
+		return BattleControllerImpl.create();
+	}
+	
 }

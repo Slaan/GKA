@@ -29,9 +29,7 @@ public class NaechstgelegnerKnotenAlgModelImpl implements NaechstgelegnerKnotenA
 	public ArrayList<String> start(String source, String target) {
 		long startTime = System.nanoTime();
 		_start = source;
-		if(is_complete_graph(_graph)) {
-			System.out.println("Vollständiger Graph");
-		} else {
+		if(!is_complete_graph(_graph)) {
 			System.out.println("Kein vollständiger Graph");
 		}
 		_totalWeight=0.0;
@@ -55,7 +53,6 @@ public class NaechstgelegnerKnotenAlgModelImpl implements NaechstgelegnerKnotenA
 	}
 
 	private String get_closest_neightbour(String current_vertex) {
-		
 		Set<NamedWeightedEdge> edges = _graph.edgesOf(current_vertex);
 		Double current_highest_weight = Double.MAX_VALUE;
 		NamedWeightedEdge shortest_edge = null;
@@ -85,7 +82,6 @@ public class NaechstgelegnerKnotenAlgModelImpl implements NaechstgelegnerKnotenA
 	}
 
 	private boolean is_complete_graph(Graph<String, NamedWeightedEdge> graph) {
-		
 		Set<String> vertexes = graph.vertexSet();
 		Integer no_vertexes = vertexes.size();
 		boolean result = true;
@@ -98,7 +94,6 @@ public class NaechstgelegnerKnotenAlgModelImpl implements NaechstgelegnerKnotenA
 	
 	@Override
 	public double getWeight() {
-		// TODO Auto-generated method stub
 		return _totalWeight;
 	}
 	
@@ -117,7 +112,7 @@ public class NaechstgelegnerKnotenAlgModelImpl implements NaechstgelegnerKnotenA
 	@Override
 	public double getTime() {
 		
-		return _time;
+		return _time/1000000;
 	}
 
 }

@@ -16,10 +16,8 @@ class GenerateWindowImpl extends JFrame implements GeneratorWindow {
 	private					JPanel			_panel;
 	private					JButton			_generate_button;
 	private 				JButton 		_generate_tsp_button;
-	private					JButton			_generate_battle_button;
 	private					JTextField		_vertex_field;
 	private					JTextField		_edges_field;
-	private					ActionListener	_generate_listener;
 	
 	// Creation
 	public static GeneratorWindow create() {
@@ -32,7 +30,6 @@ class GenerateWindowImpl extends JFrame implements GeneratorWindow {
 		_panel = new JPanel();
 		_generate_button = new JButton("Generate");
 		_generate_tsp_button = new JButton("Generate TSP");
-		_generate_battle_button = new JButton("TSP Alg Battle");
 		_vertex_field = new JTextField(10);
 		_edges_field = new JTextField(10);
 		_panel.add(_vertex_field);
@@ -53,13 +50,6 @@ class GenerateWindowImpl extends JFrame implements GeneratorWindow {
 	public void addGenerateTSPListener(ActionListener al) {
 		if(al == null) throw new NullPointerException();
 		_generate_tsp_button.addActionListener(al);
-	}
-	
-	@Override
-	public void addTSPBattleListener(ActionListener al) {
-		if(al == null) throw new NullPointerException();
-		_generate_battle_button.addActionListener(al);
-		
 	}
 
 	@Override

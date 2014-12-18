@@ -50,4 +50,8 @@ public final class GKAView {
 		if(title == null) throw new IllegalArgumentException();
 		return DialogImpl.create(title);
 	}
+	
+	public static BattleWindow generateBattle() {
+		return BattleWindow.create();
+	}
 }

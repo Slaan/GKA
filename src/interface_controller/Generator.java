@@ -1,8 +1,8 @@
 package interface_controller;
 
-import java.awt.event.ActionListener;
-
 import impl_model.NamedWeightedEdge;
+
+import java.awt.event.ActionListener;
 
 import org.jgrapht.Graph;
 

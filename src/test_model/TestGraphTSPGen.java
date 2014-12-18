@@ -25,7 +25,7 @@ public class TestGraphTSPGen {
 	
 	@Test
 	public void TotalEdgesAndVertexTest() {
-		assertEquals(45,_graph.edgeSet().size());
+		assertEquals((9*9+9)/2,_graph.edgeSet().size());
 		assertEquals(10,_graph.vertexSet().size());
 	}
 	
