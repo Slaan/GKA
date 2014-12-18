@@ -21,6 +21,7 @@ import org.jgrapht.Graph;
 
 public class BattleControllerImpl implements BattleController {
 
+	private final Integer							VERTEX_NUMBER=200;
 	private BattleWindow							_bw;
 	private Double									_nka_time_max=0.0;
 	private Double									_nka_distance_max=0.0;
@@ -57,7 +58,7 @@ public class BattleControllerImpl implements BattleController {
 				for (int i=0;i<100;i++) {
 					_generator = GKAModel.generator();
 					Graph<String,NamedWeightedEdge> graph;
-					graph = _generator.genereateCompleteUndirectedGraph(200);
+					graph = _generator.genereateCompleteUndirectedGraph(VERTEX_NUMBER);
 					NaechstgelegnerKnotenAlgModel nka = GKAModel.naechstgelegnerKnotenAlg(graph);
 					MinimalerSpannbaumHeuristikModel msh = GKAModel.minimalerSpannbaumHeuristik(graph);
 					nka.start("1",null);
