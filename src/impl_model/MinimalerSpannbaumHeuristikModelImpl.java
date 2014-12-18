@@ -12,6 +12,7 @@ import org.jgrapht.Graph;
 public class MinimalerSpannbaumHeuristikModelImpl implements MinimalerSpannbaumHeuristikModel {
 
 	private Graph<String, NamedWeightedEdge> _graph;
+	private Graph<String, NamedWeightedEdge> _spanning_tree;
 	private double							 _time 				= 0.0;
 	private Integer							 _graph_accesses 	= 0;
 	
@@ -25,13 +26,13 @@ public class MinimalerSpannbaumHeuristikModelImpl implements MinimalerSpannbaumH
 	}
 	
 	private void doubleEdges() {
-		Set<NamedWeightedEdge> edges = new HashSet<>(_graph.edgeSet());
+		Set<NamedWeightedEdge> edges = new HashSet<>(_spanning_tree.edgeSet());
 		for(NamedWeightedEdge edge : edges) {
-			String source = _graph.getEdgeSource(edge);
-			String target = _graph.getEdgeTarget(edge);
+			String source = _spanning_tree.getEdgeSource(edge);
+			String target = _spanning_tree.getEdgeTarget(edge);
 			NamedWeightedEdge edge_cody = new NamedWeightedEdge();
 			edge_cody.setWeight(edge.getthisWeight());
-			_graph.addEdge(source, target, edge_cody);
+			_spanning_tree.addEdge(source, target, edge_cody);
 		}
 	}
 	
@@ -42,9 +43,12 @@ public class MinimalerSpannbaumHeuristikModelImpl implements MinimalerSpannbaumH
 
 	@Override
 	public ArrayList<String> start(String source, String target) {
+		if(source == null) throw new IllegalArgumentException();
+		if(target == null) throw new IllegalArgumentException();
 		MinimalerSpannbaumModel mini_m = GKAModel.minimalerSpannbaum(_graph);
-		Graph<String, NamedWeightedEdge> mini = mini_m.minimalerSpannbaum();
+		_spanning_tree = mini_m.minimalerSpannbaum();
 		doubleEdges();
+		Set<String> visited_nodes = new HashSet<>();
 		// TODO: implement eulertour
 	}
 
