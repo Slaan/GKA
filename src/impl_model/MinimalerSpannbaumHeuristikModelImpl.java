@@ -1,5 +1,6 @@
 package impl_model;
 
+import interface_model.HierholzerModel;
 import interface_model.MinimalerSpannbaumHeuristikModel;
 import interface_model.MinimalerSpannbaumModel;
 
@@ -32,7 +33,7 @@ public class MinimalerSpannbaumHeuristikModelImpl implements MinimalerSpannbaumH
 			String target = _spanning_tree.getEdgeTarget(edge);
 			NamedWeightedEdge edge_cody = new NamedWeightedEdge();
 			edge_cody.setWeight(edge.getthisWeight());
-			_spanning_tree.addEdge(source, target, edge_cody);
+			_spanning_tree.addEdge(target, source, edge_cody);
 		}
 	}
 	
@@ -44,12 +45,18 @@ public class MinimalerSpannbaumHeuristikModelImpl implements MinimalerSpannbaumH
 	@Override
 	public ArrayList<String> start(String source, String target) {
 		if(source == null) throw new IllegalArgumentException();
-		if(target == null) throw new IllegalArgumentException();
+		_time = System.nanoTime();
 		MinimalerSpannbaumModel mini_m = GKAModel.minimalerSpannbaum(_graph);
 		_spanning_tree = mini_m.minimalerSpannbaum();
 		doubleEdges();
-		Set<String> visited_nodes = new HashSet<>();
-		// TODO: implement eulertour
+		HierholzerModel hhm = GKAModel.hierholz(_spanning_tree);
+		ArrayList<String> result = hhm.start(source, source);
+		result = removeDubs(result);
+		result.add(source);
+		// calculate weight
+		_time = System.nanoTime() - _time;
+		_graph_accesses += hhm.getGraphAccesses();
+		return result;
 	}
 
 	@Override
@@ -67,4 +74,13 @@ public class MinimalerSpannbaumHeuristikModelImpl implements MinimalerSpannbaumH
 		return _time;
 	}
 
+	private <E> ArrayList<E> removeDubs(ArrayList<E> aList) {
+		Set<E> 			in_list = new HashSet<>();
+		ArrayList<E> 	accu 	= new ArrayList<>();
+		for(E e : aList) {
+			if(in_list.add(e))
+				accu.add(e);
+		}
+		return accu;
+	}
 }

@@ -8,6 +8,7 @@ import interface_model.FloydWarshallModel;
 import interface_model.FordFulkersonModel;
 import interface_model.GeneratorModel;
 import interface_model.GraphHandlerModel;
+import interface_model.HierholzerModel;
 import interface_model.MinimalerSpannbaumHeuristikModel;
 import interface_model.MinimalerSpannbaumModel;
 import interface_model.NaechstgelegnerKnotenAlgModel;
@@ -96,7 +97,12 @@ public final class GKAModel {
 	 * @return a functor
 	 */
 	public static MinimalerSpannbaumModel minimalerSpannbaum(Graph<String, NamedWeightedEdge> graph) {
+		if(graph == null) throw new IllegalArgumentException();
 		return MinimalerSpannbaumImpl.create(graph);
 	}
-	
+
+	public static HierholzerModel hierholz(Graph<String, NamedWeightedEdge> graph) {
+		if(graph == null) throw new IllegalArgumentException();
+		return HierholzerModelImpl.create(graph);
+	}
 }

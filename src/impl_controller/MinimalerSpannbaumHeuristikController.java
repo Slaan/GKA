@@ -29,14 +29,14 @@ public class MinimalerSpannbaumHeuristikController implements MinimalSpannbaumHe
 		if(graph == null) throw new NullPointerException();
 		_graph = graph;
 		_mshm = GKAModel.minimalerSpannbaumHeuristik(_graph);
-		_aw = GKAView.algorithmWeighWindow("Edmond Karp");
+		_aw = GKAView.algorithmWeighWindow("Minimal Spanningtree");
 		_aw.addStartButtonListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String source = _aw.getStartVertex();
 				String target = _aw.getTargetVertex();
 				ArrayList<String> result = _mshm.start(source, target);
-				_aw.setResultText("Max. flow: " + result.toString());
+				_aw.setResultText(result.toString());
 				_aw.setGraphAccesses(_mshm.getGraphAccesses(), _mshm.getTotalGraphAccesses());
 				_aw.setTime(_mshm.getTime());
 				_aw.setWeight(_mshm.getWeight());

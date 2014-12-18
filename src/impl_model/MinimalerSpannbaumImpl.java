@@ -33,9 +33,9 @@ public class MinimalerSpannbaumImpl implements MinimalerSpannbaumModel {
 		_graph_accesses++;
 		Graph<String, NamedWeightedEdge> g  		= new WeightedPseudograph<>(NamedWeightedEdge.class);
 		// ensure all vertexes are in minimal tree
+		_graph_accesses++;
 		for(String vertex : graph.vertexSet())
 			g.addVertex(vertex);
-		System.out.println(graph.edgeSet());
 		ArrayListSort s = new ArrayListSort(edges);
 		edges = s.quicksort();
 		Set<String> vertexInGraph = new HashSet<>();
@@ -45,7 +45,9 @@ public class MinimalerSpannbaumImpl implements MinimalerSpannbaumModel {
 			String target = graph.getEdgeTarget(smallestEdge);
 			if(source != target) {
 				if(!vertexInGraph.contains(source) || !vertexInGraph.contains(target)) {
-					g.addEdge(source, target, smallestEdge);
+					NamedWeightedEdge edge = new NamedWeightedEdge();
+					edge.setWeight(smallestEdge.getthisWeight());
+					g.addEdge(source, target, edge);
 					vertexInGraph.add(source);
 					vertexInGraph.add(target);
 				}				

@@ -1,2 +1,3 @@
 eclipse.preferences.version=1
 encoding//src/impl_model/DijkstraModelImpl.java=UTF-8
+encoding//src/impl_model/EdmondKarpModelImpl.java=UTF-8

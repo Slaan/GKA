@@ -17,7 +17,7 @@ import org.jgrapht.Graph;
 import org.jgrapht.UndirectedGraph;
 import org.jgrapht.graph.DirectedWeightedPseudograph;
 
-public class EdmondKarpModelImpl implements EdmondKarpModel {
+class EdmondKarpModelImpl implements EdmondKarpModel {
 	
 	private Graph<String, NamedWeightedEdge> 					_graph;
 	private Map<NamedWeightedEdge,Double>						_flow;
@@ -89,7 +89,7 @@ public class EdmondKarpModelImpl implements EdmondKarpModel {
 			} else {
 				_flow.put(e, curFlow-localFlow);
 			}
-			//Konsistenzprüfung
+			//Konsistenzpr��fung
 			if (!((0.0 <= _flow.get(e)) && (_flow.get(e) <= capacity))) {
 				try {
 					throw new Exception();

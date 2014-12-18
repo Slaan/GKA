@@ -11,7 +11,7 @@ import java.util.Stack;
 
 import org.jgrapht.Graph;
 
-public class FordFulkerImpl implements FordFulkersonModel {
+class FordFulkerImpl implements FordFulkersonModel {
 
 	public 	Graph<String, NamedWeightedEdge> _graph;
 	public 	Map<String, Marking> 			_marking;

@@ -17,7 +17,7 @@ class HierholzerModelImpl implements HierholzerModel {
 	private Graph<String, NamedWeightedEdge> _graph;
 	private Set<NamedWeightedEdge>			 _touched_edges;
 	private Double  						 _weight = 0.0;
-	private Double 							 _time = 0.0;
+	private double 							 _time = 0.0;
 	private int 							 _graph_accesses = 0;
 	
 	public static HierholzerModel create(Graph<String, NamedWeightedEdge> graph) {
@@ -48,18 +48,26 @@ class HierholzerModelImpl implements HierholzerModel {
 		if(source == null) throw new IllegalArgumentException("source is null");
 		if(target == null) throw new IllegalArgumentException("target is null");
 		if(!source.equals(target)) throw new IllegalArgumentException("source has to be target");
+		_graph_accesses = 0;
+		_time = System.nanoTime();
 		_touched_edges = new HashSet<>();
 		ArrayList<ArrayList<String>> cycles = new ArrayList<>();
 		cycles.add(findCycle(source));
 		int i = 0;
+		System.out.println("#############################");
+		System.out.println(cycles);
 		while(!_touched_edges.equals(_graph.edgeSet())) {
+			_graph_accesses++;
 			for(String vertex : cycles.get(i)) {
-				if(incidentWithoutTouched(vertex).size() > 0) {
-					cycles.add(findCycle(vertex));
+				System.out.println(incidentUntouchedFrom(vertex));
+				if(incidentUntouchedFrom(vertex).size() > 0) {
+					ArrayList<String> new_cycle = findCycle(vertex);
+					cycles.add(new_cycle);
 				}
 			}
 			i++;
 		}
+		_time = System.nanoTime() - _time;
 		return cyclesToEuler(cycles);
 	}
 	
@@ -87,7 +95,6 @@ class HierholzerModelImpl implements HierholzerModel {
 		accu.addAll(list2);
 		List<String> sub = list.subList(first+1, list.size());
 		accu.addAll(sub);
-		// convert to arraylist. ugly, isn't it?
 		return accu;
 	}
 	
@@ -95,7 +102,7 @@ class HierholzerModelImpl implements HierholzerModel {
 		String current = source;
 		ArrayList<String> accu = new ArrayList<>();
 		do {
-			Set<NamedWeightedEdge> incident = incidentWithoutTouched(current);
+			Set<NamedWeightedEdge> incident = incidentUntouchedFrom(current);
 			if(incident.size() > 0) {
 				NamedWeightedEdge untouched_edge = getAnyOf(incident);
 				accu.add(current);
@@ -107,9 +114,11 @@ class HierholzerModelImpl implements HierholzerModel {
 		return accu;
 	}
 	
-	private Set<NamedWeightedEdge> incidentWithoutTouched(String vertex) {
-		Set<NamedWeightedEdge> edges = new HashSet<>(_graph.edgesOf(vertex)); 
+	private Set<NamedWeightedEdge> incidentUntouchedFrom(String vertex) {
+		Set<NamedWeightedEdge> edges = new HashSet<>(_graph.edgesOf(vertex));
+		System.out.println("actual edges (" + vertex + "): " + edges);
 		edges.removeAll(_touched_edges);
+		System.out.println("touched edges:    " + _touched_edges);
 		return edges;
 	}
 	
@@ -123,6 +132,7 @@ class HierholzerModelImpl implements HierholzerModel {
 	private String getOtherNode(String node, NamedWeightedEdge edge) {
 		String source = _graph.getEdgeSource(edge);
 		String target = _graph.getEdgeTarget(edge);
+		_graph_accesses++;
 		if(node.equals(source)) {
 			return target;
 		} else if(node.equals(target)) {
@@ -148,7 +158,6 @@ class HierholzerModelImpl implements HierholzerModel {
 	}
 	
 	public static void main(String[] args) {
-		
 		{	
 			Graph<String, NamedWeightedEdge> graph; 
 			graph = new WeightedPseudograph<String, NamedWeightedEdge>(NamedWeightedEdge.class);
